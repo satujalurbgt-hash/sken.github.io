@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
     <title>BGT PRO - Scanner</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,9 +15,11 @@
             --bg-dark: #0A0A0F;
             --bg-card: #141420;
             --bg-card-2: #1C1C2E;
+            --bg-card-3: #232338;
             --text: #F0F0F5;
             --text-muted: #8888A0;
             --border: #2A2A40;
+            --border-light: #35355A;
             --success: #00E676;
             --danger: #FF3D57;
             --warning: #FFB800;
@@ -33,117 +35,65 @@
             width: 100vw;
             position: relative;
         }
-        .font-orbitron { font-family: 'Orbitron', monospace; }
-
         .screen {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
             will-change: transform, opacity;
         }
         .screen.hidden-right { transform: translateX(100%); opacity: 0; pointer-events: none; }
         .screen.hidden-left { transform: translateX(-100%); opacity: 0; pointer-events: none; }
-        .screen.active { transform: translateX(0) translateY(0); opacity: 1; pointer-events: all; }
+        .screen.active { transform: translateX(0); opacity: 1; pointer-events: all; }
 
-        /* HOME */
+        /* ========== HOME ========== */
         #homeScreen {
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             background: linear-gradient(170deg, #0A0A0F 0%, #12101F 40%, #1A0F0A 100%);
         }
         .home-header {
             padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            z-index: 10;
+            display: flex; align-items: center; justify-content: space-between;
+            position: relative; z-index: 10;
         }
         .logo-text {
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 22px;
+            font-family: 'Orbitron', monospace; font-weight: 900; font-size: 22px;
             background: linear-gradient(135deg, var(--primary), var(--warning));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px;
         }
         .logo-pro {
-            font-size: 10px;
-            font-weight: 700;
-            background: var(--primary);
-            color: #000;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
-            -webkit-text-fill-color: #000;
+            font-size: 10px; font-weight: 700; background: var(--primary); color: #000;
+            padding: 2px 6px; border-radius: 4px; margin-left: 6px; -webkit-text-fill-color: #000;
         }
         .home-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px; position: relative;
         }
         .scan-icon-wrap {
-            width: 120px; height: 120px;
-            border-radius: 50%;
+            width: 120px; height: 120px; border-radius: 50%;
             background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 28px;
-            position: relative;
-            animation: pulseGlow 3s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 28px; position: relative; animation: pulseGlow 3s ease-in-out infinite;
         }
         .scan-icon-wrap::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
+            content: ''; position: absolute; inset: -8px; border-radius: 50%;
             border: 2px solid rgba(255,107,0,0.2);
-            animation: spinSlow 12s linear infinite;
-            border-top-color: var(--primary);
+            animation: spinSlow 12s linear infinite; border-top-color: var(--primary);
         }
-        .scan-icon-wrap i {
-            font-size: 48px;
-            color: var(--primary);
-            filter: drop-shadow(0 0 20px rgba(255,107,0,0.4));
-        }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 40px rgba(255,107,0,0.1); }
-            50% { box-shadow: 0 0 60px rgba(255,107,0,0.25); }
-        }
+        .scan-icon-wrap i { font-size: 48px; color: var(--primary); filter: drop-shadow(0 0 20px rgba(255,107,0,0.4)); }
+        @keyframes pulseGlow { 0%,100%{box-shadow:0 0 40px rgba(255,107,0,0.1)} 50%{box-shadow:0 0 60px rgba(255,107,0,0.25)} }
         @keyframes spinSlow { to { transform: rotate(360deg); } }
 
         .scan-btn {
-            width: 100%;
-            max-width: 320px;
-            padding: 18px 32px;
+            width: 100%; max-width: 320px; padding: 18px 32px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #fff;
-            border: none;
-            border-radius: 16px;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
+            color: #fff; border: none; border-radius: 16px;
+            font-size: 17px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
             box-shadow: 0 8px 32px rgba(255,107,0,0.3), 0 2px 8px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
             font-family: 'Inter', sans-serif;
         }
         .scan-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
             transition: left 0.5s ease;
         }
@@ -152,69 +102,33 @@
         .scan-btn i { font-size: 22px; }
 
         .secondary-btn {
-            width: 100%;
-            max-width: 320px;
-            padding: 14px 24px;
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid rgba(255,107,0,0.3);
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            margin-top: 12px;
+            width: 100%; max-width: 320px; padding: 14px 24px;
+            background: transparent; color: var(--primary);
+            border: 2px solid rgba(255,107,0,0.3); border-radius: 14px;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.3s ease; font-family: 'Inter', sans-serif; margin-top: 12px;
         }
         .secondary-btn:active { background: rgba(255,107,0,0.08); transform: scale(0.97); }
 
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 32px;
-            width: 100%;
-            max-width: 380px;
-        }
+        .quick-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 32px; width: 100%; max-width: 380px; }
         .quick-action {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 16px 8px; display: flex; flex-direction: column;
+            align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease;
         }
         .quick-action:active { transform: scale(0.95); border-color: var(--primary); background: rgba(255,107,0,0.05); }
         .quick-action i { font-size: 20px; color: var(--primary); }
         .quick-action span { font-size: 10px; font-weight: 600; color: var(--text-muted); text-align: center; line-height: 1.3; }
 
         .home-bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 16px 20px;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-around;
+            padding: 12px 16px 20px; background: var(--bg-card); border-top: 1px solid var(--border);
         }
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: all 0.3s ease;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            cursor: pointer; opacity: 0.5; transition: all 0.3s ease;
+            background: none; border: none; color: var(--text); font-family: 'Inter', sans-serif;
         }
         .nav-item.active { opacity: 1; }
         .nav-item.active i { color: var(--primary); }
@@ -222,95 +136,54 @@
         .nav-item span { font-size: 10px; font-weight: 600; }
 
         .badge-count {
-            background: var(--danger);
-            color: #fff;
-            font-size: 9px;
-            font-weight: 700;
-            min-width: 16px; height: 16px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 4px;
-            position: absolute;
-            top: -4px; right: -8px;
+            background: var(--danger); color: #fff; font-size: 9px; font-weight: 700;
+            min-width: 16px; height: 16px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0 4px; position: absolute; top: -4px; right: -8px;
         }
+        .https-warning {
+            width: 100%; max-width: 320px; margin-top: 16px; padding: 12px 16px;
+            background: rgba(255,184,0,0.08); border: 1px solid rgba(255,184,0,0.2);
+            border-radius: 12px; font-size: 12px; color: var(--warning); line-height: 1.5; display: none;
+        }
+        .https-warning i { margin-right: 6px; }
 
-        /* SCANNER */
+        /* ========== SCANNER ========== */
         #scannerScreen { background: #000; display: flex; flex-direction: column; }
         .scanner-header {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            z-index: 30;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            position: absolute; top: 0; left: 0; right: 0; z-index: 30;
+            padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
             background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
         }
         .scanner-header button {
-            width: 40px; height: 40px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 40px; height: 40px; border-radius: 12px;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); color: #fff;
+            font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.2s ease;
         }
         .scanner-header button:active { background: rgba(255,255,255,0.2); transform: scale(0.92); }
-        .scanner-title {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 13px;
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
+        .scanner-title { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 13px; color: var(--primary); letter-spacing: 1px; }
         .scanner-mode-badge {
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: rgba(255,107,0,0.2);
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-size: 10px; padding: 4px 10px; border-radius: 20px;
+            background: rgba(255,107,0,0.2); color: var(--primary); font-weight: 700; letter-spacing: 0.5px;
         }
         .scanner-camera-wrap { flex: 1; position: relative; overflow: hidden; }
         #scannerCamera { width: 100%; height: 100%; }
         #scannerCamera video { width: 100% !important; height: 100% !important; object-fit: cover !important; }
 
         .camera-error {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 30px;
-            text-align: center;
-            z-index: 20;
-            background: var(--bg-dark);
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 40px 30px;
+            text-align: center; z-index: 20; background: var(--bg-dark);
         }
         .camera-error i { font-size: 52px; color: var(--danger); margin-bottom: 20px; opacity: 0.6; }
         .camera-error h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
         .camera-error p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; max-width: 300px; }
         .camera-error-btn {
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s ease;
-            margin-bottom: 10px;
+            padding: 14px 28px; border-radius: 14px; font-size: 14px; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 10px;
+            border: none; font-family: 'Inter', sans-serif; transition: all 0.2s ease; margin-bottom: 10px;
         }
         .camera-error-btn:active { transform: scale(0.97); }
         .camera-error-btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
@@ -318,14 +191,9 @@
 
         .scan-overlay { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
         .scan-overlay svg { width: 100%; height: 100%; }
-
         .scan-frame {
-            position: absolute;
-            z-index: 15;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 260px; height: 260px;
-            pointer-events: none;
+            position: absolute; z-index: 15; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 260px; height: 260px; pointer-events: none;
         }
         .scan-corner { position: absolute; width: 32px; height: 32px; }
         .scan-corner::before, .scan-corner::after { content: ''; position: absolute; background: var(--primary); border-radius: 2px; }
@@ -341,179 +209,118 @@
         .scan-corner.br { bottom: 0; right: 0; }
         .scan-corner.br::before { bottom: 0; right: 0; width: 32px; height: 3px; }
         .scan-corner.br::after { bottom: 0; right: 0; width: 3px; height: 32px; }
-
         .laser-line {
-            position: absolute;
-            top: 0; left: 8px; right: 8px;
-            height: 2px;
+            position: absolute; top: 0; left: 8px; right: 8px; height: 2px;
             background: linear-gradient(90deg, transparent, var(--primary), var(--warning), var(--primary), transparent);
             box-shadow: 0 0 12px var(--primary), 0 0 30px rgba(255,107,0,0.3);
-            animation: laserMove 2.2s ease-in-out infinite;
-            opacity: 0.9;
+            animation: laserMove 2.2s ease-in-out infinite; opacity: 0.9;
         }
         @keyframes laserMove {
-            0% { top: 4px; opacity: 0.4; }
-            10% { opacity: 1; }
-            50% { top: calc(100% - 6px); opacity: 1; }
-            60% { opacity: 0.4; }
-            100% { top: 4px; opacity: 0.4; }
+            0%{top:4px;opacity:0.4} 10%{opacity:1} 50%{top:calc(100% - 6px);opacity:1} 60%{opacity:0.4} 100%{top:4px;opacity:0.4}
         }
-
         .scan-hint {
-            position: absolute;
-            bottom: 28px; left: 0; right: 0;
-            text-align: center;
-            z-index: 20;
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
+            position: absolute; bottom: 28px; left: 0; right: 0; text-align: center;
+            z-index: 20; font-size: 13px; color: rgba(255,255,255,0.7);
             text-shadow: 0 1px 8px rgba(0,0,0,0.8);
         }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
         .scanner-bottom-controls {
-            position: absolute;
-            bottom: 70px; left: 0; right: 0;
-            z-index: 25;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            position: absolute; bottom: 70px; left: 0; right: 0;
+            z-index: 25; display: flex; justify-content: center; gap: 20px;
         }
         .scanner-ctrl-btn {
-            width: 52px; height: 52px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 52px; height: 52px; border-radius: 50%;
+            background: rgba(255,255,255,0.12); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15); color: #fff;
+            font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.2s ease;
         }
         .scanner-ctrl-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.25); }
         .scanner-ctrl-btn.flash-on { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 20px rgba(255,107,0,0.4); }
 
         .scanner-format-tabs {
-            position: absolute;
-            bottom: 140px; left: 0; right: 0;
-            z-index: 25;
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            padding: 0 20px;
+            position: absolute; bottom: 140px; left: 0; right: 0;
+            z-index: 25; display: flex; justify-content: center; gap: 8px; padding: 0 20px;
         }
         .format-tab {
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
+            padding: 8px 16px; border-radius: 20px;
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6);
+            font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif; white-space: nowrap;
         }
         .format-tab.active { background: var(--primary); border-color: var(--primary); color: #fff; }
         .format-tab:active { transform: scale(0.95); }
 
-        /* MODAL */
+        .scan-loading {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 20; display: flex; flex-direction: column; align-items: center; gap: 16px; color: #fff;
+        }
+        .scan-loading .spinner {
+            width: 48px; height: 48px; border: 3px solid rgba(255,255,255,0.15);
+            border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .scan-loading span { font-size: 14px; font-weight: 600; }
+
+        /* ========== MODAL ========== */
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.75);
-            z-index: 9998;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            backdrop-filter: blur(6px);
-            animation: fadeIn 0.2s ease;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 9998;
+            display: flex; align-items: flex-end; justify-content: center;
+            backdrop-filter: blur(6px); animation: fadeIn 0.2s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
         .modal-sheet {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px 24px 0 0;
-            padding: 28px 24px 36px;
-            width: 100%;
-            max-width: 480px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 24px 24px 0 0; padding: 28px 24px 36px;
+            width: 100%; max-width: 480px;
             animation: slideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1);
-            max-height: 85dvh;
-            overflow-y: auto;
+            max-height: 85dvh; overflow-y: auto;
         }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
         .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
         .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
         .modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
         .modal-input {
-            width: 100%;
-            padding: 16px 18px;
-            background: var(--bg-card-2);
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            color: var(--text);
-            font-size: 18px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            outline: none;
-            transition: border-color 0.2s ease;
-            text-transform: uppercase;
+            width: 100%; padding: 16px 18px; background: var(--bg-card-2);
+            border: 2px solid var(--border); border-radius: 14px; color: var(--text);
+            font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 500;
+            outline: none; transition: border-color 0.2s ease;
         }
-        .modal-input::placeholder { color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; text-transform: none; }
+        .modal-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 14px; }
         .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255,107,0,0.1); }
         .modal-submit {
-            width: 100%;
-            padding: 16px;
+            width: 100%; padding: 16px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s ease;
+            color: #fff; border: none; border-radius: 14px;
+            font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 16px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            font-family: 'Inter', sans-serif; transition: all 0.2s ease;
         }
         .modal-submit:active { transform: scale(0.97); }
+        .modal-textarea {
+            width: 100%; padding: 16px 18px; background: var(--bg-card-2);
+            border: 2px solid var(--border); border-radius: 14px; color: var(--text);
+            font-size: 14px; font-family: 'Inter', monospace; font-weight: 500;
+            outline: none; transition: border-color 0.2s ease;
+            resize: vertical; min-height: 200px; line-height: 1.6;
+        }
+        .modal-textarea::placeholder { color: var(--text-muted); font-weight: 400; font-size: 13px; font-family: 'Inter', sans-serif; }
+        .modal-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255,107,0,0.1); }
 
         .suggestion-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-        .suggestion-chips-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .suggestion-chips-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; width: 100%; }
         .suggestion-chip {
-            padding: 8px 14px;
-            background: var(--bg-card-2);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 12px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 8px 14px; background: var(--bg-card-2); border: 1px solid var(--border);
+            border-radius: 10px; font-size: 11px; font-weight: 600; color: var(--text-muted);
+            cursor: pointer; transition: all 0.2s ease;
         }
         .suggestion-chip:active { background: rgba(255,107,0,0.1); border-color: var(--primary); color: var(--primary); }
 
-        /* Upload area */
         .upload-area {
-            border: 2px dashed var(--border);
-            border-radius: 16px;
-            padding: 32px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 16px;
+            border: 2px dashed var(--border); border-radius: 16px;
+            padding: 32px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; margin-bottom: 16px;
         }
         .upload-area:hover, .upload-area.dragover { border-color: var(--primary); background: rgba(255,107,0,0.05); }
         .upload-area i { font-size: 40px; color: var(--primary); margin-bottom: 12px; opacity: 0.7; }
@@ -521,180 +328,183 @@
         .upload-area .upload-hint { font-size: 11px; color: var(--text-muted); opacity: 0.6; margin-top: 8px; }
         .upload-preview { max-width: 100%; max-height: 200px; border-radius: 12px; margin-bottom: 12px; display: none; }
 
-        /* RESULT */
+        /* ========== RESULT — TABEL DATA ========== */
         #resultScreen { background: linear-gradient(170deg, #0A0A0F 0%, #141420 100%); display: flex; flex-direction: column; overflow-y: auto; }
         .result-header {
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: rgba(10,10,15,0.9);
-            backdrop-filter: blur(16px);
-            z-index: 10;
+            padding: 14px 20px; display: flex; align-items: center; gap: 14px;
+            border-bottom: 1px solid var(--border); position: sticky; top: 0;
+            background: rgba(10,10,15,0.92); backdrop-filter: blur(16px); z-index: 10;
         }
         .result-header button {
-            width: 38px; height: 38px;
-            border-radius: 10px;
-            background: var(--bg-card-2);
-            border: 1px solid var(--border);
-            color: var(--text);
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
+            width: 38px; height: 38px; border-radius: 10px;
+            background: var(--bg-card-2); border: 1px solid var(--border); color: var(--text);
+            font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease; flex-shrink: 0;
         }
         .result-header button:active { transform: scale(0.92); }
+        .result-title-text { font-weight: 700; font-size: 15px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .result-status-badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            flex-shrink: 0;
+            padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.8px; flex-shrink: 0;
         }
         .badge-found { background: rgba(0,230,118,0.12); color: var(--success); border: 1px solid rgba(0,230,118,0.25); }
         .badge-not-found { background: rgba(255,61,87,0.12); color: var(--danger); border: 1px solid rgba(255,61,87,0.25); }
         .badge-url { background: rgba(41,182,246,0.12); color: var(--info); border: 1px solid rgba(41,182,246,0.25); }
         .badge-text { background: rgba(255,184,0,0.12); color: var(--warning); border: 1px solid rgba(255,184,0,0.25); }
+        .badge-data { background: rgba(255,107,0,0.12); color: var(--primary); border: 1px solid rgba(255,107,0,0.25); }
 
-        .result-body { flex: 1; padding: 20px; animation: fadeInUp 0.5s ease; }
+        .result-body { flex: 1; padding: 16px; animation: fadeInUp 0.5s ease; padding-bottom: 40px; }
 
+        /* Banner tipe */
         .result-type-banner {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 18px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            border: 1px solid;
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px; border-radius: 14px; margin-bottom: 16px; border: 1px solid;
         }
+        .result-type-banner i { font-size: 22px; }
+        .result-type-banner .type-label { font-size: 11px; font-weight: 600; opacity: 0.6; }
+        .result-type-banner .type-name { font-size: 14px; font-weight: 700; }
         .result-type-banner.url { background: rgba(41,182,246,0.06); border-color: rgba(41,182,246,0.2); }
         .result-type-banner.url i { color: var(--info); }
         .result-type-banner.text { background: rgba(255,184,0,0.06); border-color: rgba(255,184,0,0.2); }
         .result-type-banner.text i { color: var(--warning); }
         .result-type-banner.member { background: rgba(0,230,118,0.06); border-color: rgba(0,230,118,0.2); }
         .result-type-banner.member i { color: var(--success); }
+        .result-type-banner.data { background: rgba(255,107,0,0.06); border-color: rgba(255,107,0,0.2); }
+        .result-type-banner.data i { color: var(--primary); }
         .result-type-banner.phone { background: rgba(156,39,176,0.06); border-color: rgba(156,39,176,0.2); }
         .result-type-banner.phone i { color: #CE93D8; }
         .result-type-banner.email { background: rgba(255,107,0,0.06); border-color: rgba(255,107,0,0.2); }
         .result-type-banner.email i { color: var(--primary); }
         .result-type-banner.wifi { background: rgba(0,230,118,0.06); border-color: rgba(0,230,118,0.2); }
         .result-type-banner.wifi i { color: var(--success); }
-        .result-type-banner i { font-size: 24px; }
-        .result-type-banner .type-label { font-size: 12px; font-weight: 600; opacity: 0.7; }
-        .result-type-banner .type-name { font-size: 15px; font-weight: 700; }
 
-        .scan-code-display {
+        /* Kode mentah */
+        .raw-code-box {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 14px 16px; margin-bottom: 16px;
+        }
+        .raw-code-box .label {
+            font-size: 10px; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+        }
+        .raw-code-box .code {
+            font-family: 'Orbitron', monospace; font-size: 15px; font-weight: 700;
+            color: var(--primary); word-break: break-all; line-height: 1.5;
+        }
+        .raw-code-box .code.plain {
+            font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+            color: var(--text); white-space: pre-wrap; word-break: break-word;
+        }
+        .format-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 700;
+            background: var(--bg-card-2); color: var(--text-muted); border: 1px solid var(--border); margin-top: 10px;
+        }
+
+        /* ===== TABEL DATA UTAMA ===== */
+        .data-table-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-        .scan-code-display .label {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        .scan-code-display .code {
-            font-family: 'Orbitron', monospace;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            word-break: break-all;
-            line-height: 1.5;
-        }
-        .scan-code-display .code.text-mode {
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text);
-            white-space: pre-wrap;
-        }
-
-        .format-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            background: var(--bg-card-2);
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            margin-top: 10px;
-        }
-
-        .member-card {
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
-        .member-card-header {
-            padding: 20px 20px 16px;
+        .data-table-card-header {
+            padding: 16px 18px 12px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 16px;
-            border-bottom: 1px solid var(--border);
+            gap: 10px;
             position: relative;
         }
+        .data-table-card-header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--warning), var(--primary));
+        }
+        .data-table-card-header i { font-size: 18px; color: var(--primary); }
+        .data-table-card-header span { font-size: 15px; font-weight: 700; }
+
+        .data-table-row {
+            display: flex;
+            padding: 11px 18px;
+            border-bottom: 1px solid rgba(42,42,64,0.5);
+            align-items: flex-start;
+            gap: 8px;
+            transition: background 0.15s ease;
+        }
+        .data-table-row:last-child { border-bottom: none; }
+        .data-table-row:hover { background: rgba(255,107,0,0.03); }
+        .data-table-row.highlight { background: rgba(255,107,0,0.06); }
+
+        .data-table-label {
+            width: 45%;
+            min-width: 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.5;
+            flex-shrink: 0;
+            padding-top: 1px;
+        }
+
+        .data-table-separator {
+            width: 16px;
+            flex-shrink: 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--border-light);
+            padding-top: 2px;
+        }
+
+        .data-table-value {
+            flex: 1;
+            min-width: 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .data-table-value.val-success { color: var(--success); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .data-table-value.val-danger { color: var(--danger); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .data-table-value.val-primary { color: var(--primary); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 12px; }
+        .data-table-value.val-empty { color: var(--text-muted); opacity: 0.5; font-style: italic; font-weight: 400; }
+
+        /* Kartu member lama */
+        .member-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+            border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 16px;
+        }
+        .member-card-header {
+            padding: 18px 18px 14px; display: flex; align-items: center; gap: 14px;
+            border-bottom: 1px solid var(--border); position: relative;
+        }
         .member-card-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--warning), var(--primary));
         }
         .member-avatar {
-            width: 56px; height: 56px;
-            border-radius: 16px;
+            width: 52px; height: 52px; border-radius: 14px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 18px;
-            color: #fff;
-            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Orbitron', monospace; font-weight: 900; font-size: 16px; color: #fff; flex-shrink: 0;
         }
-        .member-name { font-size: 20px; font-weight: 700; line-height: 1.2; }
-        .member-id-small { font-size: 12px; color: var(--text-muted); margin-top: 2px; font-family: 'Orbitron', monospace; }
-        .member-info-grid { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .info-item { display: flex; flex-direction: column; gap: 4px; }
-        .info-item.full { grid-column: 1 / -1; }
-        .info-label { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
-        .info-value { font-size: 14px; font-weight: 600; color: var(--text); }
-        .info-value.status-aktif { color: var(--success); }
-        .info-value.status-nonaktif { color: var(--danger); }
+        .member-name { font-size: 18px; font-weight: 700; line-height: 1.2; }
+        .member-id-small { font-size: 11px; color: var(--text-muted); margin-top: 2px; font-family: 'Orbitron', monospace; }
 
-        .result-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .wifi-details { margin-top: 8px; }
+        .wifi-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .wifi-row:last-child { border-bottom: none; }
+        .wifi-row-label { font-size: 13px; color: var(--text-muted); }
+        .wifi-row-value { font-size: 13px; font-weight: 600; }
+
+        /* Aksi */
+        .result-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
         .result-action-btn {
-            padding: 14px 20px;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.2s ease;
-            border: none;
-            font-family: 'Inter', sans-serif;
+            padding: 14px 20px; border-radius: 14px; font-size: 14px; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.2s ease; border: none; font-family: 'Inter', sans-serif;
         }
         .result-action-btn:active { transform: scale(0.97); }
         .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; box-shadow: 0 4px 20px rgba(255,107,0,0.25); }
@@ -705,203 +515,98 @@
         .btn-email { background: rgba(255,107,0,0.12); border: 1px solid rgba(255,107,0,0.25) !important; color: var(--primary); }
 
         .not-found-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px 20px;
-            text-align: center;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 18px; padding: 40px 20px; text-align: center;
         }
         .not-found-card i { font-size: 48px; color: var(--danger); margin-bottom: 16px; opacity: 0.6; }
         .not-found-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
         .not-found-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
-        /* HISTORY */
+        /* ========== HISTORY ========== */
         #historyScreen { background: linear-gradient(170deg, #0A0A0F 0%, #141420 100%); display: flex; flex-direction: column; }
         .history-header {
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: rgba(10,10,15,0.9);
-            backdrop-filter: blur(16px);
-            z-index: 10;
+            padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--border); position: sticky; top: 0;
+            background: rgba(10,10,15,0.92); backdrop-filter: blur(16px); z-index: 10;
         }
         .history-header-left { display: flex; align-items: center; gap: 12px; }
         .history-header h2 { font-size: 20px; font-weight: 700; }
         .clear-btn {
-            padding: 8px 14px;
-            border-radius: 10px;
-            background: rgba(255,61,87,0.1);
-            border: 1px solid rgba(255,61,87,0.2);
-            color: var(--danger);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
+            padding: 8px 14px; border-radius: 10px;
+            background: rgba(255,61,87,0.1); border: 1px solid rgba(255,61,87,0.2);
+            color: var(--danger); font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif;
         }
         .clear-btn:active { transform: scale(0.95); }
         .history-list { flex: 1; overflow-y: auto; padding: 12px 16px 100px; }
         .history-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 14px;
+            cursor: pointer; transition: all 0.2s ease;
         }
         .history-item:active { transform: scale(0.98); border-color: var(--primary); }
         .history-icon {
-            width: 42px; height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; flex-shrink: 0;
         }
         .history-icon.found { background: rgba(0,230,118,0.1); color: var(--success); }
         .history-icon.notfound { background: rgba(255,61,87,0.1); color: var(--danger); }
         .history-icon.url { background: rgba(41,182,246,0.1); color: var(--info); }
         .history-icon.text { background: rgba(255,184,0,0.1); color: var(--warning); }
+        .history-icon.data { background: rgba(255,107,0,0.1); color: var(--primary); }
         .history-info { flex: 1; min-width: 0; }
         .history-code {
-            font-family: 'Orbitron', monospace;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700;
+            color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .history-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
         .history-arrow { color: var(--text-muted); font-size: 14px; }
-
-        .empty-state {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            text-align: center;
-        }
+        .empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
         .empty-state i { font-size: 56px; color: var(--border); margin-bottom: 16px; }
         .empty-state h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); }
         .empty-state p { font-size: 13px; color: var(--text-muted); opacity: 0.7; }
 
         /* TOAST */
         .toast-container {
-            position: fixed;
-            top: 20px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            pointer-events: none;
-            width: 90%;
-            max-width: 400px;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            z-index: 9999; display: flex; flex-direction: column; gap: 8px;
+            pointer-events: none; width: 90%; max-width: 400px;
         }
         .toast {
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            backdrop-filter: blur(16px);
-            animation: toastIn 0.35s ease, toastOut 0.35s ease 2.5s forwards;
-            white-space: nowrap;
-            pointer-events: auto;
-            text-align: center;
+            padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 600;
+            backdrop-filter: blur(16px); animation: toastIn 0.35s ease, toastOut 0.35s ease 2.5s forwards;
+            white-space: nowrap; pointer-events: auto; text-align: center;
         }
         .toast-success { background: rgba(0,230,118,0.15); border: 1px solid rgba(0,230,118,0.3); color: var(--success); }
         .toast-error { background: rgba(255,61,87,0.15); border: 1px solid rgba(255,61,87,0.3); color: var(--danger); }
         .toast-info { background: rgba(255,107,0,0.15); border: 1px solid rgba(255,107,0,0.3); color: var(--primary); }
-        @keyframes toastIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-16px); } }
-
+        @keyframes toastIn { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes toastOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-16px)} }
         .success-flash {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,230,118,0.08);
-            z-index: 100;
-            animation: flashFade 0.5s ease forwards;
-            pointer-events: none;
+            position: fixed; inset: 0; background: rgba(0,230,118,0.08);
+            z-index: 100; animation: flashFade 0.5s ease forwards; pointer-events: none;
         }
-        @keyframes flashFade { 0% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes flashFade { 0%{opacity:1} 100%{opacity:0} }
 
         .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
         .particle {
-            position: absolute;
-            width: 2px; height: 2px;
-            background: var(--primary);
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatParticle linear infinite;
+            position: absolute; width: 2px; height: 2px; background: var(--primary);
+            border-radius: 50%; opacity: 0; animation: floatParticle linear infinite;
         }
         @keyframes floatParticle {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.2; }
-            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+            0%{opacity:0;transform:translateY(100vh) scale(0)} 10%{opacity:0.6} 90%{opacity:0.2} 100%{opacity:0;transform:translateY(-10vh) scale(1)}
         }
-
-        .https-warning {
-            width: 100%;
-            max-width: 320px;
-            margin-top: 16px;
-            padding: 12px 16px;
-            background: rgba(255,184,0,0.08);
-            border: 1px solid rgba(255,184,0,0.2);
-            border-radius: 12px;
-            font-size: 12px;
-            color: var(--warning);
-            line-height: 1.5;
-            display: none;
-        }
-        .https-warning i { margin-right: 6px; }
-
-        .scan-loading {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            color: #fff;
-        }
-        .scan-loading .spinner {
-            width: 48px; height: 48px;
-            border: 3px solid rgba(255,255,255,0.15);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .scan-loading span { font-size: 14px; font-weight: 600; }
-
-        .wifi-details { margin-top: 12px; }
-        .wifi-detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
-        .wifi-detail-row:last-child { border-bottom: none; }
-        .wifi-detail-label { font-size: 13px; color: var(--text-muted); }
-        .wifi-detail-value { font-size: 13px; font-weight: 600; }
 
         @media (min-width: 500px) {
             .scan-frame { width: 300px; height: 300px; }
             .home-content { padding: 40px; }
             .quick-actions { max-width: 440px; }
+            .data-table-label { width: 40%; }
         }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            *,*::before,*::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -912,7 +617,7 @@
 
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- HOME SCREEN -->
+    <!-- ========== HOME ========== -->
     <div id="homeScreen" class="screen active">
         <div class="particles" id="particles"></div>
         <div class="home-header">
@@ -947,80 +652,52 @@
                 <i class="fas fa-keyboard"></i>
                 Input Manual
             </button>
-
             <div class="https-warning" id="httpsWarning">
                 <i class="fas fa-triangle-exclamation"></i>
                 Kamera tidak akan berfungsi karena halaman dibuka via <strong>http://</strong>. Gunakan <strong>https://</strong> atau <strong>localhost</strong>.
             </div>
-
             <div class="quick-actions">
                 <div class="quick-action" onclick="startScanner('qr')">
-                    <i class="fas fa-qrcode"></i>
-                    <span>QR Code</span>
+                    <i class="fas fa-qrcode"></i><span>QR Code</span>
                 </div>
                 <div class="quick-action" onclick="startScanner('barcode')">
-                    <i class="fas fa-barcode"></i>
-                    <span>Barcode</span>
+                    <i class="fas fa-barcode"></i><span>Barcode</span>
                 </div>
                 <div class="quick-action" onclick="openImageUpload()">
-                    <i class="fas fa-image"></i>
-                    <span>Dari Gambar</span>
+                    <i class="fas fa-image"></i><span>Dari Gambar</span>
                 </div>
                 <div class="quick-action" onclick="openManualInput()">
-                    <i class="fas fa-keyboard"></i>
-                    <span>Manual</span>
+                    <i class="fas fa-keyboard"></i><span>Manual</span>
                 </div>
             </div>
         </div>
         <div class="home-bottom-nav">
-            <button class="nav-item active">
-                <i class="fas fa-house"></i>
-                <span>Beranda</span>
-            </button>
-            <button class="nav-item" onclick="navigateTo('history')">
-                <i class="fas fa-clock-rotate-left"></i>
-                <span>Riwayat</span>
-            </button>
-            <button class="nav-item" onclick="showToast('Fitur pengaturan segera hadir', 'info')">
-                <i class="fas fa-gear"></i>
-                <span>Pengaturan</span>
-            </button>
+            <button class="nav-item active"><i class="fas fa-house"></i><span>Beranda</span></button>
+            <button class="nav-item" onclick="navigateTo('history')"><i class="fas fa-clock-rotate-left"></i><span>Riwayat</span></button>
+            <button class="nav-item" onclick="showToast('Fitur pengaturan segera hadir','info')"><i class="fas fa-gear"></i><span>Pengaturan</span></button>
         </div>
     </div>
 
-    <!-- SCANNER SCREEN -->
+    <!-- ========== SCANNER ========== -->
     <div id="scannerScreen" class="screen hidden-right">
         <div class="scanner-header">
-            <button onclick="stopScanner(); navigateTo('home')" aria-label="Kembali">
-                <i class="fas fa-arrow-left"></i>
-            </button>
+            <button onclick="stopScanner();navigateTo('home')" aria-label="Kembali"><i class="fas fa-arrow-left"></i></button>
             <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
                 <span class="scanner-title">SCANNER</span>
                 <span class="scanner-mode-badge" id="scannerModeBadge">SEMUA FORMAT</span>
             </div>
-            <button onclick="flipCamera()" aria-label="Ganti kamera">
-                <i class="fas fa-camera-rotate"></i>
-            </button>
+            <button onclick="flipCamera()" aria-label="Ganti kamera"><i class="fas fa-camera-rotate"></i></button>
         </div>
-        <div class="scanner-camera-wrap">
-            <div id="scannerCamera"></div>
-        </div>
+        <div class="scanner-camera-wrap"><div id="scannerCamera"></div></div>
         <div class="scan-overlay" id="scanOverlay">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                    <mask id="scanMask">
-                        <rect width="100" height="100" fill="white"/>
-                        <rect x="17.5" y="17.5" width="65" height="65" rx="4" fill="black"/>
-                    </mask>
-                </defs>
+                <defs><mask id="scanMask"><rect width="100" height="100" fill="white"/><rect x="17.5" y="17.5" width="65" height="65" rx="4" fill="black"/></mask></defs>
                 <rect width="100" height="100" fill="rgba(0,0,0,0.6)" mask="url(#scanMask)"/>
             </svg>
         </div>
         <div class="scan-frame" id="scanFrame" style="display:none;">
-            <div class="scan-corner tl"></div>
-            <div class="scan-corner tr"></div>
-            <div class="scan-corner bl"></div>
-            <div class="scan-corner br"></div>
+            <div class="scan-corner tl"></div><div class="scan-corner tr"></div>
+            <div class="scan-corner bl"></div><div class="scan-corner br"></div>
             <div class="laser-line" id="laserLine"></div>
         </div>
         <div class="scanner-format-tabs" id="formatTabs" style="display:none;">
@@ -1029,58 +706,41 @@
             <button class="format-tab" data-mode="barcode" onclick="switchFormat('barcode')">Barcode</button>
         </div>
         <div class="scanner-bottom-controls" id="scannerControls" style="display:none;">
-            <button class="scanner-ctrl-btn" id="flashBtn" onclick="toggleFlash()" aria-label="Senter">
-                <i class="fas fa-bolt"></i>
-            </button>
-            <button class="scanner-ctrl-btn" onclick="stopScanner(); openImageUpload();" aria-label="Upload gambar">
-                <i class="fas fa-image"></i>
-            </button>
+            <button class="scanner-ctrl-btn" id="flashBtn" onclick="toggleFlash()" aria-label="Senter"><i class="fas fa-bolt"></i></button>
+            <button class="scanner-ctrl-btn" onclick="stopScanner();openImageUpload();" aria-label="Upload gambar"><i class="fas fa-image"></i></button>
         </div>
         <div class="scan-hint" id="scanHint" style="display:none;">Arahkan kode ke dalam kotak scan</div>
         <div class="scan-loading" id="scanLoading" style="display:none;">
-            <div class="spinner"></div>
-            <span>Membuka kamera...</span>
+            <div class="spinner"></div><span>Membuka kamera...</span>
         </div>
         <div class="camera-error" id="cameraError" style="display:none;">
             <i class="fas fa-video-slash"></i>
             <h3 id="cameraErrorTitle">Kamera Tidak Tersedia</h3>
             <p id="cameraErrorMsg">Pastikan kamera tidak sedang dipakai aplikasi lain dan izin kamera sudah diberikan.</p>
-            <button class="camera-error-btn primary" onclick="retryScanner()">
-                <i class="fas fa-rotate-right"></i> Coba Lagi
-            </button>
-            <button class="camera-error-btn secondary" onclick="stopScanner(); openImageUpload();">
-                <i class="fas fa-image"></i> Scan dari Gambar
-            </button>
-            <button class="camera-error-btn secondary" onclick="stopScanner(); openManualInput();">
-                <i class="fas fa-keyboard"></i> Input Manual
-            </button>
+            <button class="camera-error-btn primary" onclick="retryScanner()"><i class="fas fa-rotate-right"></i> Coba Lagi</button>
+            <button class="camera-error-btn secondary" onclick="stopScanner();openImageUpload();"><i class="fas fa-image"></i> Scan dari Gambar</button>
+            <button class="camera-error-btn secondary" onclick="stopScanner();openManualInput();"><i class="fas fa-keyboard"></i> Input Manual</button>
         </div>
     </div>
 
-    <!-- RESULT SCREEN -->
+    <!-- ========== RESULT ========== -->
     <div id="resultScreen" class="screen hidden-right">
         <div class="result-header">
-            <button onclick="navigateTo('home')" aria-label="Kembali">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <span id="resultTitle" style="font-weight:700;font-size:16px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Hasil Scan</span>
+            <button onclick="navigateTo('home')" aria-label="Kembali"><i class="fas fa-arrow-left"></i></button>
+            <span class="result-title-text" id="resultTitle">Hasil Scan</span>
             <span class="result-status-badge" id="resultBadge"></span>
         </div>
         <div class="result-body" id="resultBody"></div>
     </div>
 
-    <!-- HISTORY SCREEN -->
+    <!-- ========== HISTORY ========== -->
     <div id="historyScreen" class="screen hidden-right">
         <div class="history-header">
             <div class="history-header-left">
-                <button onclick="navigateTo('home')" style="background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-label="Kembali">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
+                <button onclick="navigateTo('home')" style="background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-label="Kembali"><i class="fas fa-arrow-left"></i></button>
                 <h2>Riwayat Scan</h2>
             </div>
-            <button class="clear-btn" id="clearHistoryBtn" onclick="clearHistory()">
-                <i class="fas fa-trash-can" style="margin-right:4px;"></i> Hapus
-            </button>
+            <button class="clear-btn" id="clearHistoryBtn" onclick="clearHistory()"><i class="fas fa-trash-can" style="margin-right:4px;"></i> Hapus</button>
         </div>
         <div class="history-list" id="historyList"></div>
     </div>
@@ -1089,27 +749,30 @@
     <script>
         // ========== DATABASE ANGGOTA ==========
         const databaseAnggota = {
-            'BGT-0001': { nama: 'Made Agus', status: 'Aktif', mobil: 'DK 1234 AB', bergabung: '2023', telepon: '0812-3456-7890', alamat: 'Denpasar, Bali', tipe: 'Driver' },
-            'BGT-0002': { nama: 'Wayan Sudiarta', status: 'Aktif', mobil: 'DK 5678 CD', bergabung: '2022', telepon: '0813-9876-5432', alamat: 'Badung, Bali', tipe: 'Driver' },
-            'BGT-0003': { nama: 'Ketut Ari', status: 'Nonaktif', mobil: 'DK 9012 EF', bergabung: '2021', telepon: '0814-5555-1234', alamat: 'Gianyar, Bali', tipe: 'Driver' },
-            'BGT-0004': { nama: 'Putu Dewi', status: 'Aktif', mobil: 'DK 3456 GH', bergabung: '2024', telepon: '0815-7777-8899', alamat: 'Tabanan, Bali', tipe: 'Driver' },
-            'BGT-0005': { nama: 'Nyoman Budi', status: 'Aktif', mobil: 'DK 7890 IJ', bergabung: '2023', telepon: '0816-2222-3333', alamat: 'Singaraja, Bali', tipe: 'Driver' },
-            'TKT-001': { nama: 'Anniversary BGT 2025', status: 'Berlaku', mobil: '-', bergabung: '-', telepon: '-', alamat: 'Sanur, Bali', tipe: 'Tiket Event' },
-            'KDR-001': { nama: 'Suzuki Avanza Silver', status: 'Terdaftar', mobil: 'DK 1234 AB', bergabung: '2023', telepon: '0812-3456-7890', alamat: 'Denpasar, Bali', tipe: 'Kendaraan' }
+            'BGT-0001': { nama:'Made Agus', status:'Aktif', mobil:'DK 1234 AB', bergabung:'2023', telepon:'0812-3456-7890', alamat:'Denpasar, Bali', tipe:'Driver' },
+            'BGT-0002': { nama:'Wayan Sudiarta', status:'Aktif', mobil:'DK 5678 CD', bergabung:'2022', telepon:'0813-9876-5432', alamat:'Badung, Bali', tipe:'Driver' },
+            'BGT-0003': { nama:'Ketut Ari', status:'Nonaktif', mobil:'DK 9012 EF', bergabung:'2021', telepon:'0814-5555-1234', alamat:'Gianyar, Bali', tipe:'Driver' },
+            'BGT-0004': { nama:'Putu Dewi', status:'Aktif', mobil:'DK 3456 GH', bergabung:'2024', telepon:'0815-7777-8899', alamat:'Tabanan, Bali', tipe:'Driver' },
+            'BGT-0005': { nama:'Nyoman Budi', status:'Aktif', mobil:'DK 7890 IJ', bergabung:'2023', telepon:'0816-2222-3333', alamat:'Singaraja, Bali', tipe:'Driver' },
+            'TKT-001': { nama:'Anniversary BGT 2025', status:'Berlaku', mobil:'-', bergabung:'-', telepon:'-', alamat:'Sanur, Bali', tipe:'Tiket Event' },
+            'KDR-001': { nama:'Suzuki Avanza Silver', status:'Terdaftar', mobil:'DK 1234 AB', bergabung:'2023', telepon:'0812-3456-7890', alamat:'Denpasar, Bali', tipe:'Kendaraan' }
         };
+
+        // ========== CONTOH DATA KENDARAAN (untuk demo) ==========
+        const contohDataKendaraan = `Kode Registrasi\t:\t17592253521\nTahun Kendaraan\t:\t2024\nWarna\t:\tHITAM METALIK\nKapasitas Mesin (cc)\t:\t1485\nTipe Sifat\t:\tPERORANGAN\nTipe Kendaraan\t:\tCONFERO 1.5 N15A LV0-8F (4X2) M/T\nModel\t:\t\nJenis\t:\tMINIBUS\nMerk\t:\tWULING\nNo Kendaraan\t:\tDK1204FCJ\nNo Rangka\t:\tMK3AAAGA8RJ002446\nNo Mesin\t:\tLAR18P11010248\nNo BPKB\t:\tV04665506\nNo Uji\t:\t0\nNo Lambung\t:\t35\nFasilitas\t:\nDaya Angkut Orang (orang)\t:\t7\nDaya Angkut Barang (kg)\t:\t0\nNama Pemilik\t:\tI PUTU EKA SUDIAMARTANA\nAlamat Pemilik\t:\tJL.YEH OTAN 10 PESALAKAN TUBAN KUTA BADUNG\nKesimpulan Verifikasi\t:\tlolos`;
 
         // ========== STATE ==========
         let html5QrCode = null;
         let isScanning = false;
         let flashOn = false;
         let currentFacingMode = 'environment';
-        let currentScanMode = 'all'; // 'all', 'qr', 'barcode'
+        let currentScanMode = 'all';
         let scanHistory = JSON.parse(localStorage.getItem('bgt_scan_history') || '[]');
         let audioCtx = null;
         let lastScannedCode = '';
         let lastScannedTime = 0;
 
-        // ========== INISIALISASI ==========
+        // ========== INIT ==========
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             updateHistoryBadge();
@@ -1121,127 +784,115 @@
             if (!isSecure) document.getElementById('httpsWarning').style.display = 'block';
         }
 
-        // ========== PARTIKEL ==========
         function createParticles() {
             const c = document.getElementById('particles');
             if (!c) return;
             for (let i = 0; i < 30; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
-                p.style.animationDuration = (6 + Math.random() * 10) + 's';
-                p.style.animationDelay = (Math.random() * 8) + 's';
+                p.style.left = Math.random()*100+'%';
+                p.style.width = p.style.height = (1+Math.random()*3)+'px';
+                p.style.animationDuration = (6+Math.random()*10)+'s';
+                p.style.animationDelay = (Math.random()*8)+'s';
                 c.appendChild(p);
             }
         }
 
         // ========== NAVIGASI ==========
         function navigateTo(screen) {
-            const screens = { home: 'homeScreen', scanner: 'scannerScreen', result: 'resultScreen', history: 'historyScreen' };
-            const allScreens = document.querySelectorAll('.screen');
-            const targetId = screens[screen];
+            const map = { home:'homeScreen', scanner:'scannerScreen', result:'resultScreen', history:'historyScreen' };
+            const targetId = map[screen];
             if (!targetId) return;
-            const order = ['homeScreen', 'scannerScreen', 'resultScreen', 'historyScreen'];
-            allScreens.forEach(s => {
-                if (s.id === targetId) {
-                    s.className = 'screen active';
-                } else {
-                    const fromIdx = order.indexOf(s.id);
-                    const toIdx = order.indexOf(targetId);
-                    s.className = fromIdx < toIdx ? 'screen hidden-left' : 'screen hidden-right';
+            const order = ['homeScreen','scannerScreen','resultScreen','historyScreen'];
+            document.querySelectorAll('.screen').forEach(s => {
+                if (s.id === targetId) { s.className = 'screen active'; }
+                else {
+                    s.className = order.indexOf(s.id) < order.indexOf(targetId) ? 'screen hidden-left' : 'screen hidden-right';
                 }
             });
             if (screen === 'history') renderHistory();
         }
 
+        // ========== PARSE DATA STRUKTUR ==========
+        // Mendeteksi teks berformat "Label	:	Value" atau "Label : Value"
+        function parseStructuredData(text) {
+            const lines = text.split(/\r?\n/);
+            const pairs = [];
+            let matchCount = 0;
+
+            for (const line of lines) {
+                // Pola: label(tab atau spasi):(tab atau spasi)value
+                const match = line.match(/^(.+?)\s*:\s*(.*)$/);
+                if (match) {
+                    const label = match[1].trim();
+                    const value = match[2].trim();
+                    if (label.length > 0) {
+                        pairs.push({ label, value });
+                        matchCount++;
+                    }
+                }
+            }
+
+            // Dianggap data terstruktur jika minimal 3 baris berformat label:value
+            if (matchCount >= 3) {
+                return { type: 'data', label: 'Data Terstruktur', icon: 'fa-table-list', pairs };
+            }
+
+            return null;
+        }
+
         // ========== DETEKSI TIPE KONTEN ==========
         function detectContentType(text) {
             text = text.trim();
-            // URL
-            if (/^https?:\/\//i.test(text) || /^www\./i.test(text)) {
-                return { type: 'url', label: 'Tautan Web', icon: 'fa-link' };
-            }
-            // Email
-            if (/^mailto:/i.test(text) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
-                const email = text.replace(/^mailto:/i, '');
-                return { type: 'email', label: 'Alamat Email', icon: 'fa-envelope', value: email };
-            }
-            // Telepon
-            if (/^tel:/i.test(text) || /^(\+?62|08)[0-9]{8,13}$/.test(text.replace(/[\s\-]/g, ''))) {
-                const phone = text.replace(/^tel:/i, '').trim();
-                return { type: 'phone', label: 'Nomor Telepon', icon: 'fa-phone', value: phone };
-            }
-            // WiFi
-            if (/^WIFI:/i.test(text)) {
+
+            // Cek data terstruktur dulu (label: value)
+            const structured = parseStructuredData(text);
+            if (structured) return structured;
+
+            if (/^https?:\/\//i.test(text) || /^www\./i.test(text))
+                return { type:'url', label:'Tautan Web', icon:'fa-link' };
+            if (/^mailto:/i.test(text) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text))
+                return { type:'email', label:'Alamat Email', icon:'fa-envelope', value: text.replace(/^mailto:/i,'') };
+            if (/^tel:/i.test(text) || /^(\+?62|08)[0-9]{8,13}$/.test(text.replace(/[\s\-]/g,'')))
+                return { type:'phone', label:'Nomor Telepon', icon:'fa-phone', value: text.replace(/^tel:/i,'').trim() };
+            if (/^WIFI:/i.test(text))
                 return parseWifiString(text);
-            }
-            // Anggota database
+
             const code = text.toUpperCase();
-            if (databaseAnggota[code]) {
-                return { type: 'member', label: 'Data Anggota', icon: 'fa-id-card' };
-            }
-            // Default: teks biasa
-            return { type: 'text', label: 'Teks', icon: 'fa-align-left' };
+            if (databaseAnggota[code])
+                return { type:'member', label:'Data Anggota', icon:'fa-id-card' };
+
+            return { type:'text', label:'Teks', icon:'fa-align-left' };
         }
 
         function parseWifiString(text) {
             const parts = {};
-            const segments = text.replace(/^WIFI:/i, '').split(';');
-            segments.forEach(seg => {
-                const [key, ...val] = seg.split(':');
+            text.replace(/^WIFI:/i,'').split(';').forEach(seg => {
+                const [key,...val] = seg.split(':');
                 if (key && val.length) parts[key.trim().toUpperCase()] = val.join(':').trim();
             });
             return {
-                type: 'wifi',
-                label: 'Jaringan WiFi',
-                icon: 'fa-wifi',
-                ssid: parts.SSID || 'Tidak diketahui',
-                password: parts.P || parts.PASS || parts.PASSWORD || '-',
-                encryption: parts.T || parts.TYPE || 'WPA',
-                hidden: parts.H === 'true'
+                type:'wifi', label:'Jaringan WiFi', icon:'fa-wifi',
+                ssid: parts.SSID||'Tidak diketahui', password: parts.P||parts.PASS||parts.PASSWORD||'-',
+                encryption: parts.T||parts.TYPE||'WPA', hidden: parts.H==='true'
             };
         }
 
-        // ========== FORMAT YANG DIDUKUNG ==========
+        // ========== FORMAT SUPPORT ==========
         function getSupportedFormats(mode) {
-            // html5-qrcode menggunakan Html5QrcodeSupportedFormats
             if (!Html5QrcodeSupportedFormats) return undefined;
-
-            if (mode === 'qr') {
-                return [
-                    Html5QrcodeSupportedFormats.QR_CODE,
-                    Html5QrcodeSupportedFormats.AZTEC,
-                    Html5QrcodeSupportedFormats.DATA_MATRIX,
-                    Html5QrcodeSupportedFormats.PDF_417
-                ];
-            }
-            if (mode === 'barcode') {
-                return [
-                    Html5QrcodeSupportedFormats.CODE_128,
-                    Html5QrcodeSupportedFormats.CODE_39,
-                    Html5QrcodeSupportedFormats.CODE_93,
-                    Html5QrcodeSupportedFormats.EAN_13,
-                    Html5QrcodeSupportedFormats.EAN_8,
-                    Html5QrcodeSupportedFormats.UPC_A,
-                    Html5QrcodeSupportedFormats.UPC_E,
-                    Html5QrcodeSupportedFormats.ITF,
-                    Html5QrcodeSupportedFormats.CODABAR
-                ];
-            }
-            // 'all' - tidak set formatsToSupport supaya library pakai semua format default
+            if (mode === 'qr') return [Html5QrcodeSupportedFormats.QR_CODE, Html5QrcodeSupportedFormats.AZTEC, Html5QrcodeSupportedFormats.DATA_MATRIX, Html5QrcodeSupportedFormats.PDF_417];
+            if (mode === 'barcode') return [Html5QrcodeSupportedFormats.CODE_128, Html5QrcodeSupportedFormats.CODE_39, Html5QrcodeSupportedFormats.CODE_93, Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.EAN_8, Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.UPC_E, Html5QrcodeSupportedFormats.ITF, Html5QrcodeSupportedFormats.CODABAR];
             return undefined;
         }
 
         // ========== SCANNER KAMERA ==========
         async function startScanner(mode) {
             if (mode) currentScanMode = mode;
-
             document.getElementById('cameraError').style.display = 'none';
             navigateTo('scanner');
             await new Promise(r => setTimeout(r, 450));
 
-            // Reset tampilan
             document.getElementById('scanLoading').style.display = 'flex';
             document.getElementById('scanFrame').style.display = 'none';
             document.getElementById('scannerControls').style.display = 'none';
@@ -1249,46 +900,25 @@
             document.getElementById('scanHint').style.display = 'none';
             document.getElementById('formatTabs').style.display = 'none';
 
-            // Update badge mode
-            const badge = document.getElementById('scannerModeBadge');
-            const modeLabels = { all: 'SEMUA FORMAT', qr: 'QR CODE', barcode: 'BARCODE' };
-            badge.textContent = modeLabels[currentScanMode] || 'SEMUA FORMAT';
-
-            // Update tab aktif
-            document.querySelectorAll('.format-tab').forEach(t => {
-                t.classList.toggle('active', t.dataset.mode === currentScanMode);
-            });
+            const modeLabels = { all:'SEMUA FORMAT', qr:'QR CODE', barcode:'BARCODE' };
+            document.getElementById('scannerModeBadge').textContent = modeLabels[currentScanMode] || 'SEMUA FORMAT';
+            document.querySelectorAll('.format-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === currentScanMode));
 
             try {
-                const camEl = document.getElementById('scannerCamera');
-                camEl.innerHTML = '';
-
+                document.getElementById('scannerCamera').innerHTML = '';
                 html5QrCode = new Html5Qrcode('scannerCamera');
-
                 const config = {
                     fps: 15,
-                    qrbox: function(viewfinderWidth, viewfinderHeight) {
-                        const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
-                        const size = Math.floor(minEdge * 0.75);
-                        return { width: Math.max(size, 150), height: Math.max(size, 150) };
+                    qrbox: function(w, h) {
+                        const s = Math.max(Math.floor(Math.min(w,h)*0.75), 150);
+                        return { width: s, height: s };
                     },
-                    aspectRatio: 1.0,
-                    disableFlip: false
+                    aspectRatio: 1.0, disableFlip: false
                 };
-
-                // Tambahkan format jika didukung
                 const formats = getSupportedFormats(currentScanMode);
-                if (formats) {
-                    config.formatsToSupport = formats;
-                }
+                if (formats) config.formatsToSupport = formats;
 
-                await html5QrCode.start(
-                    { facingMode: currentFacingMode },
-                    config,
-                    onScanSuccess,
-                    () => {}
-                );
-
+                await html5QrCode.start({ facingMode: currentFacingMode }, config, onScanSuccess, () => {});
                 isScanning = true;
                 flashOn = false;
                 document.getElementById('flashBtn').classList.remove('flash-on');
@@ -1299,66 +929,34 @@
                 document.getElementById('scannerControls').style.display = 'flex';
                 document.getElementById('formatTabs').style.display = 'flex';
                 document.getElementById('scanHint').style.display = 'block';
-
-                const hints = {
-                    all: 'Arahkan QR Code atau Barcode ke dalam kotak',
-                    qr: 'Arahkan QR Code ke dalam kotak',
-                    barcode: 'Arahkan Barcode ke dalam kotak'
-                };
-                document.getElementById('scanHint').textContent = hints[currentScanMode] || hints.all;
-
-            } catch (err) {
-                console.error('Gagal memulai scanner:', err);
+                document.getElementById('scanHint').textContent = { all:'Arahkan QR Code atau Barcode ke dalam kotak', qr:'Arahkan QR Code ke dalam kotak', barcode:'Arahkan Barcode ke dalam kotak' }[currentScanMode];
+            } catch(err) {
+                console.error('Gagal scanner:', err);
                 document.getElementById('scanLoading').style.display = 'none';
                 showCameraError(err);
             }
         }
 
         function onScanSuccess(decodedText, decodedResult) {
-            // Debounce: hindari scan ganda dalam 3 detik untuk kode yang sama
             const now = Date.now();
             if (decodedText === lastScannedCode && now - lastScannedTime < 3000) return;
             lastScannedCode = decodedText;
             lastScannedTime = now;
-
-            playBeep();
-            showSuccessFlash();
-
-            // Ambil nama format jika tersedia
-            let formatName = 'Tidak diketahui';
-            if (decodedResult && decodedResult.result && decodedResult.result.format) {
-                formatName = decodedResult.result.format.formatName;
-            }
-
+            playBeep(); showSuccessFlash();
+            let fmt = 'Tidak diketahui';
+            if (decodedResult && decodedResult.result && decodedResult.result.format) fmt = decodedResult.result.format.formatName;
             stopScanner();
-            processScanResult(decodedText, formatName, 'kamera');
+            processScanResult(decodedText, fmt, 'kamera');
         }
 
         async function switchFormat(mode) {
             if (mode === currentScanMode && isScanning) return;
             currentScanMode = mode;
-
-            // Update tab aktif
-            document.querySelectorAll('.format-tab').forEach(t => {
-                t.classList.toggle('active', t.dataset.mode === mode);
-            });
-
-            const badge = document.getElementById('scannerModeBadge');
-            const modeLabels = { all: 'SEMUA FORMAT', qr: 'QR CODE', barcode: 'BARCODE' };
-            badge.textContent = modeLabels[mode];
-
-            const hints = {
-                all: 'Arahkan QR Code atau Barcode ke dalam kotak',
-                qr: 'Arahkan QR Code ke dalam kotak',
-                barcode: 'Arahkan Barcode ke dalam kotak'
-            };
-            document.getElementById('scanHint').textContent = hints[mode];
-
-            // Restart scanner dengan format baru
+            document.querySelectorAll('.format-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
+            document.getElementById('scannerModeBadge').textContent = { all:'SEMUA FORMAT', qr:'QR CODE', barcode:'BARCODE' }[mode];
+            document.getElementById('scanHint').textContent = { all:'Arahkan QR Code atau Barcode ke dalam kotak', qr:'Arahkan QR Code ke dalam kotak', barcode:'Arahkan Barcode ke dalam kotak' }[mode];
             if (isScanning) {
-                try {
-                    await html5QrCode.stop();
-                } catch(e) {}
+                try { await html5QrCode.stop(); } catch(e){}
                 isScanning = false;
                 document.getElementById('scannerCamera').innerHTML = '';
                 await startScanner(mode);
@@ -1367,602 +965,390 @@
 
         function showCameraError(err) {
             isScanning = false;
-            const errorEl = document.getElementById('cameraError');
+            document.getElementById('scannerCamera').innerHTML = '';
+            ['scanOverlay','scanFrame','scannerControls','scanHint','formatTabs'].forEach(id => document.getElementById(id).style.display = 'none');
             const titleEl = document.getElementById('cameraErrorTitle');
             const msgEl = document.getElementById('cameraErrorMsg');
-            document.getElementById('scannerCamera').innerHTML = '';
-            document.getElementById('scanOverlay').style.display = 'none';
-            document.getElementById('scanFrame').style.display = 'none';
-            document.getElementById('scannerControls').style.display = 'none';
-            document.getElementById('scanHint').style.display = 'none';
-            document.getElementById('formatTabs').style.display = 'none';
-
-            const errStr = (err.message || err.toString() || '').toLowerCase();
-            const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-
-            if (!isSecure) {
-                titleEl.textContent = 'Butuh HTTPS';
-                msgEl.textContent = 'Kamera hanya bisa diakses melalui HTTPS atau localhost. Saat ini halaman dibuka via ' + location.protocol + '. Gunakan Scan dari Gambar atau Input Manual sebagai alternatif.';
-            } else if (errStr.includes('permission') || errStr.includes('denied') || errStr.includes('notallowed')) {
-                titleEl.textContent = 'Izin Kamera Ditolak';
-                msgEl.textContent = 'Izin akses kamera ditolak. Buka pengaturan browser/HP dan izinkan kamera untuk halaman ini, lalu coba lagi.';
-            } else if (errStr.includes('notfound') || errStr.includes('no camera') || errStr.includes('requested device not found')) {
-                titleEl.textContent = 'Kamera Tidak Ditemukan';
-                msgEl.textContent = 'Tidak ada kamera yang terdeteksi. Pastikan kamera terpasang dengan benar dan tidak sedang dipakai aplikasi lain.';
-            } else if (errStr.includes('could not start') || errStr.includes('track')) {
-                titleEl.textContent = 'Gagal Memulai Kamera';
-                msgEl.textContent = 'Kamera gagal dimulai. Kemungkinan sedang dipakai aplikasi lain. Tutup aplikasi lain yang menggunakan kamera, lalu coba lagi.';
-            } else {
-                titleEl.textContent = 'Gagal Membuka Kamera';
-                msgEl.textContent = 'Terjadi kesalahan saat membuka kamera: ' + (err.message || err) + '. Coba gunakan Scan dari Gambar atau Input Manual.';
-            }
-            errorEl.style.display = 'flex';
+            const errStr = (err.message||err.toString()||'').toLowerCase();
+            const isSecure = location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
+            if (!isSecure) { titleEl.textContent='Butuh HTTPS'; msgEl.textContent='Kamera hanya bisa diakses melalui HTTPS atau localhost. Gunakan Scan dari Gambar atau Input Manual.'; }
+            else if (errStr.includes('permission')||errStr.includes('denied')) { titleEl.textContent='Izin Kamera Ditolak'; msgEl.textContent='Buka pengaturan browser/HP dan izinkan kamera untuk halaman ini.'; }
+            else if (errStr.includes('notfound')||errStr.includes('no camera')) { titleEl.textContent='Kamera Tidak Ditemukan'; msgEl.textContent='Tidak ada kamera yang terdeteksi.'; }
+            else { titleEl.textContent='Gagal Membuka Kamera'; msgEl.textContent='Terjadi kesalahan: '+(err.message||err); }
+            document.getElementById('cameraError').style.display = 'flex';
         }
 
         async function stopScanner() {
             if (html5QrCode && isScanning) {
-                try {
-                    await html5QrCode.stop();
-                } catch(e) { console.warn('Stop error:', e); }
+                try { await html5QrCode.stop(); } catch(e){}
                 isScanning = false;
-                // Bersihkan elemen video
-                setTimeout(() => {
-                    const camEl = document.getElementById('scannerCamera');
-                    if (camEl) camEl.innerHTML = '';
-                }, 100);
+                setTimeout(() => { const el = document.getElementById('scannerCamera'); if(el) el.innerHTML=''; }, 100);
             }
         }
-
-        async function retryScanner() {
-            document.getElementById('cameraError').style.display = 'none';
-            await startScanner(currentScanMode);
-        }
-
+        async function retryScanner() { document.getElementById('cameraError').style.display='none'; await startScanner(currentScanMode); }
         async function flipCamera() {
-            currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
-            if (isScanning) {
-                try {
-                    await html5QrCode.stop();
-                } catch(e) {}
-                isScanning = false;
-                document.getElementById('scannerCamera').innerHTML = '';
-                await startScanner(currentScanMode);
-            }
+            currentFacingMode = currentFacingMode==='environment'?'user':'environment';
+            if (isScanning) { try{await html5QrCode.stop();}catch(e){} isScanning=false; document.getElementById('scannerCamera').innerHTML=''; await startScanner(currentScanMode); }
         }
-
         async function toggleFlash() {
-            if (!html5QrCode || !isScanning) return;
+            if (!html5QrCode||!isScanning) return;
             try {
-                const track = html5QrCode.getRunningTrackCameraCapabilities();
-                if (track && track.torchFeature && track.torchFeature.isSupported()) {
-                    flashOn = !flashOn;
-                    await track.torchFeature.apply(flashOn);
-                    document.getElementById('flashBtn').classList.toggle('flash-on', flashOn);
-                    showToast(flashOn ? 'Senter menyala' : 'Senter mati', 'info');
-                } else {
-                    showToast('Senter tidak didukung perangkat ini', 'error');
-                }
-            } catch(e) {
-                showToast('Gagal mengaktifkan senter', 'error');
-            }
+                const cap = html5QrCode.getRunningTrackCameraCapabilities();
+                if (cap&&cap.torchFeature&&cap.torchFeature.isSupported()) {
+                    flashOn=!flashOn; await cap.torchFeature.apply(flashOn);
+                    document.getElementById('flashBtn').classList.toggle('flash-on',flashOn);
+                    showToast(flashOn?'Senter menyala':'Senter mati','info');
+                } else showToast('Senter tidak didukung','error');
+            } catch(e) { showToast('Gagal mengaktifkan senter','error'); }
         }
 
-        // ========== SCAN DARI GAMBAR ==========
+        // ========== SCAN GAMBAR ==========
         function openImageUpload() {
-            const overlay = document.createElement('div');
-            overlay.className = 'modal-overlay';
-            overlay.id = 'imageUploadModal';
-            overlay.innerHTML = `
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <div class="modal-title">Scan dari Gambar</div>
-                    <div class="modal-subtitle">Upload gambar yang berisi QR Code atau Barcode</div>
-                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageFileInput').click()">
-                        <img class="upload-preview" id="uploadPreview" alt="Preview">
-                        <i class="fas fa-cloud-arrow-up" id="uploadIcon"></i>
-                        <p id="uploadText">Ketuk untuk memilih gambar</p>
-                        <p class="upload-hint">Mendukung JPG, PNG, GIF, BMP, WebP</p>
-                    </div>
-                    <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
-                    <button class="modal-submit" id="scanImageBtn" onclick="scanImageFile()" style="display:none;">
-                        <i class="fas fa-magnifying-glass"></i> Scan Gambar
-                    </button>
-                    <button class="modal-submit" style="background:var(--bg-card-2);color:var(--text-muted);margin-top:10px;" onclick="closeImageUpload()">
-                        Batal
-                    </button>
+            const o = document.createElement('div');
+            o.className='modal-overlay'; o.id='imageUploadModal';
+            o.innerHTML=`<div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <div class="modal-title">Scan dari Gambar</div>
+                <div class="modal-subtitle">Upload gambar yang berisi QR Code atau Barcode</div>
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageFileInput').click()">
+                    <img class="upload-preview" id="uploadPreview" alt="Preview">
+                    <i class="fas fa-cloud-arrow-up" id="uploadIcon"></i>
+                    <p id="uploadText">Ketuk untuk memilih gambar</p>
+                    <p class="upload-hint">JPG, PNG, GIF, BMP, WebP</p>
                 </div>
-            `;
-            document.body.appendChild(overlay);
-
-            // Drag & drop
+                <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
+                <button class="modal-submit" id="scanImageBtn" onclick="scanImageFile()" style="display:none;"><i class="fas fa-magnifying-glass"></i> Scan Gambar</button>
+                <button class="modal-submit" style="background:var(--bg-card-2);color:var(--text-muted);margin-top:10px;" onclick="closeImageUpload()">Batal</button>
+            </div>`;
+            document.body.appendChild(o);
             const area = document.getElementById('uploadArea');
-            area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
-            area.addEventListener('dragleave', () => area.classList.remove('dragover'));
-            area.addEventListener('drop', e => {
-                e.preventDefault();
-                area.classList.remove('dragover');
-                if (e.dataTransfer.files.length) {
-                    document.getElementById('imageFileInput').files = e.dataTransfer.files;
-                    handleImageSelect({ target: { files: e.dataTransfer.files } });
-                }
-            });
+            area.addEventListener('dragover', e=>{e.preventDefault();area.classList.add('dragover');});
+            area.addEventListener('dragleave', ()=>area.classList.remove('dragover'));
+            area.addEventListener('drop', e=>{e.preventDefault();area.classList.remove('dragover');if(e.dataTransfer.files.length){document.getElementById('imageFileInput').files=e.dataTransfer.files;handleImageSelect({target:{files:e.dataTransfer.files}});}});
         }
 
         function handleImageSelect(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const preview = document.getElementById('uploadPreview');
-            const icon = document.getElementById('uploadIcon');
-            const text = document.getElementById('uploadText');
-            const btn = document.getElementById('scanImageBtn');
-
+            const file = e.target.files[0]; if(!file) return;
             const reader = new FileReader();
             reader.onload = function(ev) {
-                preview.src = ev.target.result;
-                preview.style.display = 'block';
-                icon.style.display = 'none';
-                text.textContent = file.name;
-                btn.style.display = 'flex';
+                document.getElementById('uploadPreview').src=ev.target.result;
+                document.getElementById('uploadPreview').style.display='block';
+                document.getElementById('uploadIcon').style.display='none';
+                document.getElementById('uploadText').textContent=file.name;
+                document.getElementById('scanImageBtn').style.display='flex';
             };
             reader.readAsDataURL(file);
         }
 
         async function scanImageFile() {
-            const fileInput = document.getElementById('imageFileInput');
-            if (!fileInput || !fileInput.files.length) {
-                showToast('Pilih gambar terlebih dahulu', 'error');
-                return;
-            }
-
+            const fi = document.getElementById('imageFileInput');
+            if(!fi||!fi.files.length){showToast('Pilih gambar dulu','error');return;}
             const btn = document.getElementById('scanImageBtn');
-            btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;"></div> Memindai...';
-            btn.disabled = true;
-
+            btn.innerHTML='<div class="spinner" style="width:20px;height:20px;border-width:2px;"></div> Memindai...'; btn.disabled=true;
             try {
-                // Buat instance sementara untuk scan file
-                const tempScanner = new Html5Qrcode('temp-scan-hidden');
-                // Buat elemen tersembunyi
-                const hiddenDiv = document.createElement('div');
-                hiddenDiv.id = 'temp-scan-hidden';
-                hiddenDiv.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;';
-                document.body.appendChild(hiddenDiv);
-
-                const result = await tempScanner.scanFile(fileInput.files[0], true);
-
-                // Bersihkan
-                document.body.removeChild(hiddenDiv);
-
-                playBeep();
-                showSuccessFlash();
-                closeImageUpload();
-
-                let formatName = 'Tidak diketahui';
-                if (result && result.result && result.result.format) {
-                    formatName = result.result.format.formatName;
-                }
-
-                processScanResult(result.decodedText, formatName, 'gambar');
-
-            } catch(err) {
-                console.error('Scan gambar gagal:', err);
-                showToast('Tidak ada kode yang terdeteksi dalam gambar', 'error');
-            }
-
-            btn.innerHTML = '<i class="fas fa-magnifying-glass"></i> Scan Gambar';
-            btn.disabled = false;
+                const hd = document.createElement('div'); hd.id='temp-scan-hidden'; hd.style.cssText='position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;'; document.body.appendChild(hd);
+                const ts = new Html5Qrcode('temp-scan-hidden');
+                const result = await ts.scanFile(fi.files[0], true);
+                document.body.removeChild(hd);
+                playBeep(); showSuccessFlash(); closeImageUpload();
+                let fmt='Tidak diketahui'; if(result&&result.result&&result.result.format) fmt=result.result.format.formatName;
+                processScanResult(result.decodedText, fmt, 'gambar');
+            } catch(err) { console.error(err); showToast('Tidak ada kode terdeteksi dalam gambar','error'); }
+            btn.innerHTML='<i class="fas fa-magnifying-glass"></i> Scan Gambar'; btn.disabled=false;
         }
 
         function closeImageUpload() {
-            const modal = document.getElementById('imageUploadModal');
-            if (modal) modal.remove();
-            // Bersihkan elemen tersembunyi jika ada
-            const hidden = document.getElementById('temp-scan-hidden');
-            if (hidden) hidden.remove();
+            const m=document.getElementById('imageUploadModal'); if(m) m.remove();
+            const h=document.getElementById('temp-scan-hidden'); if(h) h.remove();
         }
 
         // ========== INPUT MANUAL ==========
         function openManualInput() {
-            const overlay = document.createElement('div');
-            overlay.className = 'modal-overlay';
-            overlay.id = 'manualInputModal';
-            overlay.innerHTML = `
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <div class="modal-title">Input Manual</div>
-                    <div class="modal-subtitle">Ketik kode QR, Barcode, URL, atau teks apapun</div>
-                    <input class="modal-input" id="manualInput" placeholder="Masukkan kode atau teks..." autocomplete="off" autofocus>
-                    <button class="modal-submit" onclick="submitManualInput()">
-                        <i class="fas fa-check"></i> Proses
-                    </button>
-                    <div class="suggestion-chips">
-                        <div class="suggestion-chips-label">Coba Contoh</div>
-                        <span class="suggestion-chip" onclick="setManualInput('BGT-0001')">BGT-0001</span>
-                        <span class="suggestion-chip" onclick="setManualInput('BGT-0003')">BGT-0003</span>
-                        <span class="suggestion-chip" onclick="setManualInput('TKT-001')">TKT-001</span>
-                        <span class="suggestion-chip" onclick="setManualInput('https://google.com')">URL</span>
-                        <span class="suggestion-chip" onclick="setManualInput('WIFI:S:MyNetwork;T:WPA;P:password123;;')">WiFi</span>
-                        <span class="suggestion-chip" onclick="setManualInput('081234567890')">Telepon</span>
-                    </div>
-                    <button class="modal-submit" style="background:var(--bg-card-2);color:var(--text-muted);margin-top:10px;" onclick="closeManualInput()">
-                        Batal
-                    </button>
+            const o = document.createElement('div');
+            o.className='modal-overlay'; o.id='manualInputModal';
+            o.innerHTML=`<div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <div class="modal-title">Input Manual</div>
+                <div class="modal-subtitle">Ketik kode, URL, atau tempel data terstruktur</div>
+                <textarea class="modal-textarea" id="manualInput" placeholder="Masukkan kode, URL, atau tempel data berformat Label : Value ..." rows="6"></textarea>
+                <button class="modal-submit" onclick="submitManualInput()"><i class="fas fa-check"></i> Proses</button>
+                <div class="suggestion-chips">
+                    <div class="suggestion-chips-label">Coba Contoh</div>
+                    <span class="suggestion-chip" onclick="setManual('BGT-0001')">BGT-0001</span>
+                    <span class="suggestion-chip" onclick="setManual('BGT-0003')">BGT-0003</span>
+                    <span class="suggestion-chip" onclick="setManual('https://google.com')">URL</span>
+                    <span class="suggestion-chip" onclick="setManual('WIFI:S:MyNetwork;T:WPA;P:password123;;')">WiFi</span>
+                    <span class="suggestion-chip" onclick="setManualDemo()">Data Kendaraan</span>
                 </div>
-            `;
-            document.body.appendChild(overlay);
-
-            // Auto-focus & enter key
-            setTimeout(() => {
-                const input = document.getElementById('manualInput');
-                if (input) {
-                    input.focus();
-                    input.addEventListener('keydown', e => {
-                        if (e.key === 'Enter') submitManualInput();
-                    });
-                }
-            }, 400);
+                <button class="modal-submit" style="background:var(--bg-card-2);color:var(--text-muted);margin-top:10px;" onclick="closeManualInput()">Batal</button>
+            </div>`;
+            document.body.appendChild(o);
+            setTimeout(()=>{
+                const inp=document.getElementById('manualInput');
+                if(inp){inp.focus();inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey)submitManualInput();});}
+            },400);
         }
 
-        function setManualInput(val) {
-            const input = document.getElementById('manualInput');
-            if (input) { input.value = val; input.focus(); }
-        }
+        function setManual(val) { const i=document.getElementById('manualInput'); if(i){i.value=val;i.focus();} }
+        function setManualDemo() { const i=document.getElementById('manualInput'); if(i){i.value=contohDataKendaraan;i.focus();} }
 
         function submitManualInput() {
-            const input = document.getElementById('manualInput');
-            const val = input ? input.value.trim() : '';
-            if (!val) {
-                showToast('Masukkan kode atau teks terlebih dahulu', 'error');
-                return;
-            }
-            playBeep();
-            closeManualInput();
+            const inp = document.getElementById('manualInput');
+            const val = inp ? inp.value.trim() : '';
+            if(!val){showToast('Masukkan kode atau teks dulu','error');return;}
+            playBeep(); closeManualInput();
             processScanResult(val, 'Input Manual', 'manual');
         }
+        function closeManualInput() { const m=document.getElementById('manualInputModal'); if(m) m.remove(); }
 
-        function closeManualInput() {
-            const modal = document.getElementById('manualInputModal');
-            if (modal) modal.remove();
-        }
-
-        // ========== PROSES HASIL SCAN ==========
+        // ========== PROSES HASIL ==========
         function processScanResult(text, formatName, source) {
             const content = detectContentType(text);
-
-            // Simpan ke riwayat
             addToHistory(text, content, formatName, source);
-
-            // Tampilkan hasil
             showResult(text, content, formatName);
         }
 
+        // ========== TAMPILKAN HASIL ==========
         function showResult(text, content, formatName) {
             navigateTo('result');
-
-            const titleEl = document.getElementById('resultTitle');
-            const badgeEl = document.getElementById('resultBadge');
-            const bodyEl = document.getElementById('resultBody');
-
-            titleEl.textContent = content.label;
+            document.getElementById('resultTitle').textContent = content.label;
 
             // Badge
-            let badgeClass = 'badge-text';
-            let badgeText = content.type.toUpperCase();
-            if (content.type === 'url') { badgeClass = 'badge-url'; badgeText = 'URL'; }
-            else if (content.type === 'member') { badgeClass = 'badge-found'; badgeText = 'DITEMUKAN'; }
-            else if (content.type === 'phone') { badgeClass = 'badge-text'; badgeText = 'TELEPON'; }
-            else if (content.type === 'email') { badgeClass = 'badge-text'; badgeText = 'EMAIL'; }
-            else if (content.type === 'wifi') { badgeClass = 'badge-found'; badgeText = 'WIFI'; }
-            else if (content.type === 'text') { badgeClass = 'badge-text'; badgeText = 'TEKS'; }
-            badgeEl.className = 'result-status-badge ' + badgeClass;
-            badgeEl.textContent = badgeText;
+            const badgeEl = document.getElementById('resultBadge');
+            const badgeMap = {
+                url: ['badge-url','URL'], member: ['badge-found','DITEMUKAN'], phone: ['badge-text','TELEPON'],
+                email: ['badge-text','EMAIL'], wifi: ['badge-found','WIFI'], text: ['badge-text','TEKS'],
+                data: ['badge-data','DATA']
+            };
+            const [bClass, bText] = badgeMap[content.type] || ['badge-text','TEKS'];
+            badgeEl.className = 'result-status-badge ' + bClass;
+            badgeEl.textContent = bText;
 
             let html = '';
 
             // Banner tipe
-            html += `<div class="result-type-banner ${content.type}">
-                <i class="fas ${content.icon}"></i>
-                <div>
-                    <div class="type-label">Tipe Terdeteksi</div>
-                    <div class="type-name">${content.label}</div>
-                </div>
-            </div>`;
+            html += `<div class="result-type-banner ${content.type}"><i class="fas ${content.icon}"></i><div><div class="type-label">Tipe Terdeteksi</div><div class="type-name">${esc(content.label)}</div></div></div>`;
 
-            // Kode hasil scan
-            const isText = content.type === 'text';
-            html += `<div class="scan-code-display">
-                <div class="label">Hasil Scan</div>
-                <div class="code ${isText ? 'text-mode' : ''}">${escapeHtml(text)}</div>
-                <div class="format-tag"><i class="fas fa-microchip"></i> ${escapeHtml(formatName)}</div>
-            </div>`;
-
-            // Konten spesifik
-            if (content.type === 'member') {
-                const member = databaseAnggota[text.toUpperCase()];
-                if (member) {
-                    const initials = member.nama.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-                    const isAktif = member.status.toLowerCase() === 'aktif' || member.status.toLowerCase() === 'berlaku' || member.status.toLowerCase() === 'terdaftar';
-
+            // ===== DATA TERSTRUKTUR: TABEL BERBARIS =====
+            if (content.type === 'data' && content.pairs) {
+                html += buildDataTable(content.pairs, text, formatName);
+            }
+            // ===== DATA MEMBER: KARTU + TABEL =====
+            else if (content.type === 'member') {
+                const m = databaseAnggota[text.toUpperCase()];
+                if (m) {
+                    const initials = m.nama.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+                    const isOk = ['aktif','berlaku','terdaftar'].includes(m.status.toLowerCase());
                     html += `<div class="member-card">
                         <div class="member-card-header">
                             <div class="member-avatar">${initials}</div>
-                            <div>
-                                <div class="member-name">${escapeHtml(member.nama)}</div>
-                                <div class="member-id-small">${escapeHtml(text.toUpperCase())} &middot; ${escapeHtml(member.tipe)}</div>
-                            </div>
-                        </div>
-                        <div class="member-info-grid">
-                            <div class="info-item">
-                                <span class="info-label">Status</span>
-                                <span class="info-value ${isAktif ? 'status-aktif' : 'status-nonaktif'}">${escapeHtml(member.status)}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Bergabung</span>
-                                <span class="info-value">${escapeHtml(member.bergabung)}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Kendaraan</span>
-                                <span class="info-value">${escapeHtml(member.mobil)}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Telepon</span>
-                                <span class="info-value">${escapeHtml(member.telepon)}</span>
-                            </div>
-                            <div class="info-item full">
-                                <span class="info-label">Alamat</span>
-                                <span class="info-value">${escapeHtml(member.alamat)}</span>
-                            </div>
+                            <div><div class="member-name">${esc(m.nama)}</div><div class="member-id-small">${esc(text.toUpperCase())} &middot; ${esc(m.tipe)}</div></div>
                         </div>
                     </div>`;
+                    html += buildDataTable([
+                        {label:'Status', value:m.status, cls: isOk?'val-success':'val-danger'},
+                        {label:'Tipe', value:m.tipe},
+                        {label:'Kendaraan', value:m.mobil},
+                        {label:'Bergabung', value:m.bergabung},
+                        {label:'Telepon', value:m.telepon},
+                        {label:'Alamat', value:m.alamat}
+                    ], text, formatName);
                 }
             }
-
-            if (content.type === 'wifi') {
-                html += `<div class="scan-code-display">
-                    <div class="label">Detail WiFi</div>
-                    <div class="wifi-details">
-                        <div class="wifi-detail-row">
-                            <span class="wifi-detail-label">SSID (Nama Jaringan)</span>
-                            <span class="wifi-detail-value">${escapeHtml(content.ssid)}</span>
-                        </div>
-                        <div class="wifi-detail-row">
-                            <span class="wifi-detail-label">Password</span>
-                            <span class="wifi-detail-value" id="wifiPassword">${content.hidden ? '(Tersembunyi)' : '••••••••'}</span>
-                        </div>
-                        <div class="wifi-detail-row">
-                            <span class="wifi-detail-label">Enkripsi</span>
-                            <span class="wifi-detail-value">${escapeHtml(content.encryption)}</span>
-                        </div>
-                        <div class="wifi-detail-row">
-                            <span class="wifi-detail-label">Tersembunyi</span>
-                            <span class="wifi-detail-value">${content.hidden ? 'Ya' : 'Tidak'}</span>
-                        </div>
-                    </div>
-                </div>`;
+            // ===== WIFI =====
+            else if (content.type === 'wifi') {
+                html += `<div class="raw-code-box"><div class="label">Detail WiFi</div><div class="wifi-details">
+                    <div class="wifi-row"><span class="wifi-row-label">SSID</span><span class="wifi-row-value">${esc(content.ssid)}</span></div>
+                    <div class="wifi-row"><span class="wifi-row-label">Password</span><span class="wifi-row-value" id="wifiPwd">${content.hidden?'(Tersembunyi)':'••••••••'}</span></div>
+                    <div class="wifi-row"><span class="wifi-row-label">Enkripsi</span><span class="wifi-row-value">${esc(content.encryption)}</span></div>
+                    <div class="wifi-row"><span class="wifi-row-label">Tersembunyi</span><span class="wifi-row-value">${content.hidden?'Ya':'Tidak'}</span></div>
+                </div></div>`;
+            }
+            // ===== TEKS/URL/PHONE/EMAIL =====
+            else {
+                const isPlain = content.type==='text';
+                html += `<div class="raw-code-box"><div class="label">Hasil Scan</div><div class="code ${isPlain?'plain':''}">${esc(text)}</div><div class="format-tag"><i class="fas fa-microchip"></i> ${esc(formatName)}</div></div>`;
             }
 
-            // Aksi
+            // ===== TOMBOL AKSI =====
             html += `<div class="result-actions">`;
-
-            if (content.type === 'url') {
-                const url = text.startsWith('http') ? text : 'https://' + text;
-                html += `<button class="result-action-btn btn-info" onclick="window.open('${escapeAttr(url)}', '_blank')">
-                    <i class="fas fa-external-link-alt"></i> Buka Tautan
-                </button>`;
+            if (content.type==='url') {
+                const url = text.startsWith('http')?text:'https://'+text;
+                html += `<button class="result-action-btn btn-info" onclick="window.open('${escA(url)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka Tautan</button>`;
             }
-
-            if (content.type === 'phone') {
-                const phone = content.value || text.replace(/^tel:/i, '');
-                html += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${escapeAttr(phone)}')">
-                    <i class="fas fa-phone"></i> Hubungi Nomor
-                </button>`;
+            if (content.type==='phone') {
+                const ph = content.value||text.replace(/^tel:/i,'');
+                html += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${escA(ph)}')"><i class="fas fa-phone"></i> Hubungi</button>`;
             }
-
-            if (content.type === 'email') {
-                const email = content.value || text.replace(/^mailto:/i, '');
-                html += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${escapeAttr(email)}')">
-                    <i class="fas fa-envelope"></i> Kirim Email
-                </button>`;
+            if (content.type==='email') {
+                const em = content.value||text.replace(/^mailto:/i,'');
+                html += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${escA(em)}')"><i class="fas fa-envelope"></i> Kirim Email</button>`;
             }
-
-            if (content.type === 'wifi') {
-                html += `<button class="result-action-btn btn-success" onclick="toggleWifiPassword()">
-                    <i class="fas fa-eye"></i> Tampilkan Password
-                </button>`;
-                html += `<button class="result-action-btn btn-secondary" onclick="copyToClipboard('${escapeAttr(content.password)}')">
-                    <i class="fas fa-copy"></i> Salin Password
-                </button>`;
+            if (content.type==='wifi') {
+                html += `<button class="result-action-btn btn-success" onclick="toggleWifiPwd()"><i class="fas fa-eye"></i> Tampilkan Password</button>`;
+                html += `<button class="result-action-btn btn-secondary" onclick="copyToClipboard('${escA(content.password)}')"><i class="fas fa-copy"></i> Salin Password</button>`;
             }
+            html += `<button class="result-action-btn btn-secondary" onclick="copyToClipboard(decodeURIComponent('${encodeURIComponent(text)}'))"><i class="fas fa-copy"></i> Salin Hasil Scan</button>`;
+            html += `<button class="result-action-btn btn-primary" onclick="startScanner('${currentScanMode}')"><i class="fas fa-camera"></i> Scan Lagi</button>`;
+            html += `</div>`;
 
-            html += `<button class="result-action-btn btn-secondary" onclick="copyToClipboard(\`${escapeJs(text)}\`)">
-                <i class="fas fa-copy"></i> Salin Hasil Scan
-            </button>`;
+            document.getElementById('resultBody').innerHTML = html;
+        }
 
-            html += `<button class="result-action-btn btn-primary" onclick="startScanner('${currentScanMode}')">
-                <i class="fas fa-camera"></i> Scan Lagi
-            </button>`;
+        // ========== BUILDER TABEL DATA ==========
+        function buildDataTable(pairs, rawText, formatName) {
+            // Tentukan judul kartu dan ikon berdasarkan konteks
+            let cardTitle = 'Detail Data';
+            let cardIcon = 'fa-table-list';
+
+            // Cek apakah ini data kendaraan
+            const labels = pairs.map(p => p.label.toLowerCase());
+            const isKendaraan = labels.some(l => l.includes('no rangka') || l.includes('no mesin') || l.includes('merk') || l.includes('tipe kendaraan'));
+            if (isKendaraan) { cardTitle = 'Informasi Kendaraan'; cardIcon = 'fa-car'; }
+
+            const isAnggota = labels.some(l => l.includes('status') || l.includes('telepon') || l.includes('alamat'));
+            if (isAnggota && !isKendaraan) { cardTitle = 'Informasi Anggota'; cardIcon = 'fa-user'; }
+
+            let html = `<div class="data-table-card">`;
+            html += `<div class="data-table-card-header"><i class="fas ${cardIcon}"></i><span>${cardTitle}</span></div>`;
+
+            pairs.forEach((pair, idx) => {
+                // Tentukan kelas value
+                let valCls = '';
+                const valLower = pair.value.toLowerCase().trim();
+                const lblLower = pair.label.toLowerCase();
+
+                if (valLower === 'lolos' || valLower === 'aktif' || valLower === 'berlaku' || valLower === 'terdaftar') {
+                    valCls = 'val-success';
+                } else if (valLower === 'tidak lolos' || valLower === 'gagal' || valLower === 'nonaktif' || valLower === 'kadaluarsa') {
+                    valCls = 'val-danger';
+                } else if (lblLower.includes('kode registrasi') || lblLower.includes('no kendaraan') || lblLower.includes('no rangka') || lblLower.includes('no mesin') || lblLower.includes('no bpkb')) {
+                    valCls = 'val-primary';
+                }
+
+                // Baris highlight untuk kesimpulan verifikasi
+                const isHighlight = lblLower.includes('kesimpulan') || lblLower.includes('verifikasi');
+                // Tampilkan "-" jika kosong
+                const displayVal = pair.value.trim() === '' ? '-' : pair.value;
+
+                html += `<div class="data-table-row ${isHighlight?'highlight':''}">`;
+                html += `<div class="data-table-label">${esc(pair.label)}</div>`;
+                html += `<div class="data-table-separator">:</div>`;
+                html += `<div class="data-table-value ${valCls}">${valCls==='val-empty'?displayVal:esc(displayVal)}</div>`;
+                html += `</div>`;
+            });
 
             html += `</div>`;
 
-            bodyEl.innerHTML = html;
+            // Tombol salin semua data (tersembunyi, bisa dilihat di raw)
+            html += `<details style="margin-bottom:16px;">
+                <summary style="padding:10px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;user-select:none;">
+                    <i class="fas fa-code" style="margin-right:6px;"></i>Lihat Data Mentah
+                </summary>
+                <div style="padding:12px 16px;background:var(--bg-card-2);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;">
+                    <pre style="font-size:11px;color:var(--text-muted);white-space:pre-wrap;word-break:break-word;line-height:1.6;font-family:'Inter',monospace;margin:0;">${esc(rawText)}</pre>
+                    <div class="format-tag" style="margin-top:10px;"><i class="fas fa-microchip"></i> ${esc(formatName)}</div>
+                </div>
+            </details>`;
+
+            return html;
         }
 
-        function toggleWifiPassword() {
-            const el = document.getElementById('wifiPassword');
+        function toggleWifiPwd() {
+            const el = document.getElementById('wifiPwd');
             if (!el) return;
-            if (el.textContent === '••••••••') {
-                // Ambil password dari data WiFi terakhir
-                const content = detectContentType(lastScannedCode);
-                if (content.type === 'wifi') {
-                    el.textContent = content.password;
-                }
-            } else {
-                el.textContent = '••••••••';
-            }
+            if (el.textContent.includes('•')) {
+                const c = detectContentType(lastScannedCode);
+                if (c.type==='wifi') el.textContent = c.password;
+            } else { el.textContent = '••••••••'; }
         }
 
         // ========== RIWAYAT ==========
         function addToHistory(text, content, formatName, source) {
-            const entry = {
-                id: Date.now(),
-                text: text,
-                type: content.type,
-                label: content.label,
-                format: formatName || '-',
-                source: source,
-                time: new Date().toLocaleString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
-            };
-            scanHistory.unshift(entry);
-            if (scanHistory.length > 50) scanHistory = scanHistory.slice(0, 50);
+            scanHistory.unshift({
+                id: Date.now(), text, type: content.type, label: content.label,
+                format: formatName||'-', source,
+                time: new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
+            });
+            if (scanHistory.length>50) scanHistory=scanHistory.slice(0,50);
             localStorage.setItem('bgt_scan_history', JSON.stringify(scanHistory));
             updateHistoryBadge();
         }
 
         function renderHistory() {
-            const listEl = document.getElementById('historyList');
-            const clearBtn = document.getElementById('clearHistoryBtn');
-
-            if (scanHistory.length === 0) {
-                clearBtn.style.display = 'none';
-                listEl.innerHTML = `<div class="empty-state">
-                    <i class="fas fa-clock-rotate-left"></i>
-                    <h3>Belum Ada Riwayat</h3>
-                    <p>Hasil scan akan muncul di sini</p>
-                </div>`;
+            const list = document.getElementById('historyList');
+            const btn = document.getElementById('clearHistoryBtn');
+            if (!scanHistory.length) {
+                btn.style.display='none';
+                list.innerHTML='<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><h3>Belum Ada Riwayat</h3><p>Hasil scan akan muncul di sini</p></div>';
                 return;
             }
-
-            clearBtn.style.display = 'flex';
-            let html = '';
-            scanHistory.forEach(entry => {
-                let iconClass = 'text';
-                if (entry.type === 'member') iconClass = 'found';
-                else if (entry.type === 'url') iconClass = 'url';
-                else if (entry.type === 'text' || entry.type === 'phone' || entry.type === 'email' || entry.type === 'wifi') iconClass = 'text';
-
-                const icons = {
-                    member: 'fa-id-card',
-                    url: 'fa-link',
-                    text: 'fa-align-left',
-                    phone: 'fa-phone',
-                    email: 'fa-envelope',
-                    wifi: 'fa-wifi'
-                };
-                const icon = icons[entry.type] || 'fa-qrcode';
-
-                html += `<div class="history-item" onclick="showResultFromHistory('${escapeAttr(entry.id)}')">
-                    <div class="history-icon ${iconClass}">
-                        <i class="fas ${icon}"></i>
-                    </div>
-                    <div class="history-info">
-                        <div class="history-code">${escapeHtml(entry.text)}</div>
-                        <div class="history-meta">${escapeHtml(entry.label)} &middot; ${escapeHtml(entry.format)} &middot; ${escapeHtml(entry.time)}</div>
-                    </div>
-                    <i class="fas fa-chevron-right history-arrow"></i>
-                </div>`;
-            });
-            listEl.innerHTML = html;
+            btn.style.display='flex';
+            const iconMap = {member:'fa-id-card',url:'fa-link',text:'fa-align-left',phone:'fa-phone',email:'fa-envelope',wifi:'fa-wifi',data:'fa-table-list'};
+            const clsMap = {member:'found',url:'url',text:'text',phone:'text',email:'text',wifi:'found',data:'data'};
+            list.innerHTML = scanHistory.map(e => `<div class="history-item" onclick="showFromHistory('${e.id}')">
+                <div class="history-icon ${clsMap[e.type]||'text'}"><i class="fas ${iconMap[e.type]||'fa-qrcode'}"></i></div>
+                <div class="history-info"><div class="history-code">${esc(e.text)}</div><div class="history-meta">${esc(e.label)} &middot; ${esc(e.format)} &middot; ${esc(e.time)}</div></div>
+                <i class="fas fa-chevron-right history-arrow"></i>
+            </div>`).join('');
         }
 
-        function showResultFromHistory(id) {
-            const entry = scanHistory.find(e => String(e.id) === String(id));
-            if (!entry) return;
-            const content = detectContentType(entry.text);
-            showResult(entry.text, content, entry.format);
+        function showFromHistory(id) {
+            const e = scanHistory.find(x=>String(x.id)===String(id));
+            if (!e) return;
+            showResult(e.text, detectContentType(e.text), e.format);
         }
 
         function clearHistory() {
-            if (scanHistory.length === 0) return;
-            scanHistory = [];
-            localStorage.setItem('bgt_scan_history', '[]');
-            updateHistoryBadge();
-            renderHistory();
-            showToast('Riwayat berhasil dihapus', 'success');
+            if(!scanHistory.length) return;
+            scanHistory=[]; localStorage.setItem('bgt_scan_history','[]');
+            updateHistoryBadge(); renderHistory(); showToast('Riwayat dihapus','success');
         }
 
         function updateHistoryBadge() {
-            const badge = document.getElementById('historyBadge');
-            if (scanHistory.length > 0) {
-                badge.style.display = 'flex';
-                badge.textContent = scanHistory.length > 99 ? '99+' : scanHistory.length;
-            } else {
-                badge.style.display = 'none';
-            }
+            const b = document.getElementById('historyBadge');
+            if(scanHistory.length>0){b.style.display='flex';b.textContent=scanHistory.length>99?'99+':scanHistory.length;}
+            else b.style.display='none';
         }
 
         // ========== UTILITAS ==========
-        function escapeHtml(str) {
-            if (!str) return '';
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        function escapeAttr(str) {
-            if (!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-
-        function escapeJs(str) {
-            if (!str) return '';
-            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
-        }
+        function esc(s) { if(!s)return''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+        function escA(s) { if(!s)return''; return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
         function copyToClipboard(text) {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('Berhasil disalin ke clipboard', 'success');
-                }).catch(() => fallbackCopy(text));
-            } else {
-                fallbackCopy(text);
-            }
+            if(navigator.clipboard&&navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(()=>showToast('Berhasil disalin','success')).catch(()=>fallbackCopy(text));
+            } else fallbackCopy(text);
         }
-
         function fallbackCopy(text) {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.cssText = 'position:fixed;left:-9999px;';
-            document.body.appendChild(ta);
-            ta.select();
-            try {
-                document.execCommand('copy');
-                showToast('Berhasil disalin ke clipboard', 'success');
-            } catch(e) {
-                showToast('Gagal menyalin', 'error');
-            }
+            const ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;left:-9999px;';
+            document.body.appendChild(ta); ta.select();
+            try{document.execCommand('copy');showToast('Berhasil disalin','success');}catch(e){showToast('Gagal menyalin','error');}
             document.body.removeChild(ta);
         }
 
         function playBeep() {
             try {
-                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
-                osc.frequency.setValueAtTime(1600, audioCtx.currentTime + 0.08);
-                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-                osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.2);
-            } catch(e) {}
+                if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+                const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+                o.connect(g);g.connect(audioCtx.destination);
+                o.frequency.setValueAtTime(1200,audioCtx.currentTime);
+                o.frequency.setValueAtTime(1600,audioCtx.currentTime+0.08);
+                g.gain.setValueAtTime(0.3,audioCtx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.2);
+                o.start(audioCtx.currentTime);o.stop(audioCtx.currentTime+0.2);
+            } catch(e){}
         }
 
         function showSuccessFlash() {
-            const flash = document.createElement('div');
-            flash.className = 'success-flash';
-            document.body.appendChild(flash);
-            setTimeout(() => flash.remove(), 600);
+            const f=document.createElement('div'); f.className='success-flash';
+            document.body.appendChild(f); setTimeout(()=>f.remove(),600);
         }
 
-        function showToast(message, type) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast toast-' + (type || 'info');
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+        function showToast(msg, type) {
+            const c=document.getElementById('toastContainer'), t=document.createElement('div');
+            t.className='toast toast-'+(type||'info'); t.textContent=msg;
+            c.appendChild(t); setTimeout(()=>t.remove(),3000);
         }
     </script>
 </body>
