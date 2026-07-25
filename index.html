@@ -44,6 +44,24 @@
         .screen.hidden-left { transform: translateX(-100%); opacity: 0; pointer-events: none; }
         .screen.active { transform: translateX(0); opacity: 1; pointer-events: all; }
 
+        /* Elemen tersembunyi untuk scan gambar - harus di dalam layout normal */
+        #hiddenImageScanner {
+            position: fixed !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            width: 1px !important;
+            height: 1px !important;
+            overflow: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            z-index: -9999 !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        #hiddenImageScanner video { display: none !important; }
+        #hiddenImageScanner img { display: none !important; }
+
         /* ========== HOME ========== */
         #homeScreen {
             display: flex; flex-direction: column;
@@ -282,14 +300,15 @@
         .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
         .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
         .modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-        .modal-input {
+        .modal-textarea {
             width: 100%; padding: 16px 18px; background: var(--bg-card-2);
             border: 2px solid var(--border); border-radius: 14px; color: var(--text);
-            font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 500;
+            font-size: 14px; font-family: 'Courier New', monospace; font-weight: 500;
             outline: none; transition: border-color 0.2s ease;
+            resize: vertical; min-height: 200px; line-height: 1.6;
         }
-        .modal-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 14px; }
-        .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255,107,0,0.1); }
+        .modal-textarea::placeholder { color: var(--text-muted); font-weight: 400; font-size: 13px; font-family: 'Inter', sans-serif; }
+        .modal-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255,107,0,0.1); }
         .modal-submit {
             width: 100%; padding: 16px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -299,15 +318,7 @@
             font-family: 'Inter', sans-serif; transition: all 0.2s ease;
         }
         .modal-submit:active { transform: scale(0.97); }
-        .modal-textarea {
-            width: 100%; padding: 16px 18px; background: var(--bg-card-2);
-            border: 2px solid var(--border); border-radius: 14px; color: var(--text);
-            font-size: 14px; font-family: 'Inter', monospace; font-weight: 500;
-            outline: none; transition: border-color 0.2s ease;
-            resize: vertical; min-height: 200px; line-height: 1.6;
-        }
-        .modal-textarea::placeholder { color: var(--text-muted); font-weight: 400; font-size: 13px; font-family: 'Inter', sans-serif; }
-        .modal-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255,107,0,0.1); }
+        .modal-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .suggestion-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
         .suggestion-chips-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; width: 100%; }
@@ -326,9 +337,9 @@
         .upload-area i { font-size: 40px; color: var(--primary); margin-bottom: 12px; opacity: 0.7; }
         .upload-area p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
         .upload-area .upload-hint { font-size: 11px; color: var(--text-muted); opacity: 0.6; margin-top: 8px; }
-        .upload-preview { max-width: 100%; max-height: 200px; border-radius: 12px; margin-bottom: 12px; display: none; }
+        .upload-preview { max-width: 100%; max-height: 200px; border-radius: 12px; margin-bottom: 12px; display: none; object-fit: contain; background: var(--bg-card-2); padding: 8px; }
 
-        /* ========== RESULT — TABEL DATA ========== */
+        /* ========== RESULT ========== */
         #resultScreen { background: linear-gradient(170deg, #0A0A0F 0%, #141420 100%); display: flex; flex-direction: column; overflow-y: auto; }
         .result-header {
             padding: 14px 20px; display: flex; align-items: center; gap: 14px;
@@ -355,7 +366,6 @@
 
         .result-body { flex: 1; padding: 16px; animation: fadeInUp 0.5s ease; padding-bottom: 40px; }
 
-        /* Banner tipe */
         .result-type-banner {
             display: flex; align-items: center; gap: 12px;
             padding: 14px 16px; border-radius: 14px; margin-bottom: 16px; border: 1px solid;
@@ -378,7 +388,6 @@
         .result-type-banner.wifi { background: rgba(0,230,118,0.06); border-color: rgba(0,230,118,0.2); }
         .result-type-banner.wifi i { color: var(--success); }
 
-        /* Kode mentah */
         .raw-code-box {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: 14px; padding: 14px 16px; margin-bottom: 16px;
@@ -401,21 +410,14 @@
             background: var(--bg-card-2); color: var(--text-muted); border: 1px solid var(--border); margin-top: 10px;
         }
 
-        /* ===== TABEL DATA UTAMA ===== */
+        /* Tabel Data */
         .data-table-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            overflow: hidden;
-            margin-bottom: 16px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 18px; overflow: hidden; margin-bottom: 16px;
         }
         .data-table-card-header {
-            padding: 16px 18px 12px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
+            padding: 16px 18px 12px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px; position: relative;
         }
         .data-table-card-header::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -423,55 +425,32 @@
         }
         .data-table-card-header i { font-size: 18px; color: var(--primary); }
         .data-table-card-header span { font-size: 15px; font-weight: 700; }
-
         .data-table-row {
-            display: flex;
-            padding: 11px 18px;
+            display: flex; padding: 11px 18px;
             border-bottom: 1px solid rgba(42,42,64,0.5);
-            align-items: flex-start;
-            gap: 8px;
-            transition: background 0.15s ease;
+            align-items: flex-start; gap: 8px; transition: background 0.15s ease;
         }
         .data-table-row:last-child { border-bottom: none; }
         .data-table-row:hover { background: rgba(255,107,0,0.03); }
         .data-table-row.highlight { background: rgba(255,107,0,0.06); }
-
         .data-table-label {
-            width: 45%;
-            min-width: 0;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            line-height: 1.5;
-            flex-shrink: 0;
-            padding-top: 1px;
+            width: 45%; min-width: 0; font-size: 12px; font-weight: 600;
+            color: var(--text-muted); line-height: 1.5; flex-shrink: 0; padding-top: 1px;
         }
-
         .data-table-separator {
-            width: 16px;
-            flex-shrink: 0;
-            text-align: center;
-            font-size: 12px;
-            color: var(--border-light);
-            padding-top: 2px;
+            width: 16px; flex-shrink: 0; text-align: center;
+            font-size: 12px; color: var(--border-light); padding-top: 2px;
         }
-
         .data-table-value {
-            flex: 1;
-            min-width: 0;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            line-height: 1.5;
-            word-break: break-word;
+            flex: 1; min-width: 0; font-size: 13px; font-weight: 600;
+            color: var(--text); line-height: 1.5; word-break: break-word;
         }
-
         .data-table-value.val-success { color: var(--success); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .data-table-value.val-danger { color: var(--danger); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .data-table-value.val-primary { color: var(--primary); font-weight: 700; font-family: 'Orbitron', monospace; font-size: 12px; }
         .data-table-value.val-empty { color: var(--text-muted); opacity: 0.5; font-style: italic; font-weight: 400; }
 
-        /* Kartu member lama */
+        /* Member Card */
         .member-card {
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
             border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 16px;
@@ -499,7 +478,6 @@
         .wifi-row-label { font-size: 13px; color: var(--text-muted); }
         .wifi-row-value { font-size: 13px; font-weight: 600; }
 
-        /* Aksi */
         .result-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
         .result-action-btn {
             padding: 14px 20px; border-radius: 14px; font-size: 14px; font-weight: 600;
@@ -513,14 +491,6 @@
         .btn-success { background: rgba(0,230,118,0.12); border: 1px solid rgba(0,230,118,0.25) !important; color: var(--success); }
         .btn-phone { background: rgba(156,39,176,0.12); border: 1px solid rgba(156,39,176,0.25) !important; color: #CE93D8; }
         .btn-email { background: rgba(255,107,0,0.12); border: 1px solid rgba(255,107,0,0.25) !important; color: var(--primary); }
-
-        .not-found-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 18px; padding: 40px 20px; text-align: center;
-        }
-        .not-found-card i { font-size: 48px; color: var(--danger); margin-bottom: 16px; opacity: 0.6; }
-        .not-found-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-        .not-found-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
         /* ========== HISTORY ========== */
         #historyScreen { background: linear-gradient(170deg, #0A0A0F 0%, #141420 100%); display: flex; flex-direction: column; }
@@ -558,7 +528,7 @@
         .history-icon.data { background: rgba(255,107,0,0.1); color: var(--primary); }
         .history-info { flex: 1; min-width: 0; }
         .history-code {
-            font-family: 'Orbitron', monospace; font-size: 12px; font-weight: 700;
+            font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
             color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .history-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
@@ -615,6 +585,9 @@
 </head>
 <body>
 
+    <!-- Elemen tersembunyi PERMANEN untuk scan gambar -->
+    <div id="hiddenImageScanner"></div>
+
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ========== HOME ========== -->
@@ -633,42 +606,23 @@
             </div>
         </div>
         <div class="home-content">
-            <div class="scan-icon-wrap">
-                <i class="fas fa-qrcode"></i>
-            </div>
+            <div class="scan-icon-wrap"><i class="fas fa-qrcode"></i></div>
             <h1 style="font-size:24px;font-weight:800;margin-bottom:8px;text-align:center;">Universal Scanner</h1>
             <p style="font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:28px;max-width:300px;line-height:1.5;">
                 Scan QR Code, Barcode, Gambar, atau Input Manual
             </p>
-            <button class="scan-btn" onclick="startScanner()">
-                <i class="fas fa-camera"></i>
-                Mulai Scan Kamera
-            </button>
-            <button class="secondary-btn" onclick="openImageUpload()">
-                <i class="fas fa-image"></i>
-                Scan dari Gambar
-            </button>
-            <button class="secondary-btn" onclick="openManualInput()">
-                <i class="fas fa-keyboard"></i>
-                Input Manual
-            </button>
+            <button class="scan-btn" onclick="startScanner()"><i class="fas fa-camera"></i> Mulai Scan Kamera</button>
+            <button class="secondary-btn" onclick="openImageUpload()"><i class="fas fa-image"></i> Scan dari Gambar</button>
+            <button class="secondary-btn" onclick="openManualInput()"><i class="fas fa-keyboard"></i> Input Manual</button>
             <div class="https-warning" id="httpsWarning">
                 <i class="fas fa-triangle-exclamation"></i>
                 Kamera tidak akan berfungsi karena halaman dibuka via <strong>http://</strong>. Gunakan <strong>https://</strong> atau <strong>localhost</strong>.
             </div>
             <div class="quick-actions">
-                <div class="quick-action" onclick="startScanner('qr')">
-                    <i class="fas fa-qrcode"></i><span>QR Code</span>
-                </div>
-                <div class="quick-action" onclick="startScanner('barcode')">
-                    <i class="fas fa-barcode"></i><span>Barcode</span>
-                </div>
-                <div class="quick-action" onclick="openImageUpload()">
-                    <i class="fas fa-image"></i><span>Dari Gambar</span>
-                </div>
-                <div class="quick-action" onclick="openManualInput()">
-                    <i class="fas fa-keyboard"></i><span>Manual</span>
-                </div>
+                <div class="quick-action" onclick="startScanner('qr')"><i class="fas fa-qrcode"></i><span>QR Code</span></div>
+                <div class="quick-action" onclick="startScanner('barcode')"><i class="fas fa-barcode"></i><span>Barcode</span></div>
+                <div class="quick-action" onclick="openImageUpload()"><i class="fas fa-image"></i><span>Dari Gambar</span></div>
+                <div class="quick-action" onclick="openManualInput()"><i class="fas fa-keyboard"></i><span>Manual</span></div>
             </div>
         </div>
         <div class="home-bottom-nav">
@@ -710,9 +664,7 @@
             <button class="scanner-ctrl-btn" onclick="stopScanner();openImageUpload();" aria-label="Upload gambar"><i class="fas fa-image"></i></button>
         </div>
         <div class="scan-hint" id="scanHint" style="display:none;">Arahkan kode ke dalam kotak scan</div>
-        <div class="scan-loading" id="scanLoading" style="display:none;">
-            <div class="spinner"></div><span>Membuka kamera...</span>
-        </div>
+        <div class="scan-loading" id="scanLoading" style="display:none;"><div class="spinner"></div><span>Membuka kamera...</span></div>
         <div class="camera-error" id="cameraError" style="display:none;">
             <i class="fas fa-video-slash"></i>
             <h3 id="cameraErrorTitle">Kamera Tidak Tersedia</h3>
@@ -747,7 +699,7 @@
 
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <script>
-        // ========== DATABASE ANGGOTA ==========
+        /* ========== DATABASE ========== */
         const databaseAnggota = {
             'BGT-0001': { nama:'Made Agus', status:'Aktif', mobil:'DK 1234 AB', bergabung:'2023', telepon:'0812-3456-7890', alamat:'Denpasar, Bali', tipe:'Driver' },
             'BGT-0002': { nama:'Wayan Sudiarta', status:'Aktif', mobil:'DK 5678 CD', bergabung:'2022', telepon:'0813-9876-5432', alamat:'Badung, Bali', tipe:'Driver' },
@@ -757,12 +709,11 @@
             'TKT-001': { nama:'Anniversary BGT 2025', status:'Berlaku', mobil:'-', bergabung:'-', telepon:'-', alamat:'Sanur, Bali', tipe:'Tiket Event' },
             'KDR-001': { nama:'Suzuki Avanza Silver', status:'Terdaftar', mobil:'DK 1234 AB', bergabung:'2023', telepon:'0812-3456-7890', alamat:'Denpasar, Bali', tipe:'Kendaraan' }
         };
-
-        // ========== CONTOH DATA KENDARAAN (untuk demo) ==========
         const contohDataKendaraan = `Kode Registrasi\t:\t17592253521\nTahun Kendaraan\t:\t2024\nWarna\t:\tHITAM METALIK\nKapasitas Mesin (cc)\t:\t1485\nTipe Sifat\t:\tPERORANGAN\nTipe Kendaraan\t:\tCONFERO 1.5 N15A LV0-8F (4X2) M/T\nModel\t:\t\nJenis\t:\tMINIBUS\nMerk\t:\tWULING\nNo Kendaraan\t:\tDK1204FCJ\nNo Rangka\t:\tMK3AAAGA8RJ002446\nNo Mesin\t:\tLAR18P11010248\nNo BPKB\t:\tV04665506\nNo Uji\t:\t0\nNo Lambung\t:\t35\nFasilitas\t:\nDaya Angkut Orang (orang)\t:\t7\nDaya Angkut Barang (kg)\t:\t0\nNama Pemilik\t:\tI PUTU EKA SUDIAMARTANA\nAlamat Pemilik\t:\tJL.YEH OTAN 10 PESALAKAN TUBAN KUTA BADUNG\nKesimpulan Verifikasi\t:\tlolos`;
 
-        // ========== STATE ==========
+        /* ========== STATE ========== */
         let html5QrCode = null;
+        let imageScanner = null; // Instance khusus untuk scan gambar, dipakai ulang
         let isScanning = false;
         let flashOn = false;
         let currentFacingMode = 'environment';
@@ -772,265 +723,164 @@
         let lastScannedCode = '';
         let lastScannedTime = 0;
 
-        // ========== INIT ==========
+        /* ========== INIT ========== */
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
             updateHistoryBadge();
             checkHttps();
+            // Pastikan elemen hidden ada
+            const el = document.getElementById('hiddenImageScanner');
+            if (!el) {
+                const d = document.createElement('div');
+                d.id = 'hiddenImageScanner';
+                document.body.prepend(d);
+            }
         });
 
         function checkHttps() {
-            const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-            if (!isSecure) document.getElementById('httpsWarning').style.display = 'block';
+            const s = location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
+            if (!s) document.getElementById('httpsWarning').style.display = 'block';
         }
-
         function createParticles() {
-            const c = document.getElementById('particles');
-            if (!c) return;
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = Math.random()*100+'%';
-                p.style.width = p.style.height = (1+Math.random()*3)+'px';
-                p.style.animationDuration = (6+Math.random()*10)+'s';
-                p.style.animationDelay = (Math.random()*8)+'s';
-                c.appendChild(p);
-            }
+            const c = document.getElementById('particles'); if(!c) return;
+            for(let i=0;i<30;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.width=p.style.height=(1+Math.random()*3)+'px';p.style.animationDuration=(6+Math.random()*10)+'s';p.style.animationDelay=(Math.random()*8)+'s';c.appendChild(p);}
         }
 
-        // ========== NAVIGASI ==========
+        /* ========== NAVIGASI ========== */
         function navigateTo(screen) {
-            const map = { home:'homeScreen', scanner:'scannerScreen', result:'resultScreen', history:'historyScreen' };
-            const targetId = map[screen];
-            if (!targetId) return;
-            const order = ['homeScreen','scannerScreen','resultScreen','historyScreen'];
-            document.querySelectorAll('.screen').forEach(s => {
-                if (s.id === targetId) { s.className = 'screen active'; }
-                else {
-                    s.className = order.indexOf(s.id) < order.indexOf(targetId) ? 'screen hidden-left' : 'screen hidden-right';
-                }
+            const map={home:'homeScreen',scanner:'scannerScreen',result:'resultScreen',history:'historyScreen'};
+            const tid=map[screen]; if(!tid) return;
+            const ord=['homeScreen','scannerScreen','resultScreen','historyScreen'];
+            document.querySelectorAll('.screen').forEach(s=>{
+                if(s.id===tid) s.className='screen active';
+                else s.className=ord.indexOf(s.id)<ord.indexOf(tid)?'screen hidden-left':'screen hidden-right';
             });
-            if (screen === 'history') renderHistory();
+            if(screen==='history') renderHistory();
         }
 
-        // ========== PARSE DATA STRUKTUR ==========
-        // Mendeteksi teks berformat "Label	:	Value" atau "Label : Value"
+        /* ========== DETEKSI & PARSE ========== */
         function parseStructuredData(text) {
-            const lines = text.split(/\r?\n/);
-            const pairs = [];
-            let matchCount = 0;
-
-            for (const line of lines) {
-                // Pola: label(tab atau spasi):(tab atau spasi)value
-                const match = line.match(/^(.+?)\s*:\s*(.*)$/);
-                if (match) {
-                    const label = match[1].trim();
-                    const value = match[2].trim();
-                    if (label.length > 0) {
-                        pairs.push({ label, value });
-                        matchCount++;
-                    }
-                }
+            const lines=text.split(/\r?\n/), pairs=[]; let mc=0;
+            for(const line of lines){
+                const m=line.match(/^(.+?)\s*:\s*(.*)$/);
+                if(m){const l=m[1].trim(),v=m[2].trim();if(l.length>0){pairs.push({label:l,value:v});mc++;}}
             }
-
-            // Dianggap data terstruktur jika minimal 3 baris berformat label:value
-            if (matchCount >= 3) {
-                return { type: 'data', label: 'Data Terstruktur', icon: 'fa-table-list', pairs };
-            }
-
+            if(mc>=3) return {type:'data',label:'Data Terstruktur',icon:'fa-table-list',pairs};
             return null;
         }
-
-        // ========== DETEKSI TIPE KONTEN ==========
         function detectContentType(text) {
-            text = text.trim();
-
-            // Cek data terstruktur dulu (label: value)
-            const structured = parseStructuredData(text);
-            if (structured) return structured;
-
-            if (/^https?:\/\//i.test(text) || /^www\./i.test(text))
-                return { type:'url', label:'Tautan Web', icon:'fa-link' };
-            if (/^mailto:/i.test(text) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text))
-                return { type:'email', label:'Alamat Email', icon:'fa-envelope', value: text.replace(/^mailto:/i,'') };
-            if (/^tel:/i.test(text) || /^(\+?62|08)[0-9]{8,13}$/.test(text.replace(/[\s\-]/g,'')))
-                return { type:'phone', label:'Nomor Telepon', icon:'fa-phone', value: text.replace(/^tel:/i,'').trim() };
-            if (/^WIFI:/i.test(text))
-                return parseWifiString(text);
-
-            const code = text.toUpperCase();
-            if (databaseAnggota[code])
-                return { type:'member', label:'Data Anggota', icon:'fa-id-card' };
-
-            return { type:'text', label:'Teks', icon:'fa-align-left' };
+            text=text.trim();
+            const sd=parseStructuredData(text); if(sd) return sd;
+            if(/^https?:\/\//i.test(text)||/^www\./i.test(text)) return {type:'url',label:'Tautan Web',icon:'fa-link'};
+            if(/^mailto:/i.test(text)||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) return {type:'email',label:'Alamat Email',icon:'fa-envelope',value:text.replace(/^mailto:/i,'')};
+            if(/^tel:/i.test(text)||/^(\+?62|08)[0-9]{8,13}$/.test(text.replace(/[\s\-]/g,''))) return {type:'phone',label:'Nomor Telepon',icon:'fa-phone',value:text.replace(/^tel:/i,'').trim()};
+            if(/^WIFI:/i.test(text)) return parseWifi(text);
+            if(databaseAnggota[text.toUpperCase()]) return {type:'member',label:'Data Anggota',icon:'fa-id-card'};
+            return {type:'text',label:'Teks',icon:'fa-align-left'};
         }
-
-        function parseWifiString(text) {
-            const parts = {};
-            text.replace(/^WIFI:/i,'').split(';').forEach(seg => {
-                const [key,...val] = seg.split(':');
-                if (key && val.length) parts[key.trim().toUpperCase()] = val.join(':').trim();
-            });
-            return {
-                type:'wifi', label:'Jaringan WiFi', icon:'fa-wifi',
-                ssid: parts.SSID||'Tidak diketahui', password: parts.P||parts.PASS||parts.PASSWORD||'-',
-                encryption: parts.T||parts.TYPE||'WPA', hidden: parts.H==='true'
-            };
+        function parseWifi(text) {
+            const p={};
+            text.replace(/^WIFI:/i,'').split(';').forEach(s=>{const[k,...v]=s.split(':');if(k&&v.length)p[k.trim().toUpperCase()]=v.join(':').trim();});
+            return {type:'wifi',label:'Jaringan WiFi',icon:'fa-wifi',ssid:p.SSID||'?',password:p.P||p.PASS||p.PASSWORD||'-',encryption:p.T||p.TYPE||'WPA',hidden:p.H==='true'};
         }
-
-        // ========== FORMAT SUPPORT ==========
         function getSupportedFormats(mode) {
-            if (!Html5QrcodeSupportedFormats) return undefined;
-            if (mode === 'qr') return [Html5QrcodeSupportedFormats.QR_CODE, Html5QrcodeSupportedFormats.AZTEC, Html5QrcodeSupportedFormats.DATA_MATRIX, Html5QrcodeSupportedFormats.PDF_417];
-            if (mode === 'barcode') return [Html5QrcodeSupportedFormats.CODE_128, Html5QrcodeSupportedFormats.CODE_39, Html5QrcodeSupportedFormats.CODE_93, Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.EAN_8, Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.UPC_E, Html5QrcodeSupportedFormats.ITF, Html5QrcodeSupportedFormats.CODABAR];
+            if(!Html5QrcodeSupportedFormats) return undefined;
+            if(mode==='qr') return [Html5QrcodeSupportedFormats.QR_CODE,Html5QrcodeSupportedFormats.AZTEC,Html5QrcodeSupportedFormats.DATA_MATRIX,Html5QrcodeSupportedFormats.PDF_417];
+            if(mode==='barcode') return [Html5QrcodeSupportedFormats.CODE_128,Html5QrcodeSupportedFormats.CODE_39,Html5QrcodeSupportedFormats.CODE_93,Html5QrcodeSupportedFormats.EAN_13,Html5QrcodeSupportedFormats.EAN_8,Html5QrcodeSupportedFormats.UPC_A,Html5QrcodeSupportedFormats.UPC_E,Html5QrcodeSupportedFormats.ITF,Html5QrcodeSupportedFormats.CODABAR];
             return undefined;
         }
 
-        // ========== SCANNER KAMERA ==========
+        /* ========== SCANNER KAMERA ========== */
         async function startScanner(mode) {
-            if (mode) currentScanMode = mode;
-            document.getElementById('cameraError').style.display = 'none';
-            navigateTo('scanner');
-            await new Promise(r => setTimeout(r, 450));
-
-            document.getElementById('scanLoading').style.display = 'flex';
-            document.getElementById('scanFrame').style.display = 'none';
-            document.getElementById('scannerControls').style.display = 'none';
-            document.getElementById('scanOverlay').style.display = 'none';
-            document.getElementById('scanHint').style.display = 'none';
-            document.getElementById('formatTabs').style.display = 'none';
-
-            const modeLabels = { all:'SEMUA FORMAT', qr:'QR CODE', barcode:'BARCODE' };
-            document.getElementById('scannerModeBadge').textContent = modeLabels[currentScanMode] || 'SEMUA FORMAT';
-            document.querySelectorAll('.format-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === currentScanMode));
-
+            if(mode) currentScanMode=mode;
+            document.getElementById('cameraError').style.display='none';
+            navigateTo('scanner'); await new Promise(r=>setTimeout(r,450));
+            ['scanLoading'].forEach(id=>document.getElementById(id).style.display='flex');
+            ['scanFrame','scannerControls','scanOverlay','scanHint','formatTabs'].forEach(id=>document.getElementById(id).style.display='none');
+            document.getElementById('scannerModeBadge').textContent={all:'SEMUA FORMAT',qr:'QR CODE',barcode:'BARCODE'}[currentScanMode];
+            document.querySelectorAll('.format-tab').forEach(t=>t.classList.toggle('active',t.dataset.mode===currentScanMode));
             try {
-                document.getElementById('scannerCamera').innerHTML = '';
-                html5QrCode = new Html5Qrcode('scannerCamera');
-                const config = {
-                    fps: 15,
-                    qrbox: function(w, h) {
-                        const s = Math.max(Math.floor(Math.min(w,h)*0.75), 150);
-                        return { width: s, height: s };
-                    },
-                    aspectRatio: 1.0, disableFlip: false
-                };
-                const formats = getSupportedFormats(currentScanMode);
-                if (formats) config.formatsToSupport = formats;
-
-                await html5QrCode.start({ facingMode: currentFacingMode }, config, onScanSuccess, () => {});
-                isScanning = true;
-                flashOn = false;
-                document.getElementById('flashBtn').classList.remove('flash-on');
-
-                document.getElementById('scanLoading').style.display = 'none';
-                document.getElementById('scanOverlay').style.display = 'block';
-                document.getElementById('scanFrame').style.display = 'block';
-                document.getElementById('scannerControls').style.display = 'flex';
-                document.getElementById('formatTabs').style.display = 'flex';
-                document.getElementById('scanHint').style.display = 'block';
-                document.getElementById('scanHint').textContent = { all:'Arahkan QR Code atau Barcode ke dalam kotak', qr:'Arahkan QR Code ke dalam kotak', barcode:'Arahkan Barcode ke dalam kotak' }[currentScanMode];
-            } catch(err) {
-                console.error('Gagal scanner:', err);
-                document.getElementById('scanLoading').style.display = 'none';
-                showCameraError(err);
-            }
+                document.getElementById('scannerCamera').innerHTML='';
+                html5QrCode=new Html5Qrcode('scannerCamera');
+                const cfg={fps:15,qrbox:(w,h)=>{const s=Math.max(Math.floor(Math.min(w,h)*0.75),150);return{width:s,height:s};},aspectRatio:1.0,disableFlip:false};
+                const fmt=getSupportedFormats(currentScanMode); if(fmt) cfg.formatsToSupport=fmt;
+                await html5QrCode.start({facingMode:currentFacingMode},cfg,onScanSuccess,()=>{});
+                isScanning=true; flashOn=false; document.getElementById('flashBtn').classList.remove('flash-on');
+                document.getElementById('scanLoading').style.display='none';
+                ['scanOverlay','scanFrame','scannerControls','formatTabs','scanHint'].forEach(id=>document.getElementById(id).style.display=id==='scannerControls'||id==='formatTabs'?'flex':'block');
+                document.getElementById('scanHint').textContent={all:'Arahkan QR Code atau Barcode ke dalam kotak',qr:'Arahkan QR Code ke dalam kotak',barcode:'Arahkan Barcode ke dalam kotak'}[currentScanMode];
+            } catch(err) { console.error(err); document.getElementById('scanLoading').style.display='none'; showCameraError(err); }
         }
 
-        function onScanSuccess(decodedText, decodedResult) {
-            const now = Date.now();
-            if (decodedText === lastScannedCode && now - lastScannedTime < 3000) return;
-            lastScannedCode = decodedText;
-            lastScannedTime = now;
+        function onScanSuccess(dt, dr) {
+            const now=Date.now(); if(dt===lastScannedCode&&now-lastScannedTime<3000) return;
+            lastScannedCode=dt; lastScannedTime=now;
             playBeep(); showSuccessFlash();
-            let fmt = 'Tidak diketahui';
-            if (decodedResult && decodedResult.result && decodedResult.result.format) fmt = decodedResult.result.format.formatName;
-            stopScanner();
-            processScanResult(decodedText, fmt, 'kamera');
+            let fmt='Tidak diketahui'; if(dr&&dr.result&&dr.result.format) fmt=dr.result.format.formatName;
+            stopScanner(); processScanResult(dt,fmt,'kamera');
         }
 
         async function switchFormat(mode) {
-            if (mode === currentScanMode && isScanning) return;
-            currentScanMode = mode;
-            document.querySelectorAll('.format-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
-            document.getElementById('scannerModeBadge').textContent = { all:'SEMUA FORMAT', qr:'QR CODE', barcode:'BARCODE' }[mode];
-            document.getElementById('scanHint').textContent = { all:'Arahkan QR Code atau Barcode ke dalam kotak', qr:'Arahkan QR Code ke dalam kotak', barcode:'Arahkan Barcode ke dalam kotak' }[mode];
-            if (isScanning) {
-                try { await html5QrCode.stop(); } catch(e){}
-                isScanning = false;
-                document.getElementById('scannerCamera').innerHTML = '';
-                await startScanner(mode);
-            }
+            if(mode===currentScanMode&&isScanning) return;
+            currentScanMode=mode;
+            document.querySelectorAll('.format-tab').forEach(t=>t.classList.toggle('active',t.dataset.mode===mode));
+            document.getElementById('scannerModeBadge').textContent={all:'SEMUA FORMAT',qr:'QR CODE',barcode:'BARCODE'}[mode];
+            document.getElementById('scanHint').textContent={all:'Arahkan QR Code atau Barcode ke dalam kotak',qr:'Arahkan QR Code ke dalam kotak',barcode:'Arahkan Barcode ke dalam kotak'}[mode];
+            if(isScanning){try{await html5QrCode.stop();}catch(e){}isScanning=false;document.getElementById('scannerCamera').innerHTML='';await startScanner(mode);}
         }
 
         function showCameraError(err) {
-            isScanning = false;
-            document.getElementById('scannerCamera').innerHTML = '';
-            ['scanOverlay','scanFrame','scannerControls','scanHint','formatTabs'].forEach(id => document.getElementById(id).style.display = 'none');
-            const titleEl = document.getElementById('cameraErrorTitle');
-            const msgEl = document.getElementById('cameraErrorMsg');
-            const errStr = (err.message||err.toString()||'').toLowerCase();
-            const isSecure = location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
-            if (!isSecure) { titleEl.textContent='Butuh HTTPS'; msgEl.textContent='Kamera hanya bisa diakses melalui HTTPS atau localhost. Gunakan Scan dari Gambar atau Input Manual.'; }
-            else if (errStr.includes('permission')||errStr.includes('denied')) { titleEl.textContent='Izin Kamera Ditolak'; msgEl.textContent='Buka pengaturan browser/HP dan izinkan kamera untuk halaman ini.'; }
-            else if (errStr.includes('notfound')||errStr.includes('no camera')) { titleEl.textContent='Kamera Tidak Ditemukan'; msgEl.textContent='Tidak ada kamera yang terdeteksi.'; }
-            else { titleEl.textContent='Gagal Membuka Kamera'; msgEl.textContent='Terjadi kesalahan: '+(err.message||err); }
-            document.getElementById('cameraError').style.display = 'flex';
+            isScanning=false; document.getElementById('scannerCamera').innerHTML='';
+            ['scanOverlay','scanFrame','scannerControls','scanHint','formatTabs','scanLoading'].forEach(id=>document.getElementById(id).style.display='none');
+            const t=document.getElementById('cameraErrorTitle'),m=document.getElementById('cameraErrorMsg');
+            const es=(err.message||err.toString()||'').toLowerCase();
+            const sec=location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1';
+            if(!sec){t.textContent='Butuh HTTPS';m.textContent='Gunakan Scan dari Gambar atau Input Manual sebagai alternatif.';}
+            else if(es.includes('permission')||es.includes('denied')){t.textContent='Izin Kamera Ditolak';m.textContent='Buka pengaturan dan izinkan akses kamera.';}
+            else if(es.includes('notfound')){t.textContent='Kamera Tidak Ditemukan';m.textContent='Tidak ada kamera terdeteksi di perangkat ini.';}
+            else{t.textContent='Gagal Membuka Kamera';m.textContent='Error: '+(err.message||err);}
+            document.getElementById('cameraError').style.display='flex';
         }
 
         async function stopScanner() {
-            if (html5QrCode && isScanning) {
-                try { await html5QrCode.stop(); } catch(e){}
-                isScanning = false;
-                setTimeout(() => { const el = document.getElementById('scannerCamera'); if(el) el.innerHTML=''; }, 100);
-            }
+            if(html5QrCode&&isScanning){try{await html5QrCode.stop();}catch(e){}isScanning=false;setTimeout(()=>{const el=document.getElementById('scannerCamera');if(el)el.innerHTML='';},100);}
         }
-        async function retryScanner() { document.getElementById('cameraError').style.display='none'; await startScanner(currentScanMode); }
-        async function flipCamera() {
-            currentFacingMode = currentFacingMode==='environment'?'user':'environment';
-            if (isScanning) { try{await html5QrCode.stop();}catch(e){} isScanning=false; document.getElementById('scannerCamera').innerHTML=''; await startScanner(currentScanMode); }
-        }
-        async function toggleFlash() {
-            if (!html5QrCode||!isScanning) return;
-            try {
-                const cap = html5QrCode.getRunningTrackCameraCapabilities();
-                if (cap&&cap.torchFeature&&cap.torchFeature.isSupported()) {
-                    flashOn=!flashOn; await cap.torchFeature.apply(flashOn);
-                    document.getElementById('flashBtn').classList.toggle('flash-on',flashOn);
-                    showToast(flashOn?'Senter menyala':'Senter mati','info');
-                } else showToast('Senter tidak didukung','error');
-            } catch(e) { showToast('Gagal mengaktifkan senter','error'); }
+        async function retryScanner(){document.getElementById('cameraError').style.display='none';await startScanner(currentScanMode);}
+        async function flipCamera(){currentFacingMode=currentFacingMode==='environment'?'user':'environment';if(isScanning){try{await html5QrCode.stop();}catch(e){}isScanning=false;document.getElementById('scannerCamera').innerHTML='';await startScanner(currentScanMode);}}
+        async function toggleFlash(){
+            if(!html5QrCode||!isScanning)return;
+            try{const c=html5QrCode.getRunningTrackCameraCapabilities();if(c&&c.torchFeature&&c.torchFeature.isSupported()){flashOn=!flashOn;await c.torchFeature.apply(flashOn);document.getElementById('flashBtn').classList.toggle('flash-on',flashOn);showToast(flashOn?'Senter menyala':'Senter mati','info');}else showToast('Senter tidak didukung','error');}catch(e){showToast('Gagal','error');}
         }
 
-        // ========== SCAN GAMBAR ==========
+        /* ========== SCAN DARI GAMBAR (DIPERBAIKI) ========== */
         function openImageUpload() {
-            const o = document.createElement('div');
-            o.className='modal-overlay'; o.id='imageUploadModal';
+            const o=document.createElement('div'); o.className='modal-overlay'; o.id='imageUploadModal';
             o.innerHTML=`<div class="modal-sheet">
                 <div class="modal-handle"></div>
                 <div class="modal-title">Scan dari Gambar</div>
-                <div class="modal-subtitle">Upload gambar yang berisi QR Code atau Barcode</div>
+                <div class="modal-subtitle">Pilih gambar dari galeri yang berisi QR Code atau Barcode</div>
                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageFileInput').click()">
                     <img class="upload-preview" id="uploadPreview" alt="Preview">
                     <i class="fas fa-cloud-arrow-up" id="uploadIcon"></i>
-                    <p id="uploadText">Ketuk untuk memilih gambar</p>
-                    <p class="upload-hint">JPG, PNG, GIF, BMP, WebP</p>
+                    <p id="uploadText">Ketuk untuk pilih gambar dari galeri</p>
+                    <p class="upload-hint">Mendukung JPG, PNG, GIF, BMP, WebP</p>
                 </div>
                 <input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
-                <button class="modal-submit" id="scanImageBtn" onclick="scanImageFile()" style="display:none;"><i class="fas fa-magnifying-glass"></i> Scan Gambar</button>
+                <button class="modal-submit" id="scanImageBtn" onclick="scanImageFile()" style="display:none;"><i class="fas fa-magnifying-glass"></i> Scan Gambar Ini</button>
                 <button class="modal-submit" style="background:var(--bg-card-2);color:var(--text-muted);margin-top:10px;" onclick="closeImageUpload()">Batal</button>
             </div>`;
             document.body.appendChild(o);
-            const area = document.getElementById('uploadArea');
-            area.addEventListener('dragover', e=>{e.preventDefault();area.classList.add('dragover');});
-            area.addEventListener('dragleave', ()=>area.classList.remove('dragover'));
-            area.addEventListener('drop', e=>{e.preventDefault();area.classList.remove('dragover');if(e.dataTransfer.files.length){document.getElementById('imageFileInput').files=e.dataTransfer.files;handleImageSelect({target:{files:e.dataTransfer.files}});}});
+            // Drag & drop
+            const area=document.getElementById('uploadArea');
+            area.addEventListener('dragover',e=>{e.preventDefault();area.classList.add('dragover');});
+            area.addEventListener('dragleave',()=>area.classList.remove('dragover'));
+            area.addEventListener('drop',e=>{e.preventDefault();area.classList.remove('dragover');if(e.dataTransfer.files.length){document.getElementById('imageFileInput').files=e.dataTransfer.files;handleImageSelect({target:{files:e.dataTransfer.files}});}});
         }
 
         function handleImageSelect(e) {
-            const file = e.target.files[0]; if(!file) return;
-            const reader = new FileReader();
-            reader.onload = function(ev) {
+            const file=e.target.files[0]; if(!file) return;
+            const reader=new FileReader();
+            reader.onload=function(ev){
                 document.getElementById('uploadPreview').src=ev.target.result;
                 document.getElementById('uploadPreview').style.display='block';
                 document.getElementById('uploadIcon').style.display='none';
@@ -1041,315 +891,202 @@
         }
 
         async function scanImageFile() {
-            const fi = document.getElementById('imageFileInput');
+            const fi=document.getElementById('imageFileInput');
             if(!fi||!fi.files.length){showToast('Pilih gambar dulu','error');return;}
-            const btn = document.getElementById('scanImageBtn');
-            btn.innerHTML='<div class="spinner" style="width:20px;height:20px;border-width:2px;"></div> Memindai...'; btn.disabled=true;
+            const btn=document.getElementById('scanImageBtn');
+            btn.disabled=true;
+            btn.innerHTML='<div class="spinner" style="width:20px;height:20px;border-width:2px;"></div> <span>Memindai gambar...</span>';
+
             try {
-                const hd = document.createElement('div'); hd.id='temp-scan-hidden'; hd.style.cssText='position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;'; document.body.appendChild(hd);
-                const ts = new Html5Qrcode('temp-scan-hidden');
-                const result = await ts.scanFile(fi.files[0], true);
-                document.body.removeChild(hd);
-                playBeep(); showSuccessFlash(); closeImageUpload();
-                let fmt='Tidak diketahui'; if(result&&result.result&&result.result.format) fmt=result.result.format.formatName;
+                /*
+                 * PERBAIKAN UTAMA:
+                 * Menggunakan elemen #hiddenImageScanner yang sudah ada permanen di DOM
+                 * (bukan dibuat/dihapus dinamis). Ini wajib karena library html5-qrcode
+                 * butuh elemen yang benar-benar "terlihat" oleh browser meskipun tipis/invisible.
+                 */
+                const scannerEl = document.getElementById('hiddenImageScanner');
+
+                // Bersihkan konten sebelumnya jika ada
+                scannerEl.innerHTML = '';
+
+                // Buat instance BARU setiap kali scan (menghindari state rusak)
+                if (imageScanner) {
+                    try { imageScanner.clear(); } catch(e) {}
+                    imageScanner = null;
+                }
+
+                imageScanner = new Html5Qrcode('hiddenImageScanner');
+                const result = await imageScanner.scanFile(fi.files[0], true);
+
+                // Berhasil!
+                playBeep();
+                showSuccessFlash();
+                closeImageUpload();
+
+                let fmt = 'Scan Gambar';
+                if (result && result.result && result.result.format) {
+                    fmt = result.result.format.formatName;
+                }
+
                 processScanResult(result.decodedText, fmt, 'gambar');
-            } catch(err) { console.error(err); showToast('Tidak ada kode terdeteksi dalam gambar','error'); }
-            btn.innerHTML='<i class="fas fa-magnifying-glass"></i> Scan Gambar'; btn.disabled=false;
+
+            } catch(err) {
+                console.error('Scan gambar gagal:', err);
+                let msg = 'Tidak ada QR Code atau Barcode yang terdeteksi dalam gambar.';
+                // Berikan pesan error yang lebih spesifik
+                const errStr = (err.message || '').toLowerCase();
+                if (errStr.includes('no qr code found') || errStr.includes('no code found')) {
+                    msg = 'Tidak ada kode terdeteksi. Pastikan gambar jelas dan tidak buram.';
+                } else if (errStr.includes('not a valid image') || errStr.includes('could not load')) {
+                    msg = 'Gambar tidak bisa dibaca. Coba pilih file gambar lain.';
+                }
+                showToast(msg, 'error');
+            }
+
+            // Kembalikan tombol
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-magnifying-glass"></i> Scan Gambar Ini';
+
+            // Bersihkan instance setelah selesai
+            if (imageScanner) {
+                try { imageScanner.clear(); } catch(e) {}
+                imageScanner = null;
+            }
+            document.getElementById('hiddenImageScanner').innerHTML = '';
         }
 
         function closeImageUpload() {
             const m=document.getElementById('imageUploadModal'); if(m) m.remove();
-            const h=document.getElementById('temp-scan-hidden'); if(h) h.remove();
+            // Bersihkan juga elemen hidden
+            if(imageScanner){try{imageScanner.clear();}catch(e){}imageScanner=null;}
+            const h=document.getElementById('hiddenImageScanner'); if(h) h.innerHTML='';
         }
 
-        // ========== INPUT MANUAL ==========
+        /* ========== INPUT MANUAL ========== */
         function openManualInput() {
-            const o = document.createElement('div');
-            o.className='modal-overlay'; o.id='manualInputModal';
+            const o=document.createElement('div'); o.className='modal-overlay'; o.id='manualInputModal';
             o.innerHTML=`<div class="modal-sheet">
                 <div class="modal-handle"></div>
                 <div class="modal-title">Input Manual</div>
-                <div class="modal-subtitle">Ketik kode, URL, atau tempel data terstruktur</div>
-                <textarea class="modal-textarea" id="manualInput" placeholder="Masukkan kode, URL, atau tempel data berformat Label : Value ..." rows="6"></textarea>
+                <div class="modal-subtitle">Ketik kode, URL, atau tempel data terstruktur (Ctrl+V)</div>
+                <textarea class="modal-textarea" id="manualInput" placeholder="Masukkan kode, URL, atau tempel data berformat&#10;Label : Value&#10;Label : Value&#10;..."></textarea>
                 <button class="modal-submit" onclick="submitManualInput()"><i class="fas fa-check"></i> Proses</button>
                 <div class="suggestion-chips">
                     <div class="suggestion-chips-label">Coba Contoh</div>
-                    <span class="suggestion-chip" onclick="setManual('BGT-0001')">BGT-0001</span>
-                    <span class="suggestion-chip" onclick="setManual('BGT-0003')">BGT-0003</span>
-                    <span class="suggestion-chip" onclick="setManual('https://google.com')">URL</span>
-                    <span class="suggestion-chip" onclick="setManual('WIFI:S:MyNetwork;T:WPA;P:password123;;')">WiFi</span>
-                    <span class="suggestion-chip" onclick="setManualDemo()">Data Kendaraan</span>
+                    <span class="suggestion-chip" onclick="setM('BGT-0001')">BGT-0001</span>
+                    <span class="suggestion-chip" onclick="setM('BGT-0003')">BGT-0003</span>
+                    <span class="suggestion-chip" onclick="setM('https://google.com')">URL</span>
+                    <span class="suggestion-chip" onclick="setM('WIFI:S:MyNetwork;T:WPA;P:password123;;')">WiFi</span>
+                    <span class="suggestion-chip" onclick="setM(contohDataKendaraan)">Data Kendaraan</span>
                 </div>
                 <button class="modal-submit" style="background:var(--bg-card-2);color:var(--text-muted);margin-top:10px;" onclick="closeManualInput()">Batal</button>
             </div>`;
             document.body.appendChild(o);
-            setTimeout(()=>{
-                const inp=document.getElementById('manualInput');
-                if(inp){inp.focus();inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey)submitManualInput();});}
-            },400);
+            setTimeout(()=>{const i=document.getElementById('manualInput');if(i){i.focus();i.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.ctrlKey)submitManualInput();});}},400);
+        }
+        function setM(v){const i=document.getElementById('manualInput');if(i){i.value=v;i.focus();}}
+        function submitManualInput(){const i=document.getElementById('manualInput');const v=i?i.value.trim():'';if(!v){showToast('Masukkan kode atau teks dulu','error');return;}playBeep();closeManualInput();processScanResult(v,'Input Manual','manual');}
+        function closeManualInput(){const m=document.getElementById('manualInputModal');if(m)m.remove();}
+
+        /* ========== PROSES & TAMPILKAN ========== */
+        function processScanResult(text,formatName,source){
+            const content=detectContentType(text);
+            addToHistory(text,content,formatName,source);
+            showResult(text,content,formatName);
         }
 
-        function setManual(val) { const i=document.getElementById('manualInput'); if(i){i.value=val;i.focus();} }
-        function setManualDemo() { const i=document.getElementById('manualInput'); if(i){i.value=contohDataKendaraan;i.focus();} }
-
-        function submitManualInput() {
-            const inp = document.getElementById('manualInput');
-            const val = inp ? inp.value.trim() : '';
-            if(!val){showToast('Masukkan kode atau teks dulu','error');return;}
-            playBeep(); closeManualInput();
-            processScanResult(val, 'Input Manual', 'manual');
-        }
-        function closeManualInput() { const m=document.getElementById('manualInputModal'); if(m) m.remove(); }
-
-        // ========== PROSES HASIL ==========
-        function processScanResult(text, formatName, source) {
-            const content = detectContentType(text);
-            addToHistory(text, content, formatName, source);
-            showResult(text, content, formatName);
-        }
-
-        // ========== TAMPILKAN HASIL ==========
-        function showResult(text, content, formatName) {
+        function showResult(text,content,formatName) {
             navigateTo('result');
-            document.getElementById('resultTitle').textContent = content.label;
+            document.getElementById('resultTitle').textContent=content.label;
+            const be=document.getElementById('resultBadge');
+            const bm={url:['badge-url','URL'],member:['badge-found','DITEMUKAN'],phone:['badge-text','TELEPON'],email:['badge-text','EMAIL'],wifi:['badge-found','WIFI'],text:['badge-text','TEKS'],data:['badge-data','DATA']};
+            const[bc,bt]=bm[content.type]||['badge-text','TEKS'];
+            be.className='result-status-badge '+bc; be.textContent=bt;
 
-            // Badge
-            const badgeEl = document.getElementById('resultBadge');
-            const badgeMap = {
-                url: ['badge-url','URL'], member: ['badge-found','DITEMUKAN'], phone: ['badge-text','TELEPON'],
-                email: ['badge-text','EMAIL'], wifi: ['badge-found','WIFI'], text: ['badge-text','TEKS'],
-                data: ['badge-data','DATA']
-            };
-            const [bClass, bText] = badgeMap[content.type] || ['badge-text','TEKS'];
-            badgeEl.className = 'result-status-badge ' + bClass;
-            badgeEl.textContent = bText;
+            let h=`<div class="result-type-banner ${content.type}"><i class="fas ${content.icon}"></i><div><div class="type-label">Tipe Terdeteksi</div><div class="type-name">${esc(content.label)}</div></div></div>`;
 
-            let html = '';
-
-            // Banner tipe
-            html += `<div class="result-type-banner ${content.type}"><i class="fas ${content.icon}"></i><div><div class="type-label">Tipe Terdeteksi</div><div class="type-name">${esc(content.label)}</div></div></div>`;
-
-            // ===== DATA TERSTRUKTUR: TABEL BERBARIS =====
-            if (content.type === 'data' && content.pairs) {
-                html += buildDataTable(content.pairs, text, formatName);
-            }
-            // ===== DATA MEMBER: KARTU + TABEL =====
-            else if (content.type === 'member') {
-                const m = databaseAnggota[text.toUpperCase()];
-                if (m) {
-                    const initials = m.nama.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-                    const isOk = ['aktif','berlaku','terdaftar'].includes(m.status.toLowerCase());
-                    html += `<div class="member-card">
-                        <div class="member-card-header">
-                            <div class="member-avatar">${initials}</div>
-                            <div><div class="member-name">${esc(m.nama)}</div><div class="member-id-small">${esc(text.toUpperCase())} &middot; ${esc(m.tipe)}</div></div>
-                        </div>
-                    </div>`;
-                    html += buildDataTable([
-                        {label:'Status', value:m.status, cls: isOk?'val-success':'val-danger'},
-                        {label:'Tipe', value:m.tipe},
-                        {label:'Kendaraan', value:m.mobil},
-                        {label:'Bergabung', value:m.bergabung},
-                        {label:'Telepon', value:m.telepon},
-                        {label:'Alamat', value:m.alamat}
-                    ], text, formatName);
+            if(content.type==='data'&&content.pairs) {
+                h+=buildDataTable(content.pairs,text,formatName);
+            } else if(content.type==='member') {
+                const m=databaseAnggota[text.toUpperCase()];
+                if(m){
+                    const ini=m.nama.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+                    const ok=['aktif','berlaku','terdaftar'].includes(m.status.toLowerCase());
+                    h+=`<div class="member-card"><div class="member-card-header"><div class="member-avatar">${ini}</div><div><div class="member-name">${esc(m.nama)}</div><div class="member-id-small">${esc(text.toUpperCase())} &middot; ${esc(m.tipe)}</div></div></div></div>`;
+                    h+=buildDataTable([{label:'Status',value:m.status,cls:ok?'val-success':'val-danger'},{label:'Tipe',value:m.tipe},{label:'Kendaraan',value:m.mobil},{label:'Bergabung',value:m.bergabung},{label:'Telepon',value:m.telepon},{label:'Alamat',value:m.alamat}],text,formatName);
                 }
-            }
-            // ===== WIFI =====
-            else if (content.type === 'wifi') {
-                html += `<div class="raw-code-box"><div class="label">Detail WiFi</div><div class="wifi-details">
+            } else if(content.type==='wifi') {
+                h+=`<div class="raw-code-box"><div class="label">Detail WiFi</div><div class="wifi-details">
                     <div class="wifi-row"><span class="wifi-row-label">SSID</span><span class="wifi-row-value">${esc(content.ssid)}</span></div>
                     <div class="wifi-row"><span class="wifi-row-label">Password</span><span class="wifi-row-value" id="wifiPwd">${content.hidden?'(Tersembunyi)':'••••••••'}</span></div>
                     <div class="wifi-row"><span class="wifi-row-label">Enkripsi</span><span class="wifi-row-value">${esc(content.encryption)}</span></div>
                     <div class="wifi-row"><span class="wifi-row-label">Tersembunyi</span><span class="wifi-row-value">${content.hidden?'Ya':'Tidak'}</span></div>
                 </div></div>`;
-            }
-            // ===== TEKS/URL/PHONE/EMAIL =====
-            else {
-                const isPlain = content.type==='text';
-                html += `<div class="raw-code-box"><div class="label">Hasil Scan</div><div class="code ${isPlain?'plain':''}">${esc(text)}</div><div class="format-tag"><i class="fas fa-microchip"></i> ${esc(formatName)}</div></div>`;
+            } else {
+                const pl=content.type==='text';
+                h+=`<div class="raw-code-box"><div class="label">Hasil Scan</div><div class="code ${pl?'plain':''}">${esc(text)}</div><div class="format-tag"><i class="fas fa-microchip"></i> ${esc(formatName)}</div></div>`;
             }
 
-            // ===== TOMBOL AKSI =====
-            html += `<div class="result-actions">`;
-            if (content.type==='url') {
-                const url = text.startsWith('http')?text:'https://'+text;
-                html += `<button class="result-action-btn btn-info" onclick="window.open('${escA(url)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka Tautan</button>`;
-            }
-            if (content.type==='phone') {
-                const ph = content.value||text.replace(/^tel:/i,'');
-                html += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${escA(ph)}')"><i class="fas fa-phone"></i> Hubungi</button>`;
-            }
-            if (content.type==='email') {
-                const em = content.value||text.replace(/^mailto:/i,'');
-                html += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${escA(em)}')"><i class="fas fa-envelope"></i> Kirim Email</button>`;
-            }
-            if (content.type==='wifi') {
-                html += `<button class="result-action-btn btn-success" onclick="toggleWifiPwd()"><i class="fas fa-eye"></i> Tampilkan Password</button>`;
-                html += `<button class="result-action-btn btn-secondary" onclick="copyToClipboard('${escA(content.password)}')"><i class="fas fa-copy"></i> Salin Password</button>`;
-            }
-            html += `<button class="result-action-btn btn-secondary" onclick="copyToClipboard(decodeURIComponent('${encodeURIComponent(text)}'))"><i class="fas fa-copy"></i> Salin Hasil Scan</button>`;
-            html += `<button class="result-action-btn btn-primary" onclick="startScanner('${currentScanMode}')"><i class="fas fa-camera"></i> Scan Lagi</button>`;
-            html += `</div>`;
-
-            document.getElementById('resultBody').innerHTML = html;
+            h+=`<div class="result-actions">`;
+            if(content.type==='url'){const u=text.startsWith('http')?text:'https://'+text;h+=`<button class="result-action-btn btn-info" onclick="window.open('${escA(u)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka Tautan</button>`;}
+            if(content.type==='phone'){const ph=content.value||text.replace(/^tel:/i,'');h+=`<button class="result-action-btn btn-phone" onclick="window.open('tel:${escA(ph)}')"><i class="fas fa-phone"></i> Hubungi</button>`;}
+            if(content.type==='email'){const em=content.value||text.replace(/^mailto:/i,'');h+=`<button class="result-action-btn btn-email" onclick="window.open('mailto:${escA(em)}')"><i class="fas fa-envelope"></i> Kirim Email</button>`;}
+            if(content.type==='wifi'){h+=`<button class="result-action-btn btn-success" onclick="toggleWifiPwd()"><i class="fas fa-eye"></i> Tampilkan Password</button>`;h+=`<button class="result-action-btn btn-secondary" onclick="copyToClipboard('${escA(content.password)}')"><i class="fas fa-copy"></i> Salin Password</button>`;}
+            h+=`<button class="result-action-btn btn-secondary" onclick="copyToClipboard(decodeURIComponent('${encodeURIComponent(text)}'))"><i class="fas fa-copy"></i> Salin Hasil Scan</button>`;
+            h+=`<button class="result-action-btn btn-primary" onclick="startScanner('${currentScanMode}')"><i class="fas fa-camera"></i> Scan Lagi</button>`;
+            h+=`</div>`;
+            document.getElementById('resultBody').innerHTML=h;
         }
 
-        // ========== BUILDER TABEL DATA ==========
-        function buildDataTable(pairs, rawText, formatName) {
-            // Tentukan judul kartu dan ikon berdasarkan konteks
-            let cardTitle = 'Detail Data';
-            let cardIcon = 'fa-table-list';
+        function buildDataTable(pairs,rawText,formatName) {
+            let cardTitle='Detail Data',cardIcon='fa-table-list';
+            const lbls=pairs.map(p=>p.label.toLowerCase());
+            if(lbls.some(l=>l.includes('no rangka')||l.includes('no mesin')||l.includes('merk'))){cardTitle='Informasi Kendaraan';cardIcon='fa-car';}
+            else if(lbls.some(l=>l.includes('status')||l.includes('telepon'))){cardTitle='Informasi Anggota';cardIcon='fa-user';}
 
-            // Cek apakah ini data kendaraan
-            const labels = pairs.map(p => p.label.toLowerCase());
-            const isKendaraan = labels.some(l => l.includes('no rangka') || l.includes('no mesin') || l.includes('merk') || l.includes('tipe kendaraan'));
-            if (isKendaraan) { cardTitle = 'Informasi Kendaraan'; cardIcon = 'fa-car'; }
-
-            const isAnggota = labels.some(l => l.includes('status') || l.includes('telepon') || l.includes('alamat'));
-            if (isAnggota && !isKendaraan) { cardTitle = 'Informasi Anggota'; cardIcon = 'fa-user'; }
-
-            let html = `<div class="data-table-card">`;
-            html += `<div class="data-table-card-header"><i class="fas ${cardIcon}"></i><span>${cardTitle}</span></div>`;
-
-            pairs.forEach((pair, idx) => {
-                // Tentukan kelas value
-                let valCls = '';
-                const valLower = pair.value.toLowerCase().trim();
-                const lblLower = pair.label.toLowerCase();
-
-                if (valLower === 'lolos' || valLower === 'aktif' || valLower === 'berlaku' || valLower === 'terdaftar') {
-                    valCls = 'val-success';
-                } else if (valLower === 'tidak lolos' || valLower === 'gagal' || valLower === 'nonaktif' || valLower === 'kadaluarsa') {
-                    valCls = 'val-danger';
-                } else if (lblLower.includes('kode registrasi') || lblLower.includes('no kendaraan') || lblLower.includes('no rangka') || lblLower.includes('no mesin') || lblLower.includes('no bpkb')) {
-                    valCls = 'val-primary';
-                }
-
-                // Baris highlight untuk kesimpulan verifikasi
-                const isHighlight = lblLower.includes('kesimpulan') || lblLower.includes('verifikasi');
-                // Tampilkan "-" jika kosong
-                const displayVal = pair.value.trim() === '' ? '-' : pair.value;
-
-                html += `<div class="data-table-row ${isHighlight?'highlight':''}">`;
-                html += `<div class="data-table-label">${esc(pair.label)}</div>`;
-                html += `<div class="data-table-separator">:</div>`;
-                html += `<div class="data-table-value ${valCls}">${valCls==='val-empty'?displayVal:esc(displayVal)}</div>`;
-                html += `</div>`;
+            let h=`<div class="data-table-card"><div class="data-table-card-header"><i class="fas ${cardIcon}"></i><span>${cardTitle}</span></div>`;
+            pairs.forEach(p=>{
+                let vc='';const vl=p.value.toLowerCase().trim(),ll=p.label.toLowerCase();
+                if(vl==='lolos'||vl==='aktif'||vl==='berlaku'||vl==='terdaftar') vc='val-success';
+                else if(vl==='tidak lolos'||vl==='gagal'||vl==='nonaktif'||vl==='kadaluarsa') vc='val-danger';
+                else if(ll.includes('kode registrasi')||ll.includes('no kendaraan')||ll.includes('no rangka')||ll.includes('no mesin')||ll.includes('no bpkb')) vc='val-primary';
+                const hl=ll.includes('kesimpulan')||ll.includes('verifikasi');
+                const dv=p.value.trim()===''?'-':p.value;
+                h+=`<div class="data-table-row ${hl?'highlight':''}"><div class="data-table-label">${esc(p.label)}</div><div class="data-table-separator">:</div><div class="data-table-value ${vc}">${esc(dv)}</div></div>`;
             });
-
-            html += `</div>`;
-
-            // Tombol salin semua data (tersembunyi, bisa dilihat di raw)
-            html += `<details style="margin-bottom:16px;">
-                <summary style="padding:10px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;user-select:none;">
-                    <i class="fas fa-code" style="margin-right:6px;"></i>Lihat Data Mentah
-                </summary>
-                <div style="padding:12px 16px;background:var(--bg-card-2);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;">
-                    <pre style="font-size:11px;color:var(--text-muted);white-space:pre-wrap;word-break:break-word;line-height:1.6;font-family:'Inter',monospace;margin:0;">${esc(rawText)}</pre>
-                    <div class="format-tag" style="margin-top:10px;"><i class="fas fa-microchip"></i> ${esc(formatName)}</div>
-                </div>
-            </details>`;
-
-            return html;
+            h+=`</div>`;
+            h+=`<details style="margin-bottom:16px;"><summary style="padding:10px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;user-select:none;"><i class="fas fa-code" style="margin-right:6px;"></i>Lihat Data Mentah</summary><div style="padding:12px 16px;background:var(--bg-card-2);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;"><pre style="font-size:11px;color:var(--text-muted);white-space:pre-wrap;word-break:break-word;line-height:1.6;font-family:'Courier New',monospace;margin:0;">${esc(rawText)}</pre><div class="format-tag" style="margin-top:10px;"><i class="fas fa-microchip"></i> ${esc(formatName)}</div></div></details>`;
+            return h;
         }
 
-        function toggleWifiPwd() {
-            const el = document.getElementById('wifiPwd');
-            if (!el) return;
-            if (el.textContent.includes('•')) {
-                const c = detectContentType(lastScannedCode);
-                if (c.type==='wifi') el.textContent = c.password;
-            } else { el.textContent = '••••••••'; }
-        }
+        function toggleWifiPwd(){const e=document.getElementById('wifiPwd');if(!e)return;if(e.textContent.includes('•')){const c=detectContentType(lastScannedCode);if(c.type==='wifi')e.textContent=c.password;}else e.textContent='••••••••';}
 
-        // ========== RIWAYAT ==========
-        function addToHistory(text, content, formatName, source) {
-            scanHistory.unshift({
-                id: Date.now(), text, type: content.type, label: content.label,
-                format: formatName||'-', source,
-                time: new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
-            });
-            if (scanHistory.length>50) scanHistory=scanHistory.slice(0,50);
-            localStorage.setItem('bgt_scan_history', JSON.stringify(scanHistory));
-            updateHistoryBadge();
+        /* ========== RIWAYAT ========== */
+        function addToHistory(text,content,formatName,source){
+            scanHistory.unshift({id:Date.now(),text,type:content.type,label:content.label,format:formatName||'-',source,time:new Date().toLocaleString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})});
+            if(scanHistory.length>50)scanHistory=scanHistory.slice(0,50);
+            localStorage.setItem('bgt_scan_history',JSON.stringify(scanHistory));updateHistoryBadge();
         }
-
-        function renderHistory() {
-            const list = document.getElementById('historyList');
-            const btn = document.getElementById('clearHistoryBtn');
-            if (!scanHistory.length) {
-                btn.style.display='none';
-                list.innerHTML='<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><h3>Belum Ada Riwayat</h3><p>Hasil scan akan muncul di sini</p></div>';
-                return;
-            }
+        function renderHistory(){
+            const list=document.getElementById('historyList'),btn=document.getElementById('clearHistoryBtn');
+            if(!scanHistory.length){btn.style.display='none';list.innerHTML='<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><h3>Belum Ada Riwayat</h3><p>Hasil scan akan muncul di sini</p></div>';return;}
             btn.style.display='flex';
-            const iconMap = {member:'fa-id-card',url:'fa-link',text:'fa-align-left',phone:'fa-phone',email:'fa-envelope',wifi:'fa-wifi',data:'fa-table-list'};
-            const clsMap = {member:'found',url:'url',text:'text',phone:'text',email:'text',wifi:'found',data:'data'};
-            list.innerHTML = scanHistory.map(e => `<div class="history-item" onclick="showFromHistory('${e.id}')">
-                <div class="history-icon ${clsMap[e.type]||'text'}"><i class="fas ${iconMap[e.type]||'fa-qrcode'}"></i></div>
-                <div class="history-info"><div class="history-code">${esc(e.text)}</div><div class="history-meta">${esc(e.label)} &middot; ${esc(e.format)} &middot; ${esc(e.time)}</div></div>
-                <i class="fas fa-chevron-right history-arrow"></i>
-            </div>`).join('');
+            const im={member:'fa-id-card',url:'fa-link',text:'fa-align-left',phone:'fa-phone',email:'fa-envelope',wifi:'fa-wifi',data:'fa-table-list'};
+            const cm={member:'found',url:'url',text:'text',phone:'text',email:'text',wifi:'found',data:'data'};
+            list.innerHTML=scanHistory.map(e=>`<div class="history-item" onclick="showFromHistory('${e.id}')"><div class="history-icon ${cm[e.type]||'text'}"><i class="fas ${im[e.type]||'fa-qrcode'}"></i></div><div class="history-info"><div class="history-code">${esc(e.text)}</div><div class="history-meta">${esc(e.label)} &middot; ${esc(e.format)} &middot; ${esc(e.time)}</div></div><i class="fas fa-chevron-right history-arrow"></i></div>`).join('');
         }
+        function showFromHistory(id){const e=scanHistory.find(x=>String(x.id)===String(id));if(e)showResult(e.text,detectContentType(e.text),e.format);}
+        function clearHistory(){if(!scanHistory.length)return;scanHistory=[];localStorage.setItem('bgt_scan_history','[]');updateHistoryBadge();renderHistory();showToast('Riwayat dihapus','success');}
+        function updateHistoryBadge(){const b=document.getElementById('historyBadge');if(scanHistory.length>0){b.style.display='flex';b.textContent=scanHistory.length>99?'99+':scanHistory.length;}else b.style.display='none';}
 
-        function showFromHistory(id) {
-            const e = scanHistory.find(x=>String(x.id)===String(id));
-            if (!e) return;
-            showResult(e.text, detectContentType(e.text), e.format);
-        }
-
-        function clearHistory() {
-            if(!scanHistory.length) return;
-            scanHistory=[]; localStorage.setItem('bgt_scan_history','[]');
-            updateHistoryBadge(); renderHistory(); showToast('Riwayat dihapus','success');
-        }
-
-        function updateHistoryBadge() {
-            const b = document.getElementById('historyBadge');
-            if(scanHistory.length>0){b.style.display='flex';b.textContent=scanHistory.length>99?'99+':scanHistory.length;}
-            else b.style.display='none';
-        }
-
-        // ========== UTILITAS ==========
-        function esc(s) { if(!s)return''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
-        function escA(s) { if(!s)return''; return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-        function copyToClipboard(text) {
-            if(navigator.clipboard&&navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(()=>showToast('Berhasil disalin','success')).catch(()=>fallbackCopy(text));
-            } else fallbackCopy(text);
-        }
-        function fallbackCopy(text) {
-            const ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;left:-9999px;';
-            document.body.appendChild(ta); ta.select();
-            try{document.execCommand('copy');showToast('Berhasil disalin','success');}catch(e){showToast('Gagal menyalin','error');}
-            document.body.removeChild(ta);
-        }
-
-        function playBeep() {
-            try {
-                if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-                const o=audioCtx.createOscillator(),g=audioCtx.createGain();
-                o.connect(g);g.connect(audioCtx.destination);
-                o.frequency.setValueAtTime(1200,audioCtx.currentTime);
-                o.frequency.setValueAtTime(1600,audioCtx.currentTime+0.08);
-                g.gain.setValueAtTime(0.3,audioCtx.currentTime);
-                g.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.2);
-                o.start(audioCtx.currentTime);o.stop(audioCtx.currentTime+0.2);
-            } catch(e){}
-        }
-
-        function showSuccessFlash() {
-            const f=document.createElement('div'); f.className='success-flash';
-            document.body.appendChild(f); setTimeout(()=>f.remove(),600);
-        }
-
-        function showToast(msg, type) {
-            const c=document.getElementById('toastContainer'), t=document.createElement('div');
-            t.className='toast toast-'+(type||'info'); t.textContent=msg;
-            c.appendChild(t); setTimeout(()=>t.remove(),3000);
-        }
+        /* ========== UTILITAS ========== */
+        function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+        function escA(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+        function copyToClipboard(text){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>showToast('Berhasil disalin','success')).catch(()=>fbCopy(text));}else fbCopy(text);}
+        function fbCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;left:-9999px;';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');showToast('Berhasil disalin','success');}catch(e){showToast('Gagal menyalin','error');}document.body.removeChild(ta);}
+        function playBeep(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.setValueAtTime(1200,audioCtx.currentTime);o.frequency.setValueAtTime(1600,audioCtx.currentTime+0.08);g.gain.setValueAtTime(0.3,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.2);o.start(audioCtx.currentTime);o.stop(audioCtx.currentTime+0.2);}catch(e){}}
+        function showSuccessFlash(){const f=document.createElement('div');f.className='success-flash';document.body.appendChild(f);setTimeout(()=>f.remove(),600);}
+        function showToast(msg,type){const c=document.getElementById('toastContainer'),t=document.createElement('div');t.className='toast toast-'+(type||'info');t.textContent=msg;c.appendChild(t);setTimeout(()=>t.remove(),3000);}
     </script>
 </body>
 </html>
