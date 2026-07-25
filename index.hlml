@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BGT PRO - Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-light: #FF8C33;
+            --primary-dark: #CC5500;
+            --bg-dark: #0A0A0F;
+            --bg-card: #141420;
+            --bg-card-2: #1C1C2E;
+            --text: #F0F0F5;
+            --text-muted: #8888A0;
+            --border: #2A2A40;
+            --success: #00E676;
+            --danger: #FF3D57;
+            --warning: #FFB800;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow: hidden;
+            height: 100dvh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .font-orbitron { font-family: 'Orbitron', monospace; }
+
+        .screen {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            will-change: transform, opacity;
+        }
+        .screen.hidden-right { transform: translateX(100%); opacity: 0; pointer-events: none; }
+        .screen.hidden-left { transform: translateX(-100%); opacity: 0; pointer-events: none; }
+        .screen.active { transform: translateX(0) translateY(0); opacity: 1; pointer-events: all; }
+
+        /* ========== HOME SCREEN ========== */
+        #homeScreen {
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(170deg, #0A0A0F 0%, #12101F 40%, #1A0F0A 100%);
+        }
+
+        .home-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 22px;
+            background: linear-gradient(135deg, var(--primary), var(--warning));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .logo-pro {
+            font-size: 10px;
+            font-weight: 700;
+            background: var(--primary);
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+            -webkit-text-fill-color: #000;
+        }
+
+        .home-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .scan-icon-wrap {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            position: relative;
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        .scan-icon-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,107,0,0.2);
+            animation: spinSlow 12s linear infinite;
+            border-top-color: var(--primary);
+        }
+
+        .scan-icon-wrap i {
+            font-size: 48px;
+            color: var(--primary);
+            filter: drop-shadow(0 0 20px rgba(255,107,0,0.4));
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255,107,0,0.1); }
+            50% { box-shadow: 0 0 60px rgba(255,107,0,0.25); }
+        }
+
+        @keyframes spinSlow { to { transform: rotate(360deg); } }
+
+        .scan-btn {
+            width: 100%;
+            max-width: 320px;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(255,107,0,0.3), 0 2px 8px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .scan-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .scan-btn:hover::before, .scan-btn:active::before { left: 100%; }
+        .scan-btn:active { transform: scale(0.97); }
+        .scan-btn i { font-size: 22px; }
+
+        .manual-btn {
+            width: 100%;
+            max-width: 320px;
+            padding: 14px 24px;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid rgba(255,107,0,0.3);
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            margin-top: 12px;
+        }
+
+        .manual-btn:active {
+            background: rgba(255,107,0,0.08);
+            transform: scale(0.97);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 32px;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .quick-action {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action:active {
+            transform: scale(0.95);
+            border-color: var(--primary);
+            background: rgba(255,107,0,0.05);
+        }
+
+        .quick-action i { font-size: 22px; color: var(--primary); }
+        .quick-action span { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: center; line-height: 1.3; }
+
+        .home-bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 16px 20px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-item.active { opacity: 1; }
+        .nav-item.active i { color: var(--primary); }
+        .nav-item i { font-size: 20px; }
+        .nav-item span { font-size: 10px; font-weight: 600; }
+
+        .badge-count {
+            background: var(--danger);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            position: absolute;
+            top: -4px;
+            right: -8px;
+        }
+
+        /* ========== SCANNER SCREEN ========== */
+        #scannerScreen {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scanner-header {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 30;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+        }
+
+        .scanner-header button {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .scanner-header button:active {
+            background: rgba(255,255,255,0.2);
+            transform: scale(0.92);
+        }
+
+        .scanner-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .scanner-camera-wrap {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #scannerCamera {
+            width: 100%;
+            height: 100%;
+        }
+
+        #scannerCamera video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        }
+
+        /* Error state di area kamera */
+        .camera-error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            text-align: center;
+            z-index: 20;
+            background: var(--bg-dark);
+        }
+
+        .camera-error i {
+            font-size: 52px;
+            color: var(--danger);
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .camera-error h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .camera-error p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 300px;
+        }
+
+        .camera-error-btn {
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+        }
+
+        .camera-error-btn:active { transform: scale(0.97); }
+
+        .camera-error-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+        }
+
+        .camera-error-btn.secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        /* Scan Overlay */
+        .scan-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .scan-overlay svg { width: 100%; height: 100%; }
+
+        .scan-frame {
+            position: absolute;
+            z-index: 15;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 260px; height: 260px;
+            pointer-events: none;
+        }
+
+        .scan-corner { position: absolute; width: 32px; height: 32px; }
+        .scan-corner::before, .scan-corner::after {
+            content: '';
+            position: absolute;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .scan-corner.tl { top: 0; left: 0; }
+        .scan-corner.tl::before { top: 0; left: 0; width: 32px; height: 3px; }
+        .scan-corner.tl::after { top: 0; left: 0; width: 3px; height: 32px; }
+
+        .scan-corner.tr { top: 0; right: 0; }
+        .scan-corner.tr::before { top: 0; right: 0; width: 32px; height: 3px; }
+        .scan-corner.tr::after { top: 0; right: 0; width: 3px; height: 32px; }
+
+        .scan-corner.bl { bottom: 0; left: 0; }
+        .scan-corner.bl::before { bottom: 0; left: 0; width: 32px; height: 3px; }
+        .scan-corner.bl::after { bottom: 0; left: 0; width: 3px; height: 32px; }
+
+        .scan-corner.br { bottom: 0; right: 0; }
+        .scan-corner.br::before { bottom: 0; right: 0; width: 32px; height: 3px; }
+        .scan-corner.br::after { bottom: 0; right: 0; width: 3px; height: 32px; }
+
+        .laser-line {
+            position: absolute;
+            top: 0; left: 8px; right: 8px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--warning), var(--primary), transparent);
+            box-shadow: 0 0 12px var(--primary), 0 0 30px rgba(255,107,0,0.3);
+            animation: laserMove 2.2s ease-in-out infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes laserMove {
+            0% { top: 4px; opacity: 0.4; }
+            10% { opacity: 1; }
+            50% { top: calc(100% - 6px); opacity: 1; }
+            60% { opacity: 0.4; }
+            100% { top: 4px; opacity: 0.4; }
+        }
+
+        .scan-hint {
+            position: absolute;
+            bottom: 28px; left: 0; right: 0;
+            text-align: center;
+            z-index: 20;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scanner-bottom-controls {
+            position: absolute;
+            bottom: 70px; left: 0; right: 0;
+            z-index: 25;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+        }
+
+        .scanner-ctrl-btn {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .scanner-ctrl-btn:active {
+            transform: scale(0.9);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .scanner-ctrl-btn.flash-on {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255,107,0,0.4);
+        }
+
+        /* ========== MANUAL INPUT MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 9998;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-sheet {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px 24px 0 0;
+            padding: 28px 24px 36px;
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-handle {
+            width: 40px; height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 16px 18px;
+            background: var(--bg-card-2);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            font-size: 18px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            outline: none;
+            transition: border-color 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .modal-input::placeholder {
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            text-transform: none;
+        }
+
+        .modal-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255,107,0,0.1);
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .modal-submit:active { transform: scale(0.97); }
+
+        .modal-suggestions {
+            margin-top: 18px;
+        }
+
+        .modal-suggestions-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .suggestion-chip {
+            padding: 8px 14px;
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 12px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-chip:active {
+            background: rgba(255,107,0,0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ========== RESULT SCREEN ========== */
+        #resultScreen {
+            background: linear-gradient(170deg, #0A0A0F 0%, #141420 100%);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .result-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10,10,15,0.9);
+            backdrop-filter: blur(16px);
+            z-index: 10;
+        }
+
+        .result-header button {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: var(--bg-card-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .result-header button:active { transform: scale(0.92); }
+
+        .result-status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        .badge-found {
+            background: rgba(0,230,118,0.12);
+            color: var(--success);
+            border: 1px solid rgba(0,230,118,0.25);
+        }
+
+        .badge-not-found {
+            background: rgba(255,61,87,0.12);
+            color: var(--danger);
+            border: 1px solid rgba(255,61,87,0.25);
+        }
+
+        .result-body {
+            flex: 1;
+            padding: 20px;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .scan-code-display {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .scan-code-display .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .scan-code-display .code {
+            font-family: 'Orbitron', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            word-break: break-all;
+        }
+
+        .member-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .member-card-header {
+            padding: 20px 20px 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .member-card-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--warning), var(--primary));
+        }
+
+        .member-avatar {
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 18px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .member-name { font-size: 20px; font-weight: 700; line-height: 1.2; }
+        .member-id-small {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .member-info-grid {
+            padding: 16px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .info-item { display: flex; flex-direction: column; gap: 4px; }
+        .info-item.full { grid-column: 1 / -1; }
+        .info-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .info-value { font-size: 14px; font-weight: 600; color: var(--text); }
+        .info-value.status-aktif { color: var(--success); }
+        .info-value.status-nonaktif { color: var(--danger); }
+
+        .result-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .result-action-btn {
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .result-action-btn:active { transform: scale(0.97); }
+
+        .btn-scan-again {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(255,107,0,0.25);
+        }
+
+        .btn-copy {
+            background: var(--bg-card);
+            border: 1px solid var(--border) !important;
+            color: var(--text);
+        }
+
+        .not-found-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .not-found-card i {
+            font-size: 48px;
+            color: var(--danger);
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .not-found-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .not-found-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+        /* ========== HISTORY SCREEN ========== */
+        #historyScreen {
+            background: linear-gradient(170deg, #0A0A0F 0%, #141420 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10,10,15,0.9);
+            backdrop-filter: blur(16px);
+            z-index: 10;
+        }
+
+        .history-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .history-header h2 { font-size: 20px; font-weight: 700; }
+
+        .clear-btn {
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(255,61,87,0.1);
+            border: 1px solid rgba(255,61,87,0.2);
+            color: var(--danger);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .clear-btn:active { transform: scale(0.95); }
+
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 16px 100px;
+        }
+
+        .history-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:active {
+            transform: scale(0.98);
+            border-color: var(--primary);
+        }
+
+        .history-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .history-icon.found { background: rgba(0,230,118,0.1); color: var(--success); }
+        .history-icon.notfound { background: rgba(255,61,87,0.1); color: var(--danger); }
+        .history-info { flex: 1; min-width: 0; }
+
+        .history-code {
+            font-family: 'Orbitron', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .history-arrow { color: var(--text-muted); font-size: 14px; }
+
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .empty-state i { font-size: 56px; color: var(--border); margin-bottom: 16px; }
+        .empty-state h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); }
+        .empty-state p { font-size: 13px; color: var(--text-muted); opacity: 0.7; }
+
+        /* ========== TOAST ========== */
+        .toast-container {
+            position: fixed;
+            top: 20px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            backdrop-filter: blur(16px);
+            animation: toastIn 0.35s ease, toastOut 0.35s ease 2.5s forwards;
+            white-space: nowrap;
+            pointer-events: auto;
+        }
+
+        .toast-success { background: rgba(0,230,118,0.15); border: 1px solid rgba(0,230,118,0.3); color: var(--success); }
+        .toast-error { background: rgba(255,61,87,0.15); border: 1px solid rgba(255,61,87,0.3); color: var(--danger); }
+        .toast-info { background: rgba(255,107,0,0.15); border: 1px solid rgba(255,107,0,0.3); color: var(--primary); }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-16px); }
+        }
+
+        .success-flash {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,230,118,0.08);
+            z-index: 100;
+            animation: flashFade 0.5s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes flashFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.2; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .loading-dots span {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: dotBounce 1.4s ease-in-out infinite;
+        }
+
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: scale(0.4); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Info banner di home */
+        .https-warning {
+            width: 100%;
+            max-width: 320px;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: rgba(255,184,0,0.08);
+            border: 1px solid rgba(255,184,0,0.2);
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--warning);
+            line-height: 1.5;
+            display: none;
+        }
+
+        .https-warning i { margin-right: 6px; }
+
+        @media (min-width: 500px) {
+            .scan-frame { width: 300px; height: 300px; }
+            .home-content { padding: 40px; }
+            .quick-actions { max-width: 440px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ========== HOME SCREEN ========== -->
+    <div id="homeScreen" class="screen active">
+        <div class="particles" id="particles"></div>
+
+        <div class="home-header">
+            <div style="display:flex;align-items:center;">
+                <span class="logo-text">BGT</span>
+                <span class="logo-pro">PRO</span>
+            </div>
+            <div style="position:relative;">
+                <button onclick="navigateTo('history')" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);width:40px;height:40px;border-radius:12px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-clock-rotate-left"></i>
+                </button>
+                <span class="badge-count" id="historyBadge" style="display:none;">0</span>
+            </div>
+        </div>
+
+        <div class="home-content">
+            <div class="scan-icon-wrap">
+                <i class="fas fa-qrcode"></i>
+            </div>
+            <h1 style="font-size:24px;font-weight:800;margin-bottom:8px;text-align:center;">Scanner Barcode</h1>
+            <p style="font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:28px;max-width:280px;line-height:1.5;">
+                Scan ID Anggota, Tiket Event, atau Kendaraan
+            </p>
+            <button class="scan-btn" onclick="startScanner()">
+                <i class="fas fa-camera"></i>
+                Mulai Scan
+            </button>
+            <button class="manual-btn" onclick="openManualInput()">
+                <i class="fas fa-keyboard"></i>
+                Input Manual
+            </button>
+
+            <div class="https-warning" id="httpsWarning">
+                <i class="fas fa-triangle-exclamation"></i>
+                Kamera tidak akan berfungsi karena halaman ini dibuka via <strong>http://</strong>. Gunakan <strong>https://</strong> atau <strong>localhost</strong>.
+            </div>
+
+            <div class="quick-actions">
+                <div class="quick-action" onclick="openManualInput()">
+                    <i class="fas fa-id-card"></i>
+                    <span>Scan Anggota</span>
+                </div>
+                <div class="quick-action" onclick="openManualInput()">
+                    <i class="fas fa-ticket"></i>
+                    <span>Scan Tiket</span>
+                </div>
+                <div class="quick-action" onclick="openManualInput()">
+                    <i class="fas fa-car"></i>
+                    <span>Scan Kendaraan</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bottom-nav">
+            <button class="nav-item active">
+                <i class="fas fa-house"></i>
+                <span>Beranda</span>
+            </button>
+            <button class="nav-item" onclick="navigateTo('history')">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>Riwayat</span>
+            </button>
+            <button class="nav-item" onclick="showToast('Fitur pengaturan segera hadir', 'info')">
+                <i class="fas fa-gear"></i>
+                <span>Pengaturan</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== SCANNER SCREEN ========== -->
+    <div id="scannerScreen" class="screen hidden-right">
+        <div class="scanner-header">
+            <button onclick="stopScanner(); navigateTo('home')" aria-label="Kembali">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <span class="scanner-title">SCANNER</span>
+            <button onclick="flipCamera()" aria-label="Ganti kamera">
+                <i class="fas fa-camera-rotate"></i>
+            </button>
+        </div>
+
+        <div class="scanner-camera-wrap">
+            <div id="scannerCamera"></div>
+        </div>
+
+        <div class="scan-overlay" id="scanOverlay">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <mask id="scanMask">
+                        <rect width="100" height="100" fill="white"/>
+                        <rect x="17.5" y="17.5" width="65" height="65" rx="4" fill="black"/>
+                    </mask>
+                </defs>
+                <rect width="100" height="100" fill="rgba(0,0,0,0.6)" mask="url(#scanMask)"/>
+            </svg>
+        </div>
+
+        <div class="scan-frame" id="scanFrame" style="display:none;">
+            <div class="scan-corner tl"></div>
+            <div class="scan-corner tr"></div>
+            <div class="scan-corner bl"></div>
+            <div class="scan-corner br"></div>
+            <div class="laser-line" id="laserLine"></div>
+        </div>
+
+        <div class="scanner-bottom-controls" id="scannerControls" style="display:none;">
+            <button class="scanner-ctrl-btn" id="flashBtn" onclick="toggleFlash()" aria-label="Senter">
+                <i class="fas fa-bolt"></i>
+            </button>
+        </div>
+
+        <div class="scan-hint" id="scanHint" style="display:none;">Arahkan barcode ke dalam kotak scan</div>
+
+        <!-- Error state -->
+        <div class="camera-error" id="cameraError" style="display:none;">
+            <i class="fas fa-video-slash"></i>
+            <h3 id="cameraErrorTitle">Kamera Tidak Tersedia</h3>
+            <p id="cameraErrorMsg">Pastikan kamera tidak sedang dipakai aplikasi lain dan izin kamera sudah diberikan.</p>
+            <button class="camera-error-btn primary" onclick="retryScanner()">
+                <i class="fas fa-rotate-right"></i> Coba Lagi
+            </button>
+            <button class="camera-error-btn secondary" onclick="stopScanner(); openManualInput();">
+                <i class="fas fa-keyboard"></i> Input Manual
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== RESULT SCREEN ========== -->
+    <div id="resultScreen" class="screen hidden-right">
+        <div class="result-header">
+            <button onclick="navigateTo('home')" aria-label="Kembali">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <span id="resultTitle" style="font-weight:700;font-size:16px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Hasil Scan</span>
+            <span class="result-status-badge" id="resultBadge"></span>
+        </div>
+        <div class="result-body" id="resultBody"></div>
+    </div>
+
+    <!-- ========== HISTORY SCREEN ========== -->
+    <div id="historyScreen" class="screen hidden-right">
+        <div class="history-header">
+            <div class="history-header-left">
+                <button onclick="navigateTo('home')" style="background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-label="Kembali">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Riwayat Scan</h2>
+            </div>
+            <button class="clear-btn" id="clearHistoryBtn" onclick="clearHistory()">
+                <i class="fas fa-trash-can" style="margin-right:4px;"></i> Hapus
+            </button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script>
+        // ========== DATA ANGGOTA (Simulasi Firebase) ==========
+        const databaseAnggota = {
+            'BGT-0001': {
+                nama: 'Made Agus', status: 'Aktif', mobil: 'DK 1234 AB',
+                bergabung: '2023', telepon: '0812-3456-7890',
+                alamat: 'Denpasar, Bali', tipe: 'Driver'
+            },
+            'BGT-0002': {
+                nama: 'Wayan Sudiarta', status: 'Aktif', mobil: 'DK 5678 CD',
+                bergabung: '2022', telepon: '0813-9876-5432',
+                alamat: 'Badung, Bali', tipe: 'Driver'
+            },
+            'BGT-0003': {
+                nama: 'Ketut Ari', status: 'Nonaktif', mobil: 'DK 9012 EF',
+                bergabung: '2021', telepon: '0814-5555-1234',
+                alamat: 'Gianyar, Bali', tipe: 'Driver'
+            },
+            'BGT-0004': {
+                nama: 'Putu Dewi', status: 'Aktif', mobil: 'DK 3456 GH',
+                bergabung: '2024', telepon: '0815-7777-8899',
+                alamat: 'Tabanan, Bali', tipe: 'Driver'
+            },
+            'BGT-0005': {
+                nama: 'Nyoman Budi', status: 'Aktif', mobil: 'DK 7890 IJ',
+                bergabung: '2023', telepon: '0816-2222-3333',
+                alamat: 'Singaraja, Bali', tipe: 'Driver'
+            },
+            'TKT-001': {
+                nama: 'Anniversary BGT 2025', status: 'Berlaku', mobil: '-',
+                bergabung: '-', telepon: '-', alamat: 'Sanur, Bali', tipe: 'Tiket Event'
+            },
+            'KDR-001': {
+                nama: 'Suzuki Avanza Silver', status: 'Terdaftar', mobil: 'DK 1234 AB',
+                bergabung: '2023', telepon: '0812-3456-7890',
+                alamat: 'Denpasar, Bali', tipe: 'Kendaraan'
+            }
+        };
+
+        // ========== STATE ==========
+        let html5QrCode = null;
+        let isScanning = false;
+        let flashOn = false;
+        let currentFacingMode = 'environment';
+        let scanHistory = JSON.parse(localStorage.getItem('bgt_scan_history') || '[]');
+        let audioCtx = null;
+
+        // ========== INISIALISASI ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            updateHistoryBadge();
+            checkHttps();
+        });
+
+        // Cek apakah pakai HTTPS (kamera butuh HTTPS)
+        function checkHttps() {
+            const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+            const warning = document.getElementById('httpsWarning');
+            if (!isSecure) {
+                warning.style.display = 'block';
+            }
+        }
+
+        // ========== PARTIKEL ==========
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+                p.style.animationDuration = (6 + Math.random() * 10) + 's';
+                p.style.animationDelay = (Math.random() * 8) + 's';
+                container.appendChild(p);
+            }
+        }
+
+        // ========== NAVIGASI ==========
+        function navigateTo(screen) {
+            const screens = { home: 'homeScreen', scanner: 'scannerScreen', result: 'resultScreen', history: 'historyScreen' };
+            const allScreens = document.querySelectorAll('.screen');
+            const targetId = screens[screen];
+            if (!targetId) return;
+
+            const order = ['homeScreen', 'scannerScreen', 'resultScreen', 'historyScreen'];
+
+            allScreens.forEach(s => {
+                if (s.id === targetId) {
+                    s.className = 'screen active';
+                } else {
+                    const fromIdx = order.indexOf(s.id);
+                    const toIdx = order.indexOf(targetId);
+                    s.className = fromIdx < toIdx ? 'screen hidden-left' : 'screen hidden-right';
+                }
+            });
+
+            if (screen === 'history') renderHistory();
+        }
+
+        // ========== SCANNER ==========
+        async function startScanner() {
+            // Sembunyikan error, tampilkan area kamera
+            document.getElementById('cameraError').style.display = 'none';
+            navigateTo('scanner');
+            await new Promise(r => setTimeout(r, 450));
+
+            // Tampilkan loading di hint
+            document.getElementById('scanHint').style.display = 'block';
+            document.getElementById('scanHint').textContent = 'Membuka kamera...';
+            document.getElementById('scanFrame').style.display = 'none';
+            document.getElementById('scannerControls').style.display = 'none';
+            document.getElementById('scanOverlay').style.display = 'none';
+
+            try {
+                // Pastikan elemen bersih
+                const camEl = document.getElementById('scannerCamera');
+                camEl.innerHTML = '';
+
+                html5QrCode = new Html5Qrcode('scannerCamera');
+
+                const config = {
+                    fps: 15,
+                    qrbox: { width: 250, height: 250 },
+                    aspectRatio: 1.0,
+                    disableFlip: false
+                };
+
+                await html5QrCode.start(
+                    { facingMode: currentFacingMode },
+                    config,
+                    onScanSuccess,
+                    () => {}
+                );
+
+                isScanning = true;
+                flashOn = false;
+                document.getElementById('flashBtn').classList.remove('flash-on');
+
+                // Tampilkan elemen scanner
+                document.getElementById('scanOverlay').style.display = 'block';
+                document.getElementById('scanFrame').style.display = 'block';
+                document.getElementById('scannerControls').style.display = 'flex';
+                document.getElementById('scanHint').textContent = 'Arahkan barcode ke dalam kotak scan';
+
+            } catch (err) {
+                console.error('Gagal memulai scanner:', err);
+                showCameraError(err);
+            }
+        }
+
+        function showCameraError(err) {
+            isScanning = false;
+            const errorEl = document.getElementById('cameraError');
+            const titleEl = document.getElementById('cameraErrorTitle');
+            const msgEl = document.getElementById('cameraErrorMsg');
+
+            // Bersihkan video jika ada
+            const camEl = document.getElementById('scannerCamera');
+            camEl.innerHTML = '';
+
+            document.getElementById('scanOverlay').style.display = 'none';
+            document.getElementById('scanFrame').style.display = 'none';
+            document.getElementById('scannerControls').style.display = 'none';
+            document.getElementById('scanHint').style.display = 'none';
+
+            // Identifikasi jenis error
+            const errStr = (err.message || err.toString() || '').toLowerCase();
+            const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+            if (!isSecure) {
+                titleEl.textContent = 'Butuh HTTPS';
+                msgEl.textContent = 'Kamera hanya bisa diakses melalui HTTPS atau localhost. Saat ini halaman dibuka via ' + location.protocol + '. Gunakan tombol Input Manual di bawah sebagai alternatif.';
+            } else if (errStr.includes('permission') || errStr.includes('denied') || errStr.includes('notallowed')) {
+                titleEl.textContent = 'Izin Kamera Ditolak';
+                msgEl.textContent = 'Browser memblokir akses kamera. Buka Pengaturan > Privasi > Kamera, lalu izinkan akses untuk situs ini. Atau gunakan Input Manual.';
+            } else if (errStr.includes('notfound') || errStr.includes('no camera') || errStr.includes('cannot find')) {
+                titleEl.textContent = 'Kamera Tidak Ditemukan';
+                msgEl.textContent = 'Tidak ada kamera yang terdeteksi di perangkat ini. Pastikan kamera terpasang dengan benar.';
+            } else if (errStr.includes('already started') || errStr.includes('stream')) {
+                titleEl.textContent = 'Kamera Sedang Dipakai';
+                msgEl.textContent = 'Kamera sedang digunakan oleh aplikasi lain (WhatsApp, Zoom, dll). Tutup aplikasi tersebut lalu coba lagi.';
+            } else {
+                titleEl.textContent = 'Gagal Membuka Kamera';
+                msgEl.textContent = 'Terjadi kesalahan: ' + (err.message || err) + '. Gunakan Input Manual sebagai alternatif.';
+            }
+
+            errorEl.style.display = 'flex';
+        }
+
+        async function retryScanner() {
+            await stopScanner();
+            await startScanner();
+        }
+
+        async function stopScanner() {
+            if (html5QrCode && isScanning) {
+                try {
+                    await html5QrCode.stop();
+                } catch (e) {
+                    console.warn('Stop scanner warning:', e);
+                }
+                isScanning = false;
+            }
+            // Selalu bersihkan elemen kamera
+            const camEl = document.getElementById('scannerCamera');
+            if (camEl) camEl.innerHTML = '';
+        }
+
+        async function flipCamera() {
+            if (!isScanning) return;
+            currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+            await stopScanner();
+            await startScanner();
+            showToast(currentFacingMode === 'environment' ? 'Kamera belakang' : 'Kamera depan', 'info');
+        }
+
+        async function toggleFlash() {
+            if (!isScanning || !html5QrCode) return;
+            try {
+                const track = html5QrCode.getRunningTrackCameraCapabilities();
+                if (track && track.torchFeature && track.torchFeature.isSupported()) {
+                    flashOn = !flashOn;
+                    await track.torchFeature.apply(flashOn);
+                    document.getElementById('flashBtn').classList.toggle('flash-on', flashOn);
+                    return;
+                }
+            } catch (e) { /* fallback di bawah */ }
+
+            try {
+                const videoEl = document.querySelector('#scannerCamera video');
+                if (videoEl && videoEl.srcObject) {
+                    const tracks = videoEl.srcObject.getVideoTracks();
+                    if (tracks.length > 0) {
+                        const caps = tracks[0].getCapabilities ? tracks[0].getCapabilities() : {};
+                        if (caps.torch) {
+                            flashOn = !flashOn;
+                            await tracks[0].applyConstraints({ advanced: [{ torch: flashOn }] });
+                            document.getElementById('flashBtn').classList.toggle('flash-on', flashOn);
+                            return;
+                        }
+                    }
+                }
+            } catch (e2) { /* abaikan */ }
+
+            showToast('Senter tidak didukung perangkat ini', 'error');
+        }
+
+        // ========== ON SCAN SUCCESS ==========
+        let lastScanTime = 0;
+        function onScanSuccess(decodedText) {
+            const now = Date.now();
+            if (now - lastScanTime < 3000) return;
+            lastScanTime = now;
+
+            document.getElementById('laserLine').style.display = 'none';
+            document.getElementById('scanHint').innerHTML = '<span class="loading-dots"><span></span><span></span><span></span></span> Mencari data...';
+
+            // Flash hijau
+            const flash = document.createElement('div');
+            flash.className = 'success-flash';
+            document.body.appendChild(flash);
+            setTimeout(() => flash.remove(), 600);
+
+            playBeep();
+            vibrate();
+
+            setTimeout(() => {
+                stopScanner();
+                showResult(decodedText);
+            }, 800);
+        }
+
+        // ========== BEEP ==========
+        function playBeep() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.connect(gain1);
+                gain1.connect(audioCtx.destination);
+                osc1.frequency.value = 1200;
+                osc1.type = 'sine';
+                gain1.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                osc1.start(audioCtx.currentTime);
+                osc1.stop(audioCtx.currentTime + 0.15);
+
+                const osc2 = audioCtx.createOscillator();
+                const gain2 = audioCtx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                osc2.frequency.value = 1600;
+                osc2.type = 'sine';
+                gain2.gain.setValueAtTime(0.3, audioCtx.currentTime + 0.12);
+                gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                osc2.start(audioCtx.currentTime + 0.12);
+                osc2.stop(audioCtx.currentTime + 0.3);
+            } catch (e) {}
+        }
+
+        function vibrate() {
+            if ('vibrate' in navigator) navigator.vibrate([100, 50, 100]);
+        }
+
+        // ========== TAMPILKAN HASIL ==========
+        function showResult(code) {
+            const data = databaseAnggota[code];
+            const badge = document.getElementById('resultBadge');
+            const body = document.getElementById('resultBody');
+
+            if (data) {
+                badge.className = 'result-status-badge badge-found';
+                badge.textContent = 'DITEMUKAN';
+                const inisial = data.nama.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+                const statusClass = ['aktif', 'berlaku', 'terdaftar'].includes(data.status.toLowerCase()) ? 'status-aktif' : 'status-nonaktif';
+
+                body.innerHTML = `
+                    <div class="scan-code-display">
+                        <div class="label">Kode yang Discan</div>
+                        <div class="code">${esc(code)}</div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-card-header">
+                            <div class="member-avatar">${inisial}</div>
+                            <div>
+                                <div class="member-name">${esc(data.nama)}</div>
+                                <div class="member-id-small">${esc(code)}</div>
+                            </div>
+                        </div>
+                        <div class="member-info-grid">
+                            <div class="info-item"><span class="info-label">Status</span><span class="info-value ${statusClass}">${esc(data.status)}</span></div>
+                            <div class="info-item"><span class="info-label">Tipe</span><span class="info-value">${esc(data.tipe)}</span></div>
+                            <div class="info-item"><span class="info-label">Mobil / Kendaraan</span><span class="info-value">${esc(data.mobil)}</span></div>
+                            <div class="info-item"><span class="info-label">Bergabung</span><span class="info-value">${esc(data.bergabung)}</span></div>
+                            <div class="info-item"><span class="info-label">Telepon</span><span class="info-value">${esc(data.telepon)}</span></div>
+                            <div class="info-item"><span class="info-label">Alamat</span><span class="info-value">${esc(data.alamat)}</span></div>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="result-action-btn btn-scan-again" onclick="navigateTo('scanner'); setTimeout(startScanner, 500);"><i class="fas fa-camera"></i> Scan Lagi</button>
+                        <button class="result-action-btn btn-copy" onclick="copyCode('${esc(code)}')"><i class="fas fa-copy"></i> Salin Kode</button>
+                    </div>`;
+            } else {
+                badge.className = 'result-status-badge badge-not-found';
+                badge.textContent = 'TIDAK DITEMUKAN';
+                body.innerHTML = `
+                    <div class="scan-code-display">
+                        <div class="label">Kode yang Discan</div>
+                        <div class="code">${esc(code)}</div>
+                    </div>
+                    <div class="not-found-card">
+                        <i class="fas fa-circle-exclamation"></i>
+                        <h3>Data Tidak Ditemukan</h3>
+                        <p>Kode <strong>${esc(code)}</strong> tidak terdaftar dalam database anggota BGT PRO.</p>
+                    </div>
+                    <div class="result-actions">
+                        <button class="result-action-btn btn-scan-again" onclick="navigateTo('scanner'); setTimeout(startScanner, 500);"><i class="fas fa-camera"></i> Scan Lagi</button>
+                        <button class="result-action-btn btn-copy" onclick="copyCode('${esc(code)}')"><i class="fas fa-copy"></i> Salin Kode</button>
+                    </div>`;
+            }
+
+            addToHistory(code, !!data, data ? data.nama : null);
+            navigateTo('result');
+        }
+
+        // ========== INPUT MANUAL ==========
+        function openManualInput() {
+            // Hapus modal lama jika ada
+            const old = document.querySelector('.modal-overlay');
+            if (old) old.remove();
+
+            const allCodes = Object.keys(databaseAnggota);
+            const chipsHtml = allCodes.map(c => `<span class="suggestion-chip" onclick="document.getElementById('manualCodeInput').value='${c}'">${c}</span>`).join('');
+
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+            overlay.innerHTML = `
+                <div class="modal-sheet">
+                    <div class="modal-handle"></div>
+                    <div class="modal-title">Input Manual</div>
+                    <div class="modal-subtitle">Ketik kode ID anggota, tiket, atau kendaraan</div>
+                    <input type="text" class="modal-input" id="manualCodeInput" placeholder="Contoh: BGT-0001" autocomplete="off" autocapitalize="characters" spellcheck="false">
+                    <button class="modal-submit" onclick="submitManual()">
+                        <i class="fas fa-magnifying-glass"></i> Cari Data
+                    </button>
+                    <div class="modal-suggestions">
+                        <div class="modal-suggestions-label">Kode yang tersedia</div>
+                        <div class="suggestion-chips">${chipsHtml}</div>
+                    </div>
+                </div>`;
+            document.body.appendChild(overlay);
+
+            // Focus ke input
+            setTimeout(() => {
+                const inp = document.getElementById('manualCodeInput');
+                if (inp) inp.focus();
+            }, 400);
+
+            // Submit dengan Enter
+            setTimeout(() => {
+                const inp = document.getElementById('manualCodeInput');
+                if (inp) {
+                    inp.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') submitManual();
+                    });
+                }
+            }, 500);
+        }
+
+        function submitManual() {
+            const inp = document.getElementById('manualCodeInput');
+            if (!inp) return;
+            const code = inp.value.trim().toUpperCase();
+            if (!code) {
+                showToast('Masukkan kode terlebih dahulu', 'error');
+                return;
+            }
+            // Tutup modal
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) modal.remove();
+            // Tampilkan hasil
+            showResult(code);
+        }
+
+        // ========== RIWAYAT ==========
+        function addToHistory(code, found, name) {
+            scanHistory.unshift({ code, found, name: name || null, time: new Date().toISOString() });
+            if (scanHistory.length > 50) scanHistory = scanHistory.slice(0, 50);
+            localStorage.setItem('bgt_scan_history', JSON.stringify(scanHistory));
+            updateHistoryBadge();
+        }
+
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            const clearBtn = document.getElementById('clearHistoryBtn');
+
+            if (scanHistory.length === 0) {
+                clearBtn.style.display = 'none';
+                list.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><h3>Belum Ada Riwayat</h3><p>Hasil scan akan muncul di sini</p></div>`;
+                return;
+            }
+
+            clearBtn.style.display = 'block';
+            list.innerHTML = scanHistory.map(item => {
+                const time = formatTime(item.time);
+                const iconClass = item.found ? 'found' : 'notfound';
+                const icon = item.found ? 'fa-circle-check' : 'fa-circle-xmark';
+                const meta = item.name ? `${item.name} — ${time}` : `Tidak ditemukan — ${time}`;
+                return `<div class="history-item" onclick="showResult('${esc(item.code)}')">
+                    <div class="history-icon ${iconClass}"><i class="fas ${icon}"></i></div>
+                    <div class="history-info"><div class="history-code">${esc(item.code)}</div><div class="history-meta">${esc(meta)}</div></div>
+                    <i class="fas fa-chevron-right history-arrow"></i></div>`;
+            }).join('');
+        }
+
+        function clearHistory() {
+            if (scanHistory.length === 0) return;
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9998;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);';
+            overlay.innerHTML = `<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:320px;width:100%;text-align:center;">
+                <i class="fas fa-trash-can" style="font-size:36px;color:var(--danger);margin-bottom:16px;opacity:0.7;"></i>
+                <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Hapus Semua Riwayat?</h3>
+                <p style="font-size:13px;color:var(--text-muted);margin-bottom:24px;">Tindakan ini tidak bisa dibatalkan.</p>
+                <div style="display:flex;gap:10px;">
+                    <button onclick="this.closest('div[style]').parentElement.remove()" style="flex:1;padding:12px;border-radius:12px;background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Batal</button>
+                    <button onclick="doClearHistory(this)" style="flex:1;padding:12px;border-radius:12px;background:var(--danger);border:none;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;">Hapus</button>
+                </div></div>`;
+            document.body.appendChild(overlay);
+        }
+
+        function doClearHistory(btn) {
+            scanHistory = [];
+            localStorage.removeItem('bgt_scan_history');
+            updateHistoryBadge();
+            renderHistory();
+            btn.closest('div[style*="position:fixed"]').remove();
+            showToast('Riwayat berhasil dihapus', 'success');
+        }
+
+        function updateHistoryBadge() {
+            const badge = document.getElementById('historyBadge');
+            if (scanHistory.length > 0) {
+                badge.style.display = 'flex';
+                badge.textContent = scanHistory.length > 99 ? '99+' : scanHistory.length;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // ========== UTILITAS ==========
+        function esc(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        function formatTime(iso) {
+            try {
+                const d = new Date(iso);
+                const now = new Date();
+                const h = d.getHours().toString().padStart(2, '0');
+                const m = d.getMinutes().toString().padStart(2, '0');
+                const t = `${h}:${m}`;
+                if (d.toDateString() === now.toDateString()) return `Hari ini, ${t}`;
+                const y = new Date(now); y.setDate(y.getDate() - 1);
+                if (d.toDateString() === y.toDateString()) return `Kemarin, ${t}`;
+                return `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')}, ${t}`;
+            } catch (e) { return ''; }
+        }
+
+        async function copyCode(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast('Kode berhasil disalin', 'success');
+            } catch (e) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.cssText = 'position:fixed;opacity:0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+                showToast('Kode berhasil disalin', 'success');
+            }
+        }
+
+        function showToast(message, type) {
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = `toast toast-${type || 'info'}`;
+            t.textContent = message;
+            c.appendChild(t);
+            setTimeout(() => { if (t.parentNode) t.remove(); }, 3000);
+        }
+    </script>
+</body>
+</html>
