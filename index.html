@@ -29,17 +29,11 @@
         *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
         body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);overflow:hidden;height:100dvh;width:100vw;position:relative;}
 
-        /* ===== SCREEN SYSTEM ===== */
         .screen{position:absolute;inset:0;transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;will-change:transform,opacity;}
         .screen.hidden-right{transform:translateX(100%);opacity:0;pointer-events:none;}
         .screen.hidden-left{transform:translateX(-100%);opacity:0;pointer-events:none;}
         .screen.active{transform:translateX(0);opacity:1;pointer-events:all;}
 
-        /* Hidden scanner elemen */
-        #hiddenImageScanner{position:fixed!important;bottom:0!important;right:0!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;z-index:-9999!important;border:none!important;padding:0!important;margin:0!important;}
-        #hiddenImageScanner video,#hiddenImageScanner img{display:none!important;}
-
-        /* ===== HOME ===== */
         #homeScreen{display:flex;flex-direction:column;background:linear-gradient(170deg,#0A0A0F 0%,#12101F 40%,#1A0F0A 100%);}
         .home-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10;}
         .logo-text{font-family:'Orbitron',monospace;font-weight:900;font-size:22px;background:linear-gradient(135deg,var(--primary),var(--warning));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;}
@@ -60,7 +54,6 @@
         .secondary-btn{width:100%;max-width:320px;padding:14px 24px;background:transparent;color:var(--primary);border:2px solid rgba(255,107,0,.3);border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .3s ease;font-family:'Inter',sans-serif;margin-top:12px;}
         .secondary-btn:active{background:rgba(255,107,0,.08);transform:scale(.97);}
 
-        /* Stats bar */
         .stats-bar{display:flex;gap:8px;margin:20px 0;width:100%;max-width:380px;}
         .stat-card{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center;}
         .stat-num{font-family:'Orbitron',monospace;font-weight:700;font-size:20px;color:var(--primary);}
@@ -74,16 +67,12 @@
 
         .home-bottom-nav{display:flex;justify-content:space-around;padding:12px 16px 20px;background:var(--bg-card);border-top:1px solid var(--border);flex-shrink:0;}
         .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:.5;transition:all .3s ease;background:none;border:none;color:var(--text);font-family:'Inter',sans-serif;}
-        .nav-item.active{opacity:1;}
-        .nav-item.active i{color:var(--primary);}
-        .nav-item i{font-size:20px;}
-        .nav-item span{font-size:10px;font-weight:600;}
+        .nav-item.active{opacity:1;}.nav-item.active i{color:var(--primary);}
+        .nav-item i{font-size:20px;}.nav-item span{font-size:10px;font-weight:600;}
 
         .badge-count{background:var(--danger);color:#fff;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 4px;position:absolute;top:-4px;right:-8px;}
         .https-warning{width:100%;max-width:320px;margin-top:16px;padding:12px 16px;background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.2);border-radius:12px;font-size:12px;color:var(--warning);line-height:1.5;display:none;}
-        .https-warning i{margin-right:6px;}
 
-        /* ===== SCANNER ===== */
         #scannerScreen{background:#000;display:flex;flex-direction:column;}
         .scanner-header{position:absolute;top:0;left:0;right:0;z-index:30;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(0,0,0,.7) 0%,transparent 100%);}
         .scanner-header button{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;}
@@ -132,7 +121,6 @@
         @keyframes spin{to{transform:rotate(360deg)}}
         .scan-loading span{font-size:14px;font-weight:600;}
 
-        /* ===== MODALS ===== */
         .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9998;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(6px);animation:fadeIn .2s ease;}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         .modal-sheet{background:var(--bg-card);border:1px solid var(--border);border-radius:24px 24px 0 0;padding:28px 24px 36px;width:100%;max-width:480px;animation:slideUp .35s cubic-bezier(.32,.72,0,1);max-height:85dvh;overflow-y:auto;}
@@ -145,21 +133,12 @@
         .modal-textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(255,107,0,.1);}
         .modal-submit{width:100%;padding:16px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Inter',sans-serif;transition:all .2s ease;}
         .modal-submit:active{transform:scale(.97);}
-        .modal-submit:disabled{opacity:.6;cursor:not-allowed;}
 
         .suggestion-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
         .suggestion-chips-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;width:100%;}
         .suggestion-chip{padding:8px 14px;background:var(--bg-card-2);border:1px solid var(--border);border-radius:10px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s ease;}
         .suggestion-chip:active{background:rgba(255,107,0,.1);border-color:var(--primary);color:var(--primary);}
 
-        .upload-area{border:2px dashed var(--border);border-radius:16px;padding:32px 20px;text-align:center;cursor:pointer;transition:all .3s ease;margin-bottom:16px;}
-        .upload-area:hover,.upload-area.dragover{border-color:var(--primary);background:rgba(255,107,0,.05);}
-        .upload-area i{font-size:40px;color:var(--primary);margin-bottom:12px;opacity:.7;}
-        .upload-area p{font-size:13px;color:var(--text-muted);line-height:1.5;}
-        .upload-area .upload-hint{font-size:11px;color:var(--text-muted);opacity:.6;margin-top:8px;}
-        .upload-preview{max-width:100%;max-height:200px;border-radius:12px;margin-bottom:12px;display:none;object-fit:contain;background:var(--bg-card-2);padding:8px;}
-
-        /* ===== RESULT ===== */
         #resultScreen{background:linear-gradient(170deg,#0A0A0F 0%,#141420 100%);display:flex;flex-direction:column;overflow-y:auto;}
         .result-header{padding:14px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,.92);backdrop-filter:blur(16px);z-index:10;flex-shrink:0;}
         .result-header button{width:38px;height:38px;border-radius:10px;background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0;}
@@ -167,13 +146,11 @@
         .result-title-text{font-weight:700;font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
         .result-status-badge{padding:5px 12px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;flex-shrink:0;}
         .badge-found{background:rgba(0,230,118,.12);color:var(--success);border:1px solid rgba(0,230,118,.25);}
-        .badge-not-found{background:rgba(255,61,87,.12);color:var(--danger);border:1px solid rgba(255,61,87,.25);}
         .badge-url{background:rgba(41,182,246,.12);color:var(--info);border:1px solid rgba(41,182,246,.25);}
         .badge-text{background:rgba(255,184,0,.12);color:var(--warning);border:1px solid rgba(255,184,0,.25);}
         .badge-data{background:rgba(255,107,0,.12);color:var(--primary);border:1px solid rgba(255,107,0,.25);}
 
         .result-body{flex:1;padding:16px;animation:fadeInUp .5s ease;padding-bottom:40px;}
-
         .result-type-banner{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;margin-bottom:16px;border:1px solid;}
         .result-type-banner i{font-size:22px;}
         .result-type-banner .type-label{font-size:11px;font-weight:600;opacity:.6;}
@@ -193,18 +170,16 @@
         .raw-code-box .code.plain{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--text);white-space:pre-wrap;word-break:break-word;}
         .format-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:700;background:var(--bg-card-2);color:var(--text-muted);border:1px solid var(--border);margin-top:10px;}
 
-        /* Data Table */
         .data-table-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px;}
         .data-table-card-header{padding:16px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;position:relative;}
         .data-table-card-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--warning),var(--primary));}
         .data-table-card-header i{font-size:18px;color:var(--primary);}
         .data-table-card-header span{font-size:15px;font-weight:700;}
-        .data-table-row{display:flex;padding:11px 18px;border-bottom:1px solid rgba(42,42,64,.5);align-items:flex-start;gap:8px;transition:background .15s ease;}
+        .data-table-row{display:flex;padding:11px 18px;border-bottom:1px solid rgba(42,42,64,.5);align-items:flex-start;gap:8px;}
         .data-table-row:last-child{border-bottom:none;}
-        .data-table-row:hover{background:rgba(255,107,0,.03);}
         .data-table-row.highlight{background:rgba(255,107,0,.06);}
-        .data-table-label{width:42%;min-width:0;font-size:12px;font-weight:600;color:var(--text-muted);line-height:1.5;flex-shrink:0;padding-top:1px;}
-        .data-table-separator{width:16px;flex-shrink:0;text-align:center;font-size:12px;color:var(--border-light);padding-top:2px;}
+        .data-table-label{width:42%;min-width:0;font-size:12px;font-weight:600;color:var(--text-muted);line-height:1.5;flex-shrink:0;}
+        .data-table-separator{width:16px;flex-shrink:0;text-align:center;font-size:12px;color:var(--border-light);}
         .data-table-value{flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--text);line-height:1.5;word-break:break-word;}
         .data-table-value.val-success{color:var(--success);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
         .data-table-value.val-danger{color:var(--danger);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
@@ -212,7 +187,6 @@
         .data-table-value.val-empty{color:var(--text-muted);opacity:.5;font-style:italic;font-weight:400;}
         .data-table-value.val-info{color:var(--info);font-weight:600;}
 
-        /* Member Card */
         .member-card{background:linear-gradient(135deg,var(--bg-card) 0%,var(--bg-card-2) 100%);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px;}
         .member-card-header{padding:18px 18px 14px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border);position:relative;}
         .member-card-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--warning),var(--primary));}
@@ -225,16 +199,21 @@
         .member-status-dot.berlaku{background:rgba(41,182,246,.12);color:var(--info);}
         .member-status-dot.terdaftar{background:rgba(255,184,0,.12);color:var(--warning);}
 
-        /* WiFi Card */
         .wifi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px;position:relative;}
         .wifi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--success),#00BFA5,var(--success));}
         .wifi-card-body{padding:18px;}
         .wifi-ssid{font-size:20px;font-weight:800;margin-bottom:4px;}
         .wifi-enc{font-size:12px;color:var(--text-muted);margin-bottom:16px;}
-        .wifi-password-box{background:var(--bg-card-2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
-        .wifi-password-box .pw{font-family:'Orbitron',monospace;font-size:18px;font-weight:700;letter-spacing:2px;}
-        .wifi-password-box button{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25);color:var(--success);padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;}
-        .wifi-password-box button:active{transform:scale(.95);}
+        .wifi-password-box{background:var(--bg-card-2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+        .wifi-password-box .pw{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;letter-spacing:2px;word-break:break-all;}
+        .wifi-password-box button{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25);color:var(--success);padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;white-space:nowrap;}
+
+        .vcard-card{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-2));border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px;position:relative;}
+        .vcard-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),#AB47BC,var(--purple));}
+        .vcard-header{padding:20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);}
+        .vcard-avatar{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#7B1FA2,#CE93D8);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-weight:900;font-size:18px;color:#fff;flex-shrink:0;}
+        .vcard-name{font-size:20px;font-weight:800;line-height:1.2;}
+        .vcard-org{font-size:13px;color:var(--text-muted);margin-top:3px;}
 
         .result-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
         .result-action-btn{padding:14px 20px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s ease;border:none;font-family:'Inter',sans-serif;}
@@ -245,29 +224,24 @@
         .btn-success{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25)!important;color:var(--success);}
         .btn-phone{background:rgba(156,39,176,.12);border:1px solid rgba(156,39,176,.25)!important;color:var(--purple);}
         .btn-email{background:rgba(255,107,0,.12);border:1px solid rgba(255,107,0,.25)!important;color:var(--primary);}
-        .btn-danger{background:rgba(255,61,87,.12);border:1px solid rgba(255,61,87,.25)!important;color:var(--danger);}
 
-        /* ===== HISTORY ===== */
         #historyScreen{background:linear-gradient(170deg,#0A0A0F 0%,#141420 100%);display:flex;flex-direction:column;}
         .history-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,.92);backdrop-filter:blur(16px);z-index:10;flex-shrink:0;}
         .history-header-left{display:flex;align-items:center;gap:12px;}
         .history-header h2{font-size:20px;font-weight:700;}
         .clear-btn{padding:8px 14px;border-radius:10px;background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.2);color:var(--danger);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s ease;font-family:'Inter',sans-serif;}
         .clear-btn:active{transform:scale(.95);}
-
         .history-search{padding:12px 16px;flex-shrink:0;}
         .history-search-input{width:100%;padding:12px 16px 12px 42px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s ease;}
         .history-search-input::placeholder{color:var(--text-muted);font-size:13px;}
         .history-search-input:focus{border-color:var(--primary);}
         .history-search-wrap{position:relative;}
         .history-search-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:14px;}
-
         .history-list{flex:1;overflow-y:auto;padding:0 16px 100px;}
         .history-item{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s ease;}
         .history-item:active{transform:scale(.98);border-color:var(--primary);}
         .history-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
         .history-icon.found{background:rgba(0,230,118,.1);color:var(--success);}
-        .history-icon.notfound{background:rgba(255,61,87,.1);color:var(--danger);}
         .history-icon.url{background:rgba(41,182,246,.1);color:var(--info);}
         .history-icon.text{background:rgba(255,184,0,.1);color:var(--warning);}
         .history-icon.data{background:rgba(255,107,0,.1);color:var(--primary);}
@@ -276,17 +250,15 @@
         .history-icon.wifi{background:rgba(0,230,118,.1);color:var(--success);}
         .history-icon.vcard{background:rgba(156,39,176,.1);color:var(--purple);}
         .history-info{flex:1;min-width:0;}
-        .history-code{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .history-code{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
         .history-meta{font-size:11px;color:var(--text-muted);margin-top:2px;}
         .history-arrow{color:var(--text-muted);font-size:14px;}
-        .history-delete-btn{background:none;border:none;color:var(--danger);font-size:14px;cursor:pointer;padding:8px;opacity:.5;transition:opacity .2s;}
-        .history-delete-btn:hover{opacity:1;}
+        .history-delete-btn{background:none;border:none;color:var(--danger);font-size:14px;cursor:pointer;padding:8px;opacity:.5;}
         .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;}
         .empty-state i{font-size:56px;color:var(--border);margin-bottom:16px;}
         .empty-state h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--text-muted);}
         .empty-state p{font-size:13px;color:var(--text-muted);opacity:.7;}
 
-        /* ===== TOAST ===== */
         .toast-container{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:90%;max-width:400px;}
         .toast{padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;backdrop-filter:blur(16px);animation:toastIn .35s ease,toastOut .35s ease 2.5s forwards;white-space:nowrap;pointer-events:auto;text-align:center;}
         .toast-success{background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.3);color:var(--success);}
@@ -296,67 +268,42 @@
         @keyframes toastOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-16px)}}
         .success-flash{position:fixed;inset:0;background:rgba(0,230,118,.08);z-index:100;animation:flashFade .5s ease forwards;pointer-events:none;}
         @keyframes flashFade{0%{opacity:1}100%{opacity:0}}
-
         .particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
-        .particle{position:absolute;width:2px;height:2px;background:var(--primary);border-radius:50%;opacity:0;animation:floatParticle linear infinite;}
-        @keyframes floatParticle{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.2}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
-
-        /* Section label */
-        .section-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;padding-left:2px;}
-        .section-label:first-child{margin-top:0;}
-
-        /* vCard contact card */
-        .vcard-card{background:linear-gradient(135deg,var(--bg-card),var(--bg-card-2));border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:16px;position:relative;}
-        .vcard-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),#AB47BC,var(--purple));}
-        .vcard-header{padding:20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);}
-        .vcard-avatar{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#7B1FA2,#CE93D8);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-weight:900;font-size:18px;color:#fff;flex-shrink:0;}
-        .vcard-name{font-size:20px;font-weight:800;line-height:1.2;}
-        .vcard-org{font-size:13px;color:var(--text-muted);margin-top:3px;}
-
-        @media(min-width:500px){
-            .scan-frame{width:300px;height:300px;}
-            .home-content{padding:40px;}
-            .quick-actions{max-width:440px;}
-            .stats-bar{max-width:440px;}
-            .data-table-label{width:38%;}
-        }
+        .particle{position:absolute;width:2px;height:2px;background:var(--primary);border-radius:50%;opacity:0;animation:floatP linear infinite;}
+        @keyframes floatP{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.2}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
+        .section-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px;}
+        @media(min-width:500px){.scan-frame{width:300px;height:300px;}.home-content{padding:40px;}.quick-actions,.stats-bar{max-width:440px;}.data-table-label{width:38%;}}
         @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
-        ::-webkit-scrollbar{width:4px;}
-        ::-webkit-scrollbar-track{background:transparent;}
-        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+        ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
     </style>
 </head>
 <body>
 
-    <div id="hiddenImageScanner"></div>
+    <!-- HARUS ADA: div kosong untuk html5-qrcode scan gambar -->
+    <div id="imageScanRegion"></div>
+
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ===== HOME ===== -->
+    <!-- HOME -->
     <div id="homeScreen" class="screen active">
         <div class="particles" id="particles"></div>
         <div class="home-header">
-            <div style="display:flex;align-items:center;">
-                <span class="logo-text">BGT</span>
-                <span class="logo-pro">PRO</span>
-            </div>
+            <div style="display:flex;align-items:center;"><span class="logo-text">BGT</span><span class="logo-pro">PRO</span></div>
             <div style="position:relative;">
-                <button onclick="navigateTo('history')" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);width:40px;height:40px;border-radius:12px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;" aria-label="Riwayat"><i class="fas fa-clock-rotate-left"></i></button>
+                <button onclick="navigateTo('history')" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);width:40px;height:40px;border-radius:12px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="fas fa-clock-rotate-left"></i></button>
                 <span class="badge-count" id="historyBadge" style="display:none;">0</span>
             </div>
         </div>
         <div class="home-content">
             <div class="scan-icon-wrap"><i class="fas fa-qrcode"></i></div>
             <h1 style="font-size:24px;font-weight:800;margin-bottom:8px;text-align:center;">Universal Scanner</h1>
-            <p style="font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:24px;max-width:300px;line-height:1.5;">Scan QR Code, Barcode, Gambar, atau Input Manual — semua tipe terdeteksi otomatis</p>
+            <p style="font-size:14px;color:var(--text-muted);text-align:center;margin-bottom:24px;max-width:300px;line-height:1.5;">Scan QR Code, Barcode, Gambar, atau Input Manual</p>
             <button class="scan-btn" onclick="startScanner()"><i class="fas fa-camera"></i> Mulai Scan Kamera</button>
             <button class="secondary-btn" onclick="openImageUpload()"><i class="fas fa-image"></i> Scan dari Gambar</button>
             <button class="secondary-btn" onclick="openManualInput()"><i class="fas fa-keyboard"></i> Input Manual</button>
-            <div class="https-warning" id="httpsWarning">
-                <i class="fas fa-triangle-exclamation"></i>
-                Kamera tidak akan berfungsi karena halaman dibuka via <strong>http://</strong>. Gunakan <strong>https://</strong> atau <strong>localhost</strong>.
-            </div>
-            <div class="stats-bar" id="statsBar">
-                <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total Scan</div></div>
+            <div class="https-warning" id="httpsWarning"><i class="fas fa-triangle-exclamation"></i>Kamera tidak akan berfungsi via <strong>http://</strong>. Gunakan <strong>https://</strong> atau <strong>localhost</strong>.</div>
+            <div class="stats-bar">
+                <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total</div></div>
                 <div class="stat-card"><div class="stat-num" id="statMember">0</div><div class="stat-label">Anggota</div></div>
                 <div class="stat-card"><div class="stat-num" id="statUrl">0</div><div class="stat-label">URL</div></div>
                 <div class="stat-card"><div class="stat-num" id="statOther">0</div><div class="stat-label">Lainnya</div></div>
@@ -374,95 +321,84 @@
         </div>
     </div>
 
-    <!-- ===== SCANNER ===== -->
+    <!-- SCANNER -->
     <div id="scannerScreen" class="screen hidden-right">
         <div class="scanner-header">
-            <button onclick="stopScanner();navigateTo('home')" aria-label="Kembali"><i class="fas fa-arrow-left"></i></button>
+            <button onclick="stopScanner();navigateTo('home')"><i class="fas fa-arrow-left"></i></button>
             <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
                 <span class="scanner-title">SCANNER</span>
                 <span class="scanner-mode-badge" id="scannerModeBadge">SEMUA FORMAT</span>
             </div>
-            <button onclick="flipCamera()" aria-label="Ganti kamera"><i class="fas fa-camera-rotate"></i></button>
+            <button onclick="flipCamera()"><i class="fas fa-camera-rotate"></i></button>
         </div>
         <div class="scanner-camera-wrap"><div id="scannerCamera"></div></div>
-        <div class="scan-overlay" id="scanOverlay">
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs><mask id="scanMask"><rect width="100" height="100" fill="white"/><rect x="17.5" y="17.5" width="65" height="65" rx="4" fill="black"/></mask></defs>
-                <rect width="100" height="100" fill="rgba(0,0,0,0.6)" mask="url(#scanMask)"/>
-            </svg>
-        </div>
-        <div class="scan-frame" id="scanFrame" style="display:none;">
-            <div class="scan-corner tl"></div><div class="scan-corner tr"></div>
-            <div class="scan-corner bl"></div><div class="scan-corner br"></div>
-            <div class="laser-line" id="laserLine"></div>
-        </div>
+        <div class="scan-overlay" id="scanOverlay"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><defs><mask id="scanMask"><rect width="100" height="100" fill="white"/><rect x="17.5" y="17.5" width="65" height="65" rx="4" fill="black"/></mask></defs><rect width="100" height="100" fill="rgba(0,0,0,0.6)" mask="url(#scanMask)"/></svg></div>
+        <div class="scan-frame" id="scanFrame" style="display:none;"><div class="scan-corner tl"></div><div class="scan-corner tr"></div><div class="scan-corner bl"></div><div class="scan-corner br"></div><div class="laser-line"></div></div>
         <div class="scanner-format-tabs" id="formatTabs" style="display:none;">
             <button class="format-tab active" data-mode="all" onclick="switchFormat('all')">Semua</button>
             <button class="format-tab" data-mode="qr" onclick="switchFormat('qr')">QR Code</button>
             <button class="format-tab" data-mode="barcode" onclick="switchFormat('barcode')">Barcode</button>
         </div>
         <div class="scanner-bottom-controls" id="scannerControls" style="display:none;">
-            <button class="scanner-ctrl-btn" id="flashBtn" onclick="toggleFlash()" aria-label="Senter"><i class="fas fa-bolt"></i></button>
-            <button class="scanner-ctrl-btn" onclick="stopScanner();openImageUpload();" aria-label="Upload gambar"><i class="fas fa-image"></i></button>
+            <button class="scanner-ctrl-btn" id="flashBtn" onclick="toggleFlash()"><i class="fas fa-bolt"></i></button>
+            <button class="scanner-ctrl-btn" onclick="stopScanner();openImageUpload();"><i class="fas fa-image"></i></button>
         </div>
         <div class="scan-hint" id="scanHint" style="display:none;">Arahkan kode ke dalam kotak scan</div>
         <div class="scan-loading" id="scanLoading" style="display:none;"><div class="spinner"></div><span>Membuka kamera...</span></div>
         <div class="camera-error" id="cameraError" style="display:none;">
-            <i class="fas fa-video-slash"></i>
-            <h3 id="cameraErrorTitle">Kamera Tidak Tersedia</h3>
-            <p id="cameraErrorMsg">Pastikan kamera tidak sedang dipakai aplikasi lain dan izin kamera sudah diberikan.</p>
+            <i class="fas fa-video-slash"></i><h3 id="cameraErrorTitle">Kamera Tidak Tersedia</h3><p id="cameraErrorMsg">Pastikan kamera tersedia dan izin sudah diberikan.</p>
             <button class="camera-error-btn primary" onclick="retryScanner()"><i class="fas fa-rotate-right"></i> Coba Lagi</button>
             <button class="camera-error-btn secondary" onclick="stopScanner();openImageUpload();"><i class="fas fa-image"></i> Scan dari Gambar</button>
             <button class="camera-error-btn secondary" onclick="stopScanner();openManualInput();"><i class="fas fa-keyboard"></i> Input Manual</button>
         </div>
     </div>
 
-    <!-- ===== RESULT ===== -->
+    <!-- RESULT -->
     <div id="resultScreen" class="screen hidden-right">
         <div class="result-header">
-            <button onclick="navigateTo('home')" aria-label="Kembali"><i class="fas fa-arrow-left"></i></button>
+            <button onclick="navigateTo('home')"><i class="fas fa-arrow-left"></i></button>
             <span class="result-title-text" id="resultTitle">Hasil Scan</span>
             <span class="result-status-badge" id="resultBadge"></span>
         </div>
         <div class="result-body" id="resultBody"></div>
     </div>
 
-    <!-- ===== HISTORY ===== -->
+    <!-- HISTORY -->
     <div id="historyScreen" class="screen hidden-right">
         <div class="history-header">
             <div class="history-header-left">
-                <button onclick="navigateTo('home')" style="background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-label="Kembali"><i class="fas fa-arrow-left"></i></button>
+                <button onclick="navigateTo('home')" style="background:var(--bg-card-2);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-arrow-left"></i></button>
                 <h2>Riwayat Scan</h2>
             </div>
-            <button class="clear-btn" id="clearHistoryBtn" onclick="confirmClearHistory()"><i class="fas fa-trash-can" style="margin-right:4px;"></i> Hapus</button>
+            <button class="clear-btn" onclick="confirmClearHistory()"><i class="fas fa-trash-can" style="margin-right:4px;"></i> Hapus</button>
         </div>
-        <div class="history-search">
-            <div class="history-search-wrap">
-                <i class="fas fa-magnifying-glass"></i>
-                <input type="text" class="history-search-input" id="historySearchInput" placeholder="Cari riwayat scan..." oninput="renderHistory()">
-            </div>
-        </div>
+        <div class="history-search"><div class="history-search-wrap"><i class="fas fa-magnifying-glass"></i><input type="text" class="history-search-input" id="historySearchInput" placeholder="Cari riwayat scan..." oninput="renderHistory()"></div></div>
         <div class="history-list" id="historyList"></div>
     </div>
 
+    <!-- Library WAJIB -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+    <!-- HARUS ADA: input file tersembunyi, diletakkan SEBELUM </body> -->
+    <input type="file" id="imageInput" accept="image/*" hidden>
+
     <script>
     /* ================================================================
-       DATABASE ANGGOTA & CONTOH DATA
+       DATABASE
     ================================================================ */
-    const databaseAnggota = {
-        'BGT-0001': { nama:'Made Agus', status:'Aktif', mobil:'DK 1234 AB', bergabung:'2023', telepon:'0812-3456-7890', alamat:'Denpasar, Bali', tipe:'Driver' },
-        'BGT-0002': { nama:'Wayan Sudiarta', status:'Aktif', mobil:'DK 5678 CD', bergabung:'2022', telepon:'0813-9876-5432', alamat:'Badung, Bali', tipe:'Driver' },
-        'BGT-0003': { nama:'Ketut Ari', status:'Nonaktif', mobil:'DK 9012 EF', bergabung:'2021', telepon:'0814-5555-1234', alamat:'Gianyar, Bali', tipe:'Driver' },
-        'BGT-0004': { nama:'Putu Dewi', status:'Aktif', mobil:'DK 3456 GH', bergabung:'2024', telepon:'0815-7777-8899', alamat:'Tabanan, Bali', tipe:'Driver' },
-        'BGT-0005': { nama:'Nyoman Budi', status:'Aktif', mobil:'DK 7890 IJ', bergabung:'2023', telepon:'0816-2222-3333', alamat:'Singaraja, Bali', tipe:'Driver' },
-        'BGT-0006': { nama:'Gede Surya', status:'Aktif', mobil:'DK 2345 KL', bergabung:'2024', telepon:'0817-4444-5555', alamat:'Karangasem, Bali', tipe:'Driver' },
-        'BGT-0007': { nama:'Komang Rina', status:'Nonaktif', mobil:'DK 6789 MN', bergabung:'2020', telepon:'0818-6666-7777', alamat:'Bangli, Bali', tipe:'Driver' },
-        'BGT-0008': { nama:'Made Wirawan', status:'Aktif', mobil:'DK 1357 OP', bergabung:'2024', telepon:'0819-8888-9999', alamat:'Klungkung, Bali', tipe:'Driver' },
-        'TKT-001': { nama:'Anniversary BGT 2025', status:'Berlaku', mobil:'-', bergabung:'-', telepon:'-', alamat:'Sanur, Bali', tipe:'Tiket Event' },
-        'TKT-002': { nama:'Kopdar BGT Juli', status:'Berlaku', mobil:'-', bergabung:'-', telepon:'-', alamat:'Kuta, Bali', tipe:'Tiket Event' },
-        'KDR-001': { nama:'Suzuki Avanza Silver', status:'Terdaftar', mobil:'DK 1234 AB', bergabung:'2023', telepon:'0812-3456-7890', alamat:'Denpasar, Bali', tipe:'Kendaraan' },
-        'KDR-002': { nama:'Toyota Innova Hitam', status:'Terdaftar', mobil:'DK 5678 CD', bergabung:'2022', telepon:'0813-9876-5432', alamat:'Badung, Bali', tipe:'Kendaraan' }
+    const DB={
+        'BGT-0001':{nama:'Made Agus',status:'Aktif',mobil:'DK 1234 AB',bergabung:'2023',telepon:'0812-3456-7890',alamat:'Denpasar, Bali',tipe:'Driver'},
+        'BGT-0002':{nama:'Wayan Sudiarta',status:'Aktif',mobil:'DK 5678 CD',bergabung:'2022',telepon:'0813-9876-5432',alamat:'Badung, Bali',tipe:'Driver'},
+        'BGT-0003':{nama:'Ketut Ari',status:'Nonaktif',mobil:'DK 9012 EF',bergabung:'2021',telepon:'0814-5555-1234',alamat:'Gianyar, Bali',tipe:'Driver'},
+        'BGT-0004':{nama:'Putu Dewi',status:'Aktif',mobil:'DK 3456 GH',bergabung:'2024',telepon:'0815-7777-8899',alamat:'Tabanan, Bali',tipe:'Driver'},
+        'BGT-0005':{nama:'Nyoman Budi',status:'Aktif',mobil:'DK 7890 IJ',bergabung:'2023',telepon:'0816-2222-3333',alamat:'Singaraja, Bali',tipe:'Driver'},
+        'BGT-0006':{nama:'Gede Surya',status:'Aktif',mobil:'DK 2345 KL',bergabung:'2024',telepon:'0817-4444-5555',alamat:'Karangasem, Bali',tipe:'Driver'},
+        'BGT-0007':{nama:'Komang Rina',status:'Nonaktif',mobil:'DK 6789 MN',bergabung:'2020',telepon:'0818-6666-7777',alamat:'Bangli, Bali',tipe:'Driver'},
+        'BGT-0008':{nama:'Made Wirawan',status:'Aktif',mobil:'DK 1357 OP',bergabung:'2024',telepon:'0819-8888-9999',alamat:'Klungkung, Bali',tipe:'Driver'},
+        'TKT-001':{nama:'Anniversary BGT 2025',status:'Berlaku',mobil:'-',bergabung:'-',telepon:'-',alamat:'Sanur, Bali',tipe:'Tiket Event'},
+        'TKT-002':{nama:'Kopdar BGT Juli',status:'Berlaku',mobil:'-',bergabung:'-',telepon:'-',alamat:'Kuta, Bali',tipe:'Tiket Event'},
+        'KDR-001':{nama:'Suzuki Avanza Silver',status:'Terdaftar',mobil:'DK 1234 AB',bergabung:'2023',telepon:'0812-3456-7890',alamat:'Denpasar, Bali',tipe:'Kendaraan'},
+        'KDR-002':{nama:'Toyota Innova Hitam',status:'Terdaftar',mobil:'DK 5678 CD',bergabung:'2022',telepon:'0813-9876-5432',alamat:'Badung, Bali',tipe:'Kendaraan'}
     };
 
     /* ================================================================
@@ -476,29 +412,23 @@
     let currentScanMode = 'all';
     let scanHistory = JSON.parse(localStorage.getItem('bgt_scan_history') || '[]');
     let audioCtx = null;
-    let lastScannedCode = '';
-    let lastScannedTime = 0;
-    let currentResultData = null; // simpan data hasil scan saat ini untuk re-render
+    let lastCode = '';
+    let lastTime = 0;
 
     /* ================================================================
        INIT
     ================================================================ */
     document.addEventListener('DOMContentLoaded', () => {
         createParticles();
-        updateHistoryBadge();
+        updateBadge();
         updateStats();
         checkHttps();
-        // Pastikan elemen hidden ada
-        if (!document.getElementById('hiddenImageScanner')) {
-            const d = document.createElement('div');
-            d.id = 'hiddenImageScanner';
-            document.body.prepend(d);
-        }
     });
 
     function checkHttps() {
-        const ok = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-        if (!ok) document.getElementById('httpsWarning').style.display = 'block';
+        if (!(location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+            document.getElementById('httpsWarning').style.display = 'block';
+        }
     }
 
     function createParticles() {
@@ -516,196 +446,95 @@
     }
 
     function updateStats() {
-        const total = scanHistory.length;
-        let member = 0, url = 0;
-        scanHistory.forEach(h => {
-            if (h.contentType === 'member') member++;
-            else if (h.contentType === 'url') url++;
-        });
-        document.getElementById('statTotal').textContent = total;
-        document.getElementById('statMember').textContent = member;
-        document.getElementById('statUrl').textContent = url;
-        document.getElementById('statOther').textContent = total - member - url;
+        const t = scanHistory.length;
+        let m = 0, u = 0;
+        scanHistory.forEach(h => { if (h.ct === 'member') m++; else if (h.ct === 'url') u++; });
+        document.getElementById('statTotal').textContent = t;
+        document.getElementById('statMember').textContent = m;
+        document.getElementById('statUrl').textContent = u;
+        document.getElementById('statOther').textContent = t - m - u;
     }
 
     /* ================================================================
        NAVIGASI
     ================================================================ */
-    function navigateTo(screen) {
+    function navigateTo(s) {
         const map = { home: 'homeScreen', scanner: 'scannerScreen', result: 'resultScreen', history: 'historyScreen' };
-        const tid = map[screen];
+        const tid = map[s];
         if (!tid) return;
         const ord = ['homeScreen', 'scannerScreen', 'resultScreen', 'historyScreen'];
-        document.querySelectorAll('.screen').forEach(s => {
-            if (s.id === tid) s.className = 'screen active';
-            else s.className = ord.indexOf(s.id) < ord.indexOf(tid) ? 'screen hidden-left' : 'screen hidden-right';
+        document.querySelectorAll('.screen').forEach(el => {
+            if (el.id === tid) el.className = 'screen active';
+            else el.className = ord.indexOf(el.id) < ord.indexOf(tid) ? 'screen hidden-left' : 'screen hidden-right';
         });
-        if (screen === 'history') renderHistory();
-        if (screen === 'home') updateStats();
+        if (s === 'history') renderHistory();
+        if (s === 'home') updateStats();
     }
 
     /* ================================================================
-       DETEKSI & PARSE — SEMUA TIPE KONTEN
+       DETEKSI & PARSE
     ================================================================ */
-
-    // Parse data terstruktur (format kunci : nilai per baris, mendukung tab dan : sebagai separator)
-    function parseStructuredData(text) {
-        const lines = text.split(/\r?\n/);
-        const pairs = [];
-        let matchCount = 0;
-        for (const line of lines) {
-            // Coba format "Kunci : Nilai" atau "Kunci\t:\tNilai" atau "Kunci\tNilai"
-            let m = line.match(/^(.+?)\s*:\s*(.*)$/);
-            if (!m) m = line.match(/^(.+?)\t+(.*)$/);
-            if (m) {
-                const label = m[1].trim();
-                const value = m[2].trim();
-                if (label.length > 0) {
-                    pairs.push({ label, value: value || '-' });
-                    matchCount++;
-                }
-            }
+    function parseStructured(text) {
+        const lines = text.split(/\r?\n/), pairs = [];
+        let mc = 0;
+        for (const l of lines) {
+            let m = l.match(/^(.+?)\s*:\s*(.*)$/);
+            if (!m) m = l.match(/^(.+?)\t+(.*)$/);
+            if (m) { const la = m[1].trim(), v = m[2].trim(); if (la.length > 0) { pairs.push({ label: la, value: v || '-' }); mc++; } }
         }
-        // Minimal 3 pasangan untuk dianggap data terstruktur
-        if (matchCount >= 3) return { type: 'data', label: 'Data Terstruktur', icon: 'fa-table-list', pairs };
+        if (mc >= 3) return { type: 'data', label: 'Data Terstruktur', icon: 'fa-table-list', pairs };
         return null;
     }
 
-    // Parse vCard
     function parseVCard(text) {
         if (!/^BEGIN:VCARD/i.test(text.trim())) return null;
-        const lines = text.split(/\r?\n/);
-        const contact = { name: '', org: '', title: '', tel: [], email: [], url: '', address: '', note: '' };
-        let currentProp = null;
-        let currentData = '';
-
-        function flushProp() {
-            if (currentProp && currentData) {
-                const val = currentData.trim();
-                if (currentProp === 'FN') contact.name = val;
-                else if (currentProp === 'ORG') contact.org = val.replace(/;/g, ', ');
-                else if (currentProp === 'TITLE') contact.title = val;
-                else if (currentProp === 'TEL') contact.tel.push(val);
-                else if (currentProp === 'EMAIL') contact.email.push(val);
-                else if (currentProp === 'URL') contact.url = val;
-                else if (currentProp === 'ADR') contact.address = val.replace(/;/g, ', ');
-                else if (currentProp === 'NOTE') contact.note = val;
-            }
-            currentProp = null;
-            currentData = '';
+        const lines = text.split(/\r?\n/), c = { name: '', org: '', title: '', tel: [], email: [], url: '', address: '', note: '' };
+        let cp = null, cd = '';
+        function flush() {
+            if (cp && cd) { const v = cd.trim(); if (cp === 'FN') c.name = v; else if (cp === 'ORG') c.org = v.replace(/;/g, ', '); else if (cp === 'TITLE') c.title = v; else if (cp === 'TEL') c.tel.push(v); else if (cp === 'EMAIL') c.email.push(v); else if (cp === 'URL') c.url = v; else if (cp === 'ADR') c.address = v.replace(/;/g, ', '); else if (cp === 'NOTE') c.note = v; }
+            cp = null; cd = '';
         }
-
-        for (const line of lines) {
-            if (/^END:VCARD/i.test(line)) { flushProp(); break; }
-            // Properti yang di-fold (mulai dengan spasi)
-            if (line.startsWith(' ') || line.startsWith('\t')) {
-                currentData += line.trim();
-                continue;
-            }
-            flushProp();
-            // Parse properti
-            const m = line.match(/^([A-Z-]+)(?:;[^:]*)?:(.*)$/i);
-            if (m) {
-                currentProp = m[1].toUpperCase();
-                currentData = m[2] || '';
-            }
+        for (const l of lines) {
+            if (/^END:VCARD/i.test(l)) { flush(); break; }
+            if (l.startsWith(' ') || l.startsWith('\t')) { cd += l.trim(); continue; }
+            flush();
+            const m = l.match(/^([A-Z-]+)(?:;[^:]*)?:(.*)$/i);
+            if (m) { cp = m[1].toUpperCase(); cd = m[2] || ''; }
         }
-        flushProp();
-
-        if (!contact.name && !contact.tel.length && !contact.email.length) return null;
-        return { type: 'vcard', label: 'Kontak (vCard)', icon: 'fa-address-card', contact };
+        flush();
+        if (!c.name && !c.tel.length && !c.email.length) return null;
+        return { type: 'vcard', label: 'Kontak (vCard)', icon: 'fa-address-card', contact: c };
     }
 
-    // Parse WiFi
     function parseWifi(text) {
         const p = {};
-        text.replace(/^WIFI:/i, '').split(';').forEach(s => {
-            const [k, ...v] = s.split(':');
-            if (k && v.length) p[k.trim().toUpperCase()] = v.join(':').trim();
-        });
-        return {
-            type: 'wifi', label: 'Jaringan WiFi', icon: 'fa-wifi',
-            ssid: p.SSID || '?', password: p.P || p.PASS || p.PASSWORD || '-',
-            encryption: p.T || p.TYPE || 'WPA', hidden: p.H === 'true'
-        };
+        text.replace(/^WIFI:/i, '').split(';').forEach(s => { const [k, ...v] = s.split(':'); if (k && v.length) p[k.trim().toUpperCase()] = v.join(':').trim(); });
+        return { type: 'wifi', label: 'Jaringan WiFi', icon: 'fa-wifi', ssid: p.SSID || '?', password: p.P || p.PASS || p.PASSWORD || '-', encryption: p.T || p.TYPE || 'WPA', hidden: p.H === 'true' };
     }
 
-    // Deteksi tipe konten utama
-    function detectContentType(text) {
+    function detectType(text) {
         text = text.trim();
-
-        // 1. vCard
-        const vc = parseVCard(text);
-        if (vc) return vc;
-
-        // 2. WiFi
+        let r;
+        r = parseVCard(text); if (r) return r;
         if (/^WIFI:/i.test(text)) return parseWifi(text);
-
-        // 3. Data terstruktur
-        const sd = parseStructuredData(text);
-        if (sd) return sd;
-
-        // 4. URL
+        r = parseStructured(text); if (r) return r;
         if (/^https?:\/\//i.test(text) || /^www\./i.test(text)) return { type: 'url', label: 'Tautan Web', icon: 'fa-link' };
-
-        // 5. Email
-        if (/^mailto:/i.test(text) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text))
-            return { type: 'email', label: 'Alamat Email', icon: 'fa-envelope', value: text.replace(/^mailto:/i, '') };
-
-        // 6. Telepon
-        const phoneClean = text.replace(/^tel:/i, '').trim().replace(/[\s\-()]/g, '');
-        if (/^tel:/i.test(text) || /^(\+?62|08)[0-9]{8,13}$/.test(phoneClean))
-            return { type: 'phone', label: 'Nomor Telepon', icon: 'fa-phone', value: text.replace(/^tel:/i, '').trim() };
-
-        // 7. Database anggota (ceks langsung & case-insensitive)
-        const upper = text.toUpperCase();
-        if (databaseAnggota[upper]) return { type: 'member', label: 'Data Anggota', icon: 'fa-id-card' };
-
-        // 8. Cek apakah ada kode anggota di dalam teks panjang
-        for (const code of Object.keys(databaseAnggota)) {
-            if (upper.includes(code)) return { type: 'member', label: 'Data Anggota', icon: 'fa-id-card', extractedCode: code };
-        }
-
-        // 9. SMS
-        if (/^SMSTO:/i.test(text)) {
-            const parts = text.replace(/^SMSTO:/i, '').split(':');
-            return { type: 'phone', label: 'SMS', icon: 'fa-comment-sms', value: parts[0] || '', smsBody: parts.slice(1).join(':') };
-        }
-
-        // 10. Geo location
-        if (/^geo:/i.test(text)) {
-            const coords = text.replace(/^geo:/i, '');
-            return { type: 'data', label: 'Lokasi GPS', icon: 'fa-location-dot', pairs: [{ label: 'Koordinat', value: coords }] };
-        }
-
-        // 11. Fallback: teks biasa
+        if (/^mailto:/i.test(text) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) return { type: 'email', label: 'Alamat Email', icon: 'fa-envelope', value: text.replace(/^mailto:/i, '') };
+        const pc = text.replace(/^tel:/i, '').trim().replace(/[\s\-()]/g, '');
+        if (/^tel:/i.test(text) || /^(\+?62|08)[0-9]{8,13}$/.test(pc)) return { type: 'phone', label: 'Nomor Telepon', icon: 'fa-phone', value: text.replace(/^tel:/i, '').trim() };
+        const u = text.toUpperCase();
+        if (DB[u]) return { type: 'member', label: 'Data Anggota', icon: 'fa-id-card' };
+        for (const code of Object.keys(DB)) { if (u.includes(code)) return { type: 'member', label: 'Data Anggota', icon: 'fa-id-card', extractedCode: code }; }
+        if (/^SMSTO:/i.test(text)) { const p = text.replace(/^SMSTO:/i, '').split(':'); return { type: 'phone', label: 'SMS', icon: 'fa-comment-sms', value: p[0] || '', smsBody: p.slice(1).join(':') }; }
+        if (/^geo:/i.test(text)) return { type: 'data', label: 'Lokasi GPS', icon: 'fa-location-dot', pairs: [{ label: 'Koordinat', value: text.replace(/^geo:/i, '') }] };
         return { type: 'text', label: 'Teks', icon: 'fa-align-left' };
     }
 
-    /* ================================================================
-       FORMAT SUPPORT
-    ================================================================ */
-    function getSupportedFormats(mode) {
+    function getFormats(mode) {
         if (typeof Html5QrcodeSupportedFormats === 'undefined') return undefined;
-        if (mode === 'qr') return [
-            Html5QrcodeSupportedFormats.QR_CODE,
-            Html5QrcodeSupportedFormats.AZTEC,
-            Html5QrcodeSupportedFormats.DATA_MATRIX,
-            Html5QrcodeSupportedFormats.PDF_417,
-            Html5QrcodeSupportedFormats.MAXI_CODE
-        ];
-        if (mode === 'barcode') return [
-            Html5QrcodeSupportedFormats.CODE_128,
-            Html5QrcodeSupportedFormats.CODE_39,
-            Html5QrcodeSupportedFormats.CODE_93,
-            Html5QrcodeSupportedFormats.EAN_13,
-            Html5QrcodeSupportedFormats.EAN_8,
-            Html5QrcodeSupportedFormats.UPC_A,
-            Html5QrcodeSupportedFormats.UPC_E,
-            Html5QrcodeSupportedFormats.ITF,
-            Html5QrcodeSupportedFormats.CODABAR
-        ];
-        return undefined; // semua format
+        if (mode === 'qr') return [Html5QrcodeSupportedFormats.QR_CODE, Html5QrcodeSupportedFormats.AZTEC, Html5QrcodeSupportedFormats.DATA_MATRIX, Html5QrcodeSupportedFormats.PDF_417];
+        if (mode === 'barcode') return [Html5QrcodeSupportedFormats.CODE_128, Html5QrcodeSupportedFormats.CODE_39, Html5QrcodeSupportedFormats.CODE_93, Html5QrcodeSupportedFormats.EAN_13, Html5QrcodeSupportedFormats.EAN_8, Html5QrcodeSupportedFormats.UPC_A, Html5QrcodeSupportedFormats.UPC_E, Html5QrcodeSupportedFormats.ITF, Html5QrcodeSupportedFormats.CODABAR];
+        return undefined;
     }
 
     /* ================================================================
@@ -714,810 +543,258 @@
     async function startScanner(mode) {
         if (mode) currentScanMode = mode;
         navigateTo('scanner');
-        showEl('scanLoading');
-        hideEl('cameraError');
-        hideEl('scanFrame');
-        hideEl('formatTabs');
-        hideEl('scannerControls');
-        hideEl('scanHint');
-
-        const modeLabels = { all: 'SEMUA FORMAT', qr: 'QR CODE ONLY', barcode: 'BARCODE ONLY' };
-        document.getElementById('scannerModeBadge').textContent = modeLabels[currentScanMode] || 'SEMUA FORMAT';
-
-        // Update tab aktif
-        document.querySelectorAll('.format-tab').forEach(t => {
-            t.classList.toggle('active', t.dataset.mode === currentScanMode);
-        });
-
+        showEl('scanLoading'); hideEl('cameraError'); hideEl('scanFrame'); hideEl('formatTabs'); hideEl('scannerControls'); hideEl('scanHint');
+        document.getElementById('scannerModeBadge').textContent = { all: 'SEMUA FORMAT', qr: 'QR CODE ONLY', barcode: 'BARCODE ONLY' }[currentScanMode] || 'SEMUA FORMAT';
+        document.querySelectorAll('.format-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === currentScanMode));
         try {
-            // Bersihkan instance sebelumnya
-            if (html5QrCode) {
-                try { await html5QrCode.stop(); } catch (e) {}
-                html5QrCode.clear();
-                document.getElementById('scannerCamera').innerHTML = '';
-            }
-
+            if (html5QrCode) { try { await html5QrCode.stop(); } catch (e) { } html5QrCode.clear(); document.getElementById('scannerCamera').innerHTML = ''; }
             html5QrCode = new Html5Qrcode('scannerCamera');
-            const config = {
-                fps: 15,
-                qrbox: function(viewfinderWidth, viewfinderHeight) {
-                    const size = Math.min(viewfinderWidth, viewfinderHeight) * 0.75;
-                    return { width: Math.max(150, size), height: Math.max(150, size) };
-                },
-                aspectRatio: 1.0,
-                formatsToSupport: getSupportedFormats(currentScanMode)
-            };
-
-            await html5QrCode.start(
-                { facingMode: currentFacingMode },
-                config,
-                onScanSuccess,
-                () => {} // ignore failure frame
-            );
-
-            isScanning = true;
-            hideEl('scanLoading');
-            showEl('scanFrame');
-            showEl('formatTabs');
-            showEl('scannerControls');
-            showEl('scanHint');
-            document.getElementById('scanOverlay').style.display = '';
-
+            await html5QrCode.start({ facingMode: currentFacingMode }, { fps: 15, qrbox: function (vw, vh) { const s = Math.min(vw, vh) * .75; return { width: Math.max(150, s), height: Math.max(150, s) }; }, aspectRatio: 1.0, formatsToSupport: getFormats(currentScanMode) }, onScanSuccess, () => { });
+            isScanning = true; hideEl('scanLoading'); showEl('scanFrame'); showEl('formatTabs'); showEl('scannerControls'); showEl('scanHint'); document.getElementById('scanOverlay').style.display = '';
         } catch (err) {
-            console.error('Camera error:', err);
-            hideEl('scanLoading');
-            showCameraError(
-                'Kamera Tidak Tersedia',
-                getCameraErrorMessage(err),
-                err
-            );
+            console.error('Camera:', err); hideEl('scanLoading');
+            document.getElementById('cameraErrorTitle').textContent = 'Kamera Tidak Tersedia';
+            let msg = 'Pastikan kamera tersedia dan izin sudah diberikan.';
+            const em = (err + '');
+            if (em.includes('NotAllowedError')) msg = 'Izin kamera ditolak. Buka pengaturan dan izinkan akses kamera.';
+            else if (em.includes('NotFoundError')) msg = 'Tidak ditemukan kamera pada perangkat ini.';
+            else if (em.includes('NotReadableError')) msg = 'Kamera sedang dipakai aplikasi lain.';
+            else if (em.includes('InsecureContext')) msg = 'Halaman harus dibuka via HTTPS atau localhost.';
+            document.getElementById('cameraErrorMsg').textContent = msg;
+            showEl('cameraError'); hideEl('scanFrame'); hideEl('formatTabs'); hideEl('scannerControls'); hideEl('scanHint'); document.getElementById('scanOverlay').style.display = 'none';
         }
     }
 
-    function getCameraErrorMessage(err) {
-        const msg = (err && err.toString()) || '';
-        if (msg.includes('NotAllowedError') || msg.includes('Permission'))
-            return 'Izin kamera ditolak. Buka pengaturan browser/HP dan izinkan akses kamera untuk halaman ini.';
-        if (msg.includes('NotFoundError') || msg.includes('DevicesNotFound'))
-            return 'Tidak ditemukan kamera pada perangkat ini.';
-        if (msg.includes('NotReadableError') || msg.includes('TrackStartError'))
-            return 'Kamera sedang dipakai aplikasi lain. Tutup aplikasi lain lalu coba lagi.';
-        if (msg.includes('InsecureContext'))
-            return 'Halaman harus dibuka via HTTPS agar kamera bisa diakses.';
-        return 'Pastikan kamera tidak sedang dipakai aplikasi lain dan izin kamera sudah diberikan.';
-    }
-
-    function showCameraError(title, msg) {
-        document.getElementById('cameraErrorTitle').textContent = title;
-        document.getElementById('cameraErrorMsg').textContent = msg;
-        showEl('cameraError');
-        hideEl('scanFrame');
-        hideEl('formatTabs');
-        hideEl('scannerControls');
-        hideEl('scanHint');
-        document.getElementById('scanOverlay').style.display = 'none';
-    }
-
-    function stopScanner() {
-        if (html5QrCode && isScanning) {
-            html5QrCode.stop().catch(() => {});
-            isScanning = false;
-        }
-        flashOn = false;
-        document.getElementById('flashBtn').classList.remove('flash-on');
-    }
-
-    function retryScanner() {
-        hideEl('cameraError');
-        startScanner(currentScanMode);
-    }
-
-    function flipCamera() {
-        currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
-        if (isScanning) startScanner(currentScanMode);
-    }
-
-    function toggleFlash() {
-        if (!html5QrCode || !isScanning) return;
-        // html5-qrcode tidak punya API flash langsung, gunakan track API
-        try {
-            const videoEl = document.getElementById('scannerCamera').querySelector('video');
-            if (videoEl && videoEl.srcObject) {
-                const track = videoEl.srcObject.getVideoTracks()[0];
-                if (track) {
-                    const caps = track.getCapabilities();
-                    if (caps.torch) {
-                        flashOn = !flashOn;
-                        track.applyConstraints({ advanced: [{ torch: flashOn }] });
-                        document.getElementById('flashBtn').classList.toggle('flash-on', flashOn);
-                    } else {
-                        showToast('Senter tidak didukung pada kamera ini', 'error');
-                    }
-                }
-            }
-        } catch (e) {
-            showToast('Gagal mengaktifkan senter', 'error');
-        }
-    }
-
-    function switchFormat(mode) {
-        currentScanMode = mode;
-        if (isScanning) startScanner(mode);
-    }
+    function stopScanner() { if (html5QrCode && isScanning) { html5QrCode.stop().catch(() => { }); isScanning = false; } flashOn = false; document.getElementById('flashBtn').classList.remove('flash-on'); }
+    function retryScanner() { hideEl('cameraError'); startScanner(currentScanMode); }
+    function flipCamera() { currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment'; if (isScanning) startScanner(currentScanMode); }
+    function toggleFlash() { if (!html5QrCode || !isScanning) return; try { const v = document.getElementById('scannerCamera').querySelector('video'); if (v && v.srcObject) { const t = v.srcObject.getVideoTracks()[0]; if (t && t.getCapabilities().torch) { flashOn = !flashOn; t.applyConstraints({ advanced: [{ torch: flashOn }] }); document.getElementById('flashBtn').classList.toggle('flash-on', flashOn); } else showToast('Senter tidak didukung', 'error'); } } catch (e) { } }
+    function switchFormat(m) { currentScanMode = m; if (isScanning) startScanner(m); }
+    function onScanSuccess(txt, res) { const now = Date.now(); if (txt === lastCode && now - lastTime < 3000) return; lastCode = txt; lastTime = now; playBeep(); showFlash(); stopScanner(); processResult(txt, res?.result?.format?.formatName || ''); }
 
     /* ================================================================
-       SCAN HANDLER — DIPANGGIL SAAT KODE TERDETEKSI
+       SCAN DARI GAMBAR — CARA YANG BENAR
+       Langsung pakai input file + Html5Qrcode.scanFile()
+       sesuai dokumentasi resmi library.
     ================================================================ */
-    function onScanSuccess(decodedText, decodedResult) {
-        // Debounce: hindari scan ulang kode yang sama dalam 3 detik
-        const now = Date.now();
-        if (decodedText === lastScannedCode && now - lastScannedTime < 3000) return;
-        lastScannedCode = decodedText;
-        lastScannedTime = now;
 
-        // Suara & flash
-        playBeep();
-        showSuccessFlash();
-
-        // Hentikan scanner
-        stopScanner();
-
-        // Proses hasil
-        processAndShowResult(decodedText, decodedResult?.result?.format?.formatName || '');
+    // Fungsi ini CUKUP membuka file picker
+    function openImageUpload() {
+        document.getElementById("imageInput").click();
     }
 
-    /* ================================================================
-       SCAN DARI GAMBAR
-    ================================================================ */
-    async function scanFromFile(file) {
-        if (!file) return;
+    // Event listener terhubung ke input file
+    document.getElementById("imageInput").addEventListener("change", async function (e) {
+        if (!e.target.files.length) return;
+
+        const file = e.target.files[0];
+
         showToast('Memproses gambar...', 'info');
 
         try {
-            // Bersihkan instance lama
-            if (imageScanner) {
-                try { imageScanner.clear(); } catch (e) {}
+            // Buat instance sekali, pakai ulang next time
+            if (!imageScanner) {
+                imageScanner = new Html5Qrcode("imageScanRegion");
             }
-            const container = document.getElementById('hiddenImageScanner');
-            container.innerHTML = '';
 
-            imageScanner = new Html5Qrcode('hiddenImageScanner');
             const result = await imageScanner.scanFile(file, true);
+
+            // Berhasil → proses hasil
             playBeep();
-            showSuccessFlash();
-            processAndShowResult(result, 'File Upload');
+            showFlash();
+            processResult(result, 'Scan Gambar');
+
         } catch (err) {
+            // Gagal → tampilkan pesan
             console.error('Image scan error:', err);
-            showToast('Tidak ada kode yang terdeteksi dalam gambar', 'error');
+            showToast('QR Code / Barcode tidak ditemukan dalam gambar', 'error');
         }
-    }
+
+        // Reset value agar file sama bisa dipilih ulang
+        e.target.value = "";
+    });
 
     /* ================================================================
        INPUT MANUAL
     ================================================================ */
-    function processManualInput(text) {
-        if (!text || !text.trim()) {
-            showToast('Masukkan teks atau kode terlebih dahulu', 'error');
-            return false;
-        }
-        playBeep();
-        showSuccessFlash();
-        processAndShowResult(text.trim(), 'Manual Input');
-        return true;
-    }
+    function processManual(text) { if (!text || !text.trim()) { showToast('Masukkan teks terlebih dahulu', 'error'); return false; } playBeep(); showFlash(); processResult(text.trim(), 'Manual Input'); return true; }
 
     /* ================================================================
-       PROSES & TAMPILKAN HASIL
+       PROSES & TAMPILKAN
     ================================================================ */
-    function processAndShowResult(rawText, formatInfo) {
-        const contentType = detectContentType(rawText);
-
-        // Simpan ke riwayat
-        const historyEntry = {
-            id: Date.now(),
-            raw: rawText,
-            contentType: contentType.type,
-            contentLabel: contentType.label,
-            format: formatInfo,
-            time: new Date().toISOString()
-        };
-        scanHistory.unshift(historyEntry);
+    function processResult(raw, fmt) {
+        const ct = detectType(raw);
+        scanHistory.unshift({ id: Date.now(), raw, ct: ct.type, cl: ct.label, fmt, time: new Date().toISOString() });
         if (scanHistory.length > 200) scanHistory = scanHistory.slice(0, 200);
         localStorage.setItem('bgt_scan_history', JSON.stringify(scanHistory));
-        updateHistoryBadge();
-
-        // Simpan data untuk akses ulang
-        currentResultData = { raw: rawText, contentType, format: formatInfo };
-
-        // Render hasil
-        renderResult(rawText, contentType, formatInfo);
-        navigateTo('result');
+        updateBadge(); renderResultPage(raw, ct, fmt); navigateTo('result');
     }
 
-    /* ================================================================
-       RENDER HASIL — SEMUA TIPE
-    ================================================================ */
-    function renderResult(rawText, contentType, formatInfo) {
-        const body = document.getElementById('resultBody');
-        const badge = document.getElementById('resultBadge');
-        const title = document.getElementById('resultTitle');
-        let html = '';
+    function renderResultPage(raw, ct, fmt) {
+        const body = document.getElementById('resultBody'), badge = document.getElementById('resultBadge'), title = document.getElementById('resultTitle');
+        let h = '';
+        title.textContent = ct.label;
+        const bm = { member: ['badge-found', 'DITEMUKAN'], url: ['badge-url', 'URL'], text: ['badge-text', 'TEKS'], data: ['badge-data', 'DATA'], phone: ['badge-phone', 'TELEPON'], email: ['badge-email', 'EMAIL'], wifi: ['badge-found', 'WIFI'], vcard: ['badge-data', 'VCARD'] };
+        const [bc, bt] = bm[ct.type] || ['badge-text', 'DATA'];
+        badge.className = 'result-status-badge ' + bc; badge.textContent = bt;
+        h += `<div class="result-type-banner ${ct.type}"><i class="fas ${ct.icon}"></i><div><div class="type-label">Tipe Terdeteksi</div><div class="type-name">${esc(ct.label)}</div></div></div>`;
 
-        // Badge & title
-        title.textContent = contentType.label;
-        const badgeMap = {
-            member: ['badge-found', 'DITEMUKAN'],
-            url: ['badge-url', 'URL'],
-            text: ['badge-text', 'TEKS'],
-            data: ['badge-data', 'DATA'],
-            phone: ['badge-phone', 'TELEPON'],
-            email: ['badge-email', 'EMAIL'],
-            wifi: ['badge-found', 'WIFI'],
-            vcard: ['badge-data', 'VCARD']
-        };
-        const [badgeClass, badgeText] = badgeMap[contentType.type] || ['badge-text', 'DATA'];
-        badge.className = 'result-status-badge ' + badgeClass;
-        badge.textContent = badgeText;
-
-        // Banner tipe
-        html += `<div class="result-type-banner ${contentType.type}">
-            <i class="fas ${contentType.icon}"></i>
-            <div><div class="type-label">Tipe Terdeteksi</div><div class="type-name">${contentType.label}</div></div>
-        </div>`;
-
-        // ===== RENDER PER TIPE =====
-        switch (contentType.type) {
-
+        switch (ct.type) {
             case 'member': {
-                const code = contentType.extractedCode || rawText.trim().toUpperCase();
-                const member = databaseAnggota[code];
-                if (member) {
-                    const initials = member.nama.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-                    const statusClass = member.status.toLowerCase() === 'aktif' ? 'aktif' :
-                                       member.status.toLowerCase() === 'nonaktif' ? 'nonaktif' :
-                                       member.status.toLowerCase() === 'berlaku' ? 'berlaku' : 'terdaftar';
-                    html += `<div class="member-card">
-                        <div class="member-card-header">
-                            <div class="member-avatar">${initials}</div>
-                            <div>
-                                <div class="member-name">${escHtml(member.nama)}</div>
-                                <div class="member-id-small">${escHtml(code)}</div>
-                                <div class="member-status-dot ${statusClass}"><i class="fas fa-circle" style="font-size:6px;"></i> ${escHtml(member.status)}</div>
-                            </div>
-                        </div>
-                        <div style="padding:0 18px 18px;">
-                            ${dataRow('Tipe', member.tipe)}
-                            ${dataRow('Kendaraan', member.mobil)}
-                            ${dataRow('Bergabung', member.bergabung)}
-                            ${dataRow('Telepon', member.telepon)}
-                            ${dataRow('Alamat', member.alamat)}
-                        </div>
-                    </div>`;
-                    // Aksi
-                    if (member.telepon !== '-') {
-                        html += actionBtn('btn-phone', 'fa-phone', 'Telepon ' + member.telepon, `tel:${member.telepon.replace(/-/g,'')}`);
-                    }
-                    html += actionBtn('btn-secondary', 'fa-copy', 'Salin ID Anggota', `copy:${code}`);
+                const code = ct.extractedCode || raw.trim().toUpperCase(), m = DB[code];
+                if (m) {
+                    const ini = m.nama.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+                    const sc = m.status.toLowerCase() === 'aktif' ? 'aktif' : m.status.toLowerCase() === 'nonaktif' ? 'nonaktif' : m.status.toLowerCase() === 'berlaku' ? 'berlaku' : 'terdaftar';
+                    h += `<div class="member-card"><div class="member-card-header"><div class="member-avatar">${ini}</div><div><div class="member-name">${esc(m.nama)}</div><div class="member-id-small">${esc(code)}</div><div class="member-status-dot ${sc}"><i class="fas fa-circle" style="font-size:6px;"></i> ${esc(m.status)}</div></div></div><div style="padding:0 18px 18px;">${dRow('Tipe', m.tipe)}${dRow('Kendaraan', m.mobil)}${dRow('Bergabung', m.bergabung)}${dRow('Telepon', m.telepon)}${dRow('Alamat', m.alamat)}</div></div>`;
+                    if (m.telepon !== '-') h += aBtn('btn-phone', 'fa-phone', 'Telepon ' + m.telepon, `tel:${m.telepon.replace(/-/g, '')}`);
+                    h += aBtn('btn-secondary', 'fa-copy', 'Salin ID Anggota', `copy:${code}`);
                 }
                 break;
             }
-
             case 'vcard': {
-                const c = contentType.contact;
-                const initials = (c.name || '??').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-                html += `<div class="vcard-card">
-                    <div class="vcard-header">
-                        <div class="vcard-avatar">${initials}</div>
-                        <div>
-                            <div class="vcard-name">${escHtml(c.name || 'Tidak ada nama')}</div>
-                            ${c.org ? `<div class="vcard-org">${escHtml(c.org)}</div>` : ''}
-                            ${c.title ? `<div class="vcard-org">${escHtml(c.title)}</div>` : ''}
-                        </div>
-                    </div>
-                    <div style="padding:0 18px 18px;">
-                        ${c.tel.length ? c.tel.map(t => dataRow('Telepon', t)).join('') : ''}
-                        ${c.email.length ? c.email.map(e => dataRow('Email', e)).join('') : ''}
-                        ${c.url ? dataRow('Website', c.url) : ''}
-                        ${c.address ? dataRow('Alamat', c.address) : ''}
-                        ${c.note ? dataRow('Catatan', c.note) : ''}
-                    </div>
-                </div>`;
-                // Aksi
-                html += '<div class="result-actions">';
-                if (c.tel.length) {
-                    c.tel.forEach(t => {
-                        html += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${t.replace(/[^0-9+]/g,'')}','_self')"><i class="fas fa-phone"></i> Telepon ${escHtml(t)}</button>`;
-                    });
-                }
-                if (c.email.length) {
-                    c.email.forEach(e => {
-                        html += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${e}','_self')"><i class="fas fa-envelope"></i> Email ${escHtml(e)}</button>`;
-                    });
-                }
-                if (c.url) {
-                    html += `<button class="result-action-btn btn-info" onclick="window.open('${escAttr(c.url)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka Website</button>`;
-                }
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin Semua Data Kontak', `copy:${rawText}`);
-                html += '</div>';
+                const c = ct.contact, ini = (c.name || '??').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+                h += `<div class="vcard-card"><div class="vcard-header"><div class="vcard-avatar">${ini}</div><div><div class="vcard-name">${esc(c.name || '?')}</div>${c.org ? `<div class="vcard-org">${esc(c.org)}</div>` : ''}${c.title ? `<div class="vcard-org">${esc(c.title)}</div>` : ''}</div></div><div style="padding:0 18px 18px;">${c.tel.map(t => dRow('Telepon', t)).join('')}${c.email.map(e => dRow('Email', e)).join('')}${c.url ? dRow('Website', c.url) : ''}${c.address ? dRow('Alamat', c.address) : ''}${c.note ? dRow('Catatan', c.note) : ''}</div></div>`;
+                h += '<div class="result-actions">';
+                c.tel.forEach(t => { h += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${t.replace(/[^0-9+]/g, '')}','_self')"><i class="fas fa-phone"></i> Telepon ${esc(t)}</button>`; });
+                c.email.forEach(e => { h += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${e}','_self')"><i class="fas fa-envelope"></i> Email ${esc(e)}</button>`; });
+                if (c.url) h += `<button class="result-action-btn btn-info" onclick="window.open('${escA(c.url)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka Website</button>`;
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin Kontak', `copy:${raw}`);
+                h += '</div>';
                 break;
             }
-
             case 'wifi': {
-                const w = contentType;
-                html += `<div class="wifi-card">
-                    <div class="wifi-card-body">
-                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;">
-                            <i class="fas fa-wifi" style="font-size:28px;color:var(--success);"></i>
-                            <div class="wifi-ssid">${escHtml(w.ssid)}</div>
-                        </div>
-                        <div class="wifi-enc"><i class="fas fa-shield-halved" style="margin-right:6px;"></i>Enkripsi: ${escHtml(w.encryption)}${w.hidden ? ' &bull; Tersembunyi' : ''}</div>
-                        <div class="wifi-password-box">
-                            <div class="pw" id="wifiPwDisplay">${escHtml(w.password)}</div>
-                            <button onclick="copyText('${escAttr(w.password)}');showToast('Password disalin','success')"><i class="fas fa-copy"></i> Salin</button>
-                        </div>
-                    </div>
-                </div>`;
-                html += '<div class="result-actions">';
-                // Untuk Android, bisa pakai intent WiFi
-                html += actionBtn('btn-success', 'fa-wifi', 'Salin Password WiFi', `copy:${w.password}`);
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin Semua Info WiFi', `copy:${rawText}`);
-                html += '</div>';
+                const w = ct;
+                h += `<div class="wifi-card"><div class="wifi-card-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;"><i class="fas fa-wifi" style="font-size:28px;color:var(--success);"></i><div class="wifi-ssid">${esc(w.ssid)}</div></div><div class="wifi-enc"><i class="fas fa-shield-halved" style="margin-right:6px;"></i>${esc(w.encryption)}${w.hidden ? ' &bull; Tersembunyi' : ''}</div><div class="wifi-password-box"><div class="pw">${esc(w.password)}</div><button onclick="doCopy('${escA(w.password)}')"><i class="fas fa-copy"></i> Salin</button></div></div></div>`;
+                h += '<div class="result-actions">';
+                h += aBtn('btn-success', 'fa-wifi', 'Salin Password', `copy:${w.password}`);
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin Info WiFi', `copy:${raw}`);
+                h += '</div>';
                 break;
             }
-
             case 'url': {
-                let displayUrl = rawText.trim();
-                if (!/^https?:\/\//i.test(displayUrl)) displayUrl = 'https://' + displayUrl;
-                html += rawCodeBox('Tautan', displayUrl, false);
-                html += '<div class="result-actions">';
-                html += `<button class="result-action-btn btn-info" onclick="window.open('${escAttr(displayUrl)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka di Browser</button>`;
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin URL', `copy:${displayUrl}`);
-                html += actionBtn('btn-success', 'fa-share-nodes', 'Bagikan', `share:${displayUrl}`);
-                html += '</div>';
+                let du = raw.trim(); if (!/^https?:\/\//i.test(du)) du = 'https://' + du;
+                h += rcBox('Tautan', du, false);
+                h += '<div class="result-actions">';
+                h += `<button class="result-action-btn btn-info" onclick="window.open('${escA(du)}','_blank')"><i class="fas fa-external-link-alt"></i> Buka di Browser</button>`;
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin URL', `copy:${du}`);
+                h += aBtn('btn-success', 'fa-share-nodes', 'Bagikan', `share:${du}`);
+                h += '</div>';
                 break;
             }
-
             case 'phone': {
-                const phone = contentType.value || rawText.replace(/^tel:/i, '').trim();
-                html += rawCodeBox('Nomor Telepon', phone, false);
-                if (contentType.smsBody) {
-                    html += rawCodeBox('Isi SMS', contentType.smsBody, true);
-                }
-                html += '<div class="result-actions">';
-                html += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${phone.replace(/[^0-9+]/g,'')}','_self')"><i class="fas fa-phone"></i> Telepon ${escHtml(phone)}</button>`;
-                html += `<button class="result-action-btn btn-success" onclick="window.open('sms:${phone.replace(/[^0-9+]/g,'')}${contentType.smsBody ? '?body='+encodeURIComponent(contentType.smsBody) : ''}','_self')"><i class="fas fa-comment-sms"></i> Kirim SMS</button>`;
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin Nomor', `copy:${phone}`);
-                html += '</div>';
+                const ph = ct.value || raw.replace(/^tel:/i, '').trim();
+                h += rcBox('Nomor Telepon', ph, false);
+                if (ct.smsBody) h += rcBox('Isi SMS', ct.smsBody, true);
+                h += '<div class="result-actions">';
+                h += `<button class="result-action-btn btn-phone" onclick="window.open('tel:${ph.replace(/[^0-9+]/g, '')}','_self')"><i class="fas fa-phone"></i> Telepon ${esc(ph)}</button>`;
+                h += `<button class="result-action-btn btn-success" onclick="window.open('sms:${ph.replace(/[^0-9+]/g, '')}${ct.smsBody ? '?body=' + encodeURIComponent(ct.smsBody) : ''}','_self')"><i class="fas fa-comment-sms"></i> Kirim SMS</button>`;
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin Nomor', `copy:${ph}`);
+                h += '</div>';
                 break;
             }
-
             case 'email': {
-                const email = contentType.value || rawText.replace(/^mailto:/i, '').trim();
-                html += rawCodeBox('Alamat Email', email, false);
-                html += '<div class="result-actions">';
-                html += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${escAttr(email)}','_self')"><i class="fas fa-envelope"></i> Kirim Email</button>`;
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin Email', `copy:${email}`);
-                html += '</div>';
+                const em = ct.value || raw.replace(/^mailto:/i, '').trim();
+                h += rcBox('Alamat Email', em, false);
+                h += '<div class="result-actions">';
+                h += `<button class="result-action-btn btn-email" onclick="window.open('mailto:${escA(em)}','_self')"><i class="fas fa-envelope"></i> Kirim Email</button>`;
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin Email', `copy:${em}`);
+                h += '</div>';
                 break;
             }
-
             case 'data': {
-                const pairs = contentType.pairs;
-                html += `<div class="data-table-card">
-                    <div class="data-table-card-header"><i class="fas ${contentType.icon}"></i><span>${escHtml(contentType.label)}</span></div>
-                    ${pairs.map(p => {
-                        let valClass = '';
-                        if (p.value.toLowerCase() === 'lolos' || p.value.toLowerCase() === 'aktif' || p.value.toLowerCase() === 'berlaku' || p.value.toLowerCase() === 'terdaftar') valClass = 'val-success';
-                        else if (p.value.toLowerCase() === 'tidak lolos' || p.value.toLowerCase() === 'nonaktif' || p.value.toLowerCase() === 'kadaluarsa') valClass = 'val-danger';
-                        else if (/^[A-Z0-9\-]{6,}$/i.test(p.value)) valClass = 'val-primary';
-                        else if (p.value === '-' || p.value === '') valClass = 'val-empty';
-                        else if (/^https?:\/\//i.test(p.value)) valClass = 'val-info';
-                        return `<div class="data-table-row${valClass === 'val-success' || valClass === 'val-danger' ? ' highlight' : ''}">
-                            <div class="data-table-label">${escHtml(p.label)}</div>
-                            <div class="data-table-separator">:</div>
-                            <div class="data-table-value ${valClass}">${valClass === 'val-info' ? `<a href="${escAttr(p.value)}" target="_blank" rel="noopener" style="color:var(--info);text-decoration:underline;">${escHtml(p.value)}</a>` : escHtml(p.value)}</div>
-                        </div>`;
-                    }).join('')}
-                </div>`;
-                html += '<div class="result-actions">';
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin Semua Data', `copy:${rawText}`);
-                html += actionBtn('btn-success', 'fa-share-nodes', 'Bagikan', `share:${rawText}`);
-                html += '</div>';
+                const pairs = ct.pairs;
+                h += `<div class="data-table-card"><div class="data-table-card-header"><i class="fas ${ct.icon}"></i><span>${esc(ct.label)}</span></div>${pairs.map(p => {
+                    let vc = '';
+                    if (/^(lolos|aktif|berlaku|terdaftar)$/i.test(p.value)) vc = 'val-success';
+                    else if (/^(tidak lolos|nonaktif|kadaluarsa)$/i.test(p.value)) vc = 'val-danger';
+                    else if (/^[A-Z0-9\-]{6,}$/i.test(p.value)) vc = 'val-primary';
+                    else if (p.value === '-' || p.value === '') vc = 'val-empty';
+                    else if (/^https?:\/\//i.test(p.value)) vc = 'val-info';
+                    return `<div class="data-table-row${vc === 'val-success' || vc === 'val-danger' ? ' highlight' : ''}"><div class="data-table-label">${esc(p.label)}</div><div class="data-table-separator">:</div><div class="data-table-value ${vc}">${vc === 'val-info' ? `<a href="${escA(p.value)}" target="_blank" rel="noopener" style="color:var(--info);text-decoration:underline;">${esc(p.value)}</a>` : esc(p.value)}</div></div>`;
+                }).join('')}</div>`;
+                h += '<div class="result-actions">';
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin Semua Data', `copy:${raw}`);
+                h += aBtn('btn-success', 'fa-share-nodes', 'Bagikan', `share:${raw}`);
+                h += '</div>';
                 break;
             }
-
-            default: { // text
-                html += rawCodeBox('Isi Teks', rawText, true);
-                html += '<div class="result-actions">';
-                html += actionBtn('btn-secondary', 'fa-copy', 'Salin Teks', `copy:${rawText}`);
-                html += actionBtn('btn-success', 'fa-share-nodes', 'Bagikan', `share:${rawText}`);
-
-                // Cek apakah teks ini bisa jadi URL atau pencarian
-                if (/^\S+\.\S+$/.test(rawText.trim()) && !rawText.includes(' ')) {
-                    html += `<button class="result-action-btn btn-info" onclick="window.open('https://${escAttr(rawText.trim())}','_blank')"><i class="fas fa-external-link-alt"></i> Buka sebagai URL</button>`;
-                } else {
-                    html += `<button class="result-action-btn btn-info" onclick="window.open('https://www.google.com/search?q=${encodeURIComponent(rawText.trim())}','_blank')"><i class="fas fa-magnifying-glass"></i> Cari di Google</button>`;
-                }
-
-                // Cek apakah mungkin ini kode anggota yang belum terdaftar
-                const upper = rawText.trim().toUpperCase();
-                if (/^(BGT|TKT|KDR)-\d+$/i.test(upper) && !databaseAnggota[upper]) {
-                    html += `<div style="padding:12px 16px;background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.2);border-radius:12px;margin-top:4px;">
-                        <div style="font-size:12px;color:var(--warning);font-weight:600;"><i class="fas fa-triangle-exclamation" style="margin-right:6px;"></i>Format kode terdeteksi (${escHtml(upper)}) tetapi tidak ditemukan dalam database anggota.</div>
-                    </div>`;
-                }
-                html += '</div>';
+            default: {
+                h += rcBox('Isi Teks', raw, true);
+                h += '<div class="result-actions">';
+                h += aBtn('btn-secondary', 'fa-copy', 'Salin Teks', `copy:${raw}`);
+                h += aBtn('btn-success', 'fa-share-nodes', 'Bagikan', `share:${raw}`);
+                if (/^\S+\.\S+$/.test(raw.trim()) && !raw.includes(' ')) h += `<button class="result-action-btn btn-info" onclick="window.open('https://${escA(raw.trim())}','_blank')"><i class="fas fa-external-link-alt"></i> Buka sebagai URL</button>`;
+                else h += `<button class="result-action-btn btn-info" onclick="window.open('https://www.google.com/search?q=${encodeURIComponent(raw.trim())}','_blank')"><i class="fas fa-magnifying-glass"></i> Cari di Google</button>`;
+                const u = raw.trim().toUpperCase();
+                if (/^(BGT|TKT|KDR)-\d+$/i.test(u) && !DB[u]) h += `<div style="padding:12px 16px;background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.2);border-radius:12px;margin-top:4px;"><div style="font-size:12px;color:var(--warning);font-weight:600;"><i class="fas fa-triangle-exclamation" style="margin-right:6px;"></i>Format kode terdeteksi (${esc(u)}) tetapi tidak ada dalam database.</div></div>`;
+                h += '</div>';
                 break;
             }
         }
 
-        // Info format & waktu di bawah
-        html += `<div class="section-label">Detail Scan</div>`;
-        html += `<div class="raw-code-box">
-            <div class="label">Raw Data</div>
-            <div class="code plain" style="font-size:11px;max-height:120px;overflow-y:auto;">${escHtml(rawText)}</div>
-            <div class="format-tag"><i class="fas fa-barcode"></i> ${escHtml(formatInfo || 'Tidak diketahui')}</div>
-            <div class="format-tag" style="margin-left:6px;"><i class="fas fa-clock"></i> ${new Date().toLocaleString('id-ID')}</div>
-        </div>`;
-
-        // Tombol scan lagi
-        html += `<div class="result-actions" style="margin-top:20px;">
-            <button class="result-action-btn btn-primary" onclick="startScanner()"><i class="fas fa-camera"></i> Scan Lagi</button>
-            <button class="result-action-btn btn-secondary" onclick="navigateTo('home')"><i class="fas fa-house"></i> Kembali ke Beranda</button>
-        </div>`;
-
-        body.innerHTML = html;
+        h += `<div class="section-label">Detail Scan</div><div class="raw-code-box"><div class="label">Raw Data</div><div class="code plain" style="font-size:11px;max-height:120px;overflow-y:auto;">${esc(raw)}</div><div class="format-tag"><i class="fas fa-barcode"></i> ${esc(fmt || 'Tidak diketahui')}</div><div class="format-tag" style="margin-left:6px;"><i class="fas fa-clock"></i> ${new Date().toLocaleString('id-ID')}</div></div>`;
+        h += `<div class="result-actions" style="margin-top:20px;"><button class="result-action-btn btn-primary" onclick="startScanner()"><i class="fas fa-camera"></i> Scan Lagi</button><button class="result-action-btn btn-secondary" onclick="navigateTo('home')"><i class="fas fa-house"></i> Kembali ke Beranda</button></div>`;
+        body.innerHTML = h;
         body.scrollTop = 0;
     }
 
-    /* ================================================================
-       HELPER RENDER
-    ================================================================ */
-    function rawCodeBox(label, content, isPlain) {
-        return `<div class="raw-code-box">
-            <div class="label">${escHtml(label)}</div>
-            <div class="code ${isPlain ? 'plain' : ''}">${escHtml(content)}</div>
-        </div>`;
-    }
-
-    function dataRow(label, value) {
-        const valClass = value === '-' ? 'val-empty' : '';
-        return `<div class="data-table-row">
-            <div class="data-table-label">${escHtml(label)}</div>
-            <div class="data-table-separator">:</div>
-            <div class="data-table-value ${valClass}">${escHtml(value)}</div>
-        </div>`;
-    }
-
-    function actionBtn(cls, icon, text, action) {
-        const [actionType, actionVal] = action.split(':');
-        let onclick = '';
-        if (actionType === 'copy') {
-            onclick = `onclick="copyText('${escAttr(actionVal)}');showToast('Disalin ke clipboard','success')"`;
-        } else if (actionType === 'share') {
-            onclick = `onclick="shareText('${escAttr(actionVal)}')"`;
-        }
-        return `<button class="result-action-btn ${cls}" ${onclick}><i class="fas ${icon}"></i> ${escHtml(text)}</button>`;
-    }
-
-    function escHtml(str) {
-        const div = document.createElement('div');
-        div.textContent = str || '';
-        return div.innerHTML;
-    }
-
-    function escAttr(str) {
-        return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    /* ================================================================
-       MODAL: UPLOAD GAMBAR
-    ================================================================ */
-    function openImageUpload() {
-        const overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
-        overlay.id = 'modalOverlay';
-        overlay.innerHTML = `<div class="modal-sheet">
-            <div class="modal-handle"></div>
-            <div class="modal-title">Scan dari Gambar</div>
-            <div class="modal-subtitle">Pilih gambar yang berisi QR Code atau Barcode</div>
-            <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                <i class="fas fa-cloud-arrow-up"></i>
-                <p>Ketuk untuk pilih gambar<br>atau seret & lepas file ke sini</p>
-                <div class="upload-hint">Mendukung JPG, PNG, WEBP</div>
-            </div>
-            <img class="upload-preview" id="uploadPreview" alt="Preview">
-            <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFileSelect(event)">
-            <button class="modal-submit" id="scanFileBtn" disabled onclick="doScanFile()"><i class="fas fa-magnifying-glass"></i> Scan Gambar</button>
-            <button class="result-action-btn btn-secondary" style="margin-top:10px;width:100%;" onclick="closeModal()"><i class="fas fa-xmark"></i> Batal</button>
-        </div>`;
-
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-        document.body.appendChild(overlay);
-
-        // Drag & drop
-        const area = document.getElementById('uploadArea');
-        area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('dragover'); });
-        area.addEventListener('dragleave', () => area.classList.remove('dragover'));
-        area.addEventListener('drop', (e) => {
-            e.preventDefault();
-            area.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                document.getElementById('fileInput').files = e.dataTransfer.files;
-                handleFileSelect({ target: { files: e.dataTransfer.files } });
-            }
-        });
-    }
-
-    let selectedFile = null;
-    function handleFileSelect(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        selectedFile = file;
-        const preview = document.getElementById('uploadPreview');
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            preview.src = ev.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-        document.getElementById('scanFileBtn').disabled = false;
-    }
-
-    async function doScanFile() {
-        if (!selectedFile) return;
-        closeModal();
-        await scanFromFile(selectedFile);
-        selectedFile = null;
-    }
+    /* Helpers */
+    function rcBox(l, c, p) { return `<div class="raw-code-box"><div class="label">${esc(l)}</div><div class="code ${p ? 'plain' : ''}">${esc(c)}</div></div>`; }
+    function dRow(l, v) { return `<div class="data-table-row"><div class="data-table-label">${esc(l)}</div><div class="data-table-separator">:</div><div class="data-table-value ${v === '-' ? 'val-empty' : ''}">${esc(v)}</div></div>`; }
+    function aBtn(c, i, t, a) { const [at, av] = a.split(':'); let o = ''; if (at === 'copy') o = `onclick="doCopy('${escA(av)}')"`; else if (at === 'share') o = `onclick="doShare('${escA(av)}')"`; return `<button class="result-action-btn ${c}" ${o}><i class="fas ${i}"></i> ${esc(t)}</button>`; }
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+    function escA(s) { return (s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
     /* ================================================================
        MODAL: INPUT MANUAL
     ================================================================ */
     function openManualInput() {
-        const overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
-        overlay.id = 'modalOverlay';
-        overlay.innerHTML = `<div class="modal-sheet">
-            <div class="modal-handle"></div>
-            <div class="modal-title">Input Manual</div>
-            <div class="modal-subtitle">Tempelkan teks, kode, atau data yang ingin diproses</div>
-            <textarea class="modal-textarea" id="manualTextarea" placeholder="Tempelkan kode QR, data kendaraan, ID anggota, teks, URL, dll..."></textarea>
-            <button class="modal-submit" onclick="doManualInput()"><i class="fas fa-magnifying-glass"></i> Proses Data</button>
-            <div class="suggestion-chips">
-                <div class="suggestion-chips-label">Contoh Cepat</div>
-                <div class="suggestion-chip" onclick="fillManual('BGT-0001')">ID Anggota</div>
-                <div class="suggestion-chip" onclick="fillManual('TKT-001')">Tiket Event</div>
-                <div class="suggestion-chip" onclick="fillManual('KDR-001')">Kendaraan</div>
-                <div class="suggestion-chip" onclick="fillManual('https://google.com')">URL</div>
-                <div class="suggestion-chip" onclick="fillManual('081234567890')">Telepon</div>
-                <div class="suggestion-chip" onclick="fillManual('WIFI:T:WPA;S:MyNetwork;P:password123;;')">WiFi</div>
-                <div class="suggestion-chip" onclick="fillSampleVehicle()">Data Kendaraan</div>
-                <div class="suggestion-chip" onclick="fillSampleVCard()">vCard Kontak</div>
-            </div>
-            <button class="result-action-btn btn-secondary" style="margin-top:16px;width:100%;" onclick="closeModal()"><i class="fas fa-xmark"></i> Batal</button>
-        </div>`;
-
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-        document.body.appendChild(overlay);
+        const o = document.createElement('div'); o.className = 'modal-overlay'; o.id = 'modalOverlay';
+        o.innerHTML = `<div class="modal-sheet"><div class="modal-handle"></div><div class="modal-title">Input Manual</div><div class="modal-subtitle">Tempelkan teks atau kode yang ingin diproses</div><textarea class="modal-textarea" id="manualTA" placeholder="Tempelkan kode QR, data kendaraan, ID anggota, URL, dll..."></textarea><button class="modal-submit" onclick="doManual()"><i class="fas fa-magnifying-glass"></i> Proses Data</button><div class="suggestion-chips"><div class="suggestion-chips-label">Contoh Cepat</div><div class="suggestion-chip" onclick="fillM('BGT-0001')">ID Anggota</div><div class="suggestion-chip" onclick="fillM('TKT-001')">Tiket Event</div><div class="suggestion-chip" onclick="fillM('KDR-001')">Kendaraan</div><div class="suggestion-chip" onclick="fillM('https://google.com')">URL</div><div class="suggestion-chip" onclick="fillM('081234567890')">Telepon</div><div class="suggestion-chip" onclick="fillM('WIFI:T:WPA;S:MyNetwork;P:password123;;')">WiFi</div><div class="suggestion-chip" onclick="fillM('Kode Registrasi\t:\t17592253521\nTahun Kendaraan\t:\t2024\nWarna\t:\tHITAM METALIK\nKapasitas Mesin (cc)\t:\t1485\nMerk\t:\tWULING\nNo Kendaraan\t:\tDK1204FCJ\nNama Pemilik\t:\tI PUTU EKA SUDIAMARTANA\nKesimpulan Verifikasi\t:\tlolos')">Data Kendaraan</div><div class="suggestion-chip" onclick="fillM('BEGIN:VCARD\nVERSION:3.0\nFN:Made Agus\nTEL:+6281234567890\nEMAIL:agus@bgt.id\nEND:VCARD')">vCard</div></div><button class="result-action-btn btn-secondary" style="margin-top:16px;width:100%;" onclick="closeModal()"><i class="fas fa-xmark"></i> Batal</button></div>`;
+        o.addEventListener('click', e => { if (e.target === o) closeModal(); });
+        document.body.appendChild(o);
     }
-
-    function fillManual(text) {
-        const ta = document.getElementById('manualTextarea');
-        if (ta) { ta.value = text; ta.focus(); }
-    }
-
-    function fillSampleVehicle() {
-        const sample = `Kode Registrasi\t:\t17592253521\nTahun Kendaraan\t:\t2024\nWarna\t:\tHITAM METALIK\nKapasitas Mesin (cc)\t:\t1485\nTipe Sifat\t:\tPERORANGAN\nTipe Kendaraan\t:\tCONFERO 1.5 N15A LV0-8F (4X2) M/T\nJenis\t:\tMINIBUS\nMerk\t:\tWULING\nNo Kendaraan\t:\tDK1204FCJ\nNo Rangka\t:\tMK3AAAGA8RJ002446\nNo Mesin\t:\tLAR18P11010248\nNo BPKB\t:\tV04665506\nNama Pemilik\t:\tI PUTU EKA SUDIAMARTANA\nAlamat Pemilik\t:\tJL.YEH OTAN 10 PESALAKAN TUBAN KUTA BADUNG\nKesimpulan Verifikasi\t:\tlolos`;
-        fillManual(sample);
-    }
-
-    function fillSampleVCard() {
-        const sample = `BEGIN:VCARD\nVERSION:3.0\nFN:Made Agus Setiawan\nORG:BGT Community\nTITLE:Koordinator Bali\nTEL;TYPE=CELL:+6281234567890\nEMAIL:agus@bgtcommunity.id\nURL:https://bgtcommunity.id\nADR:;;Jl. Raya Denpasar No. 10;Denpasar;Bali;80111;Indonesia\nNOTE:Anggota aktif sejak 2023\nEND:VCARD`;
-        fillManual(sample);
-    }
-
-    function doManualInput() {
-        const ta = document.getElementById('manualTextarea');
-        if (processManualInput(ta.value)) closeModal();
-    }
-
-    function closeModal() {
-        const m = document.getElementById('modalOverlay');
-        if (m) m.remove();
-        selectedFile = null;
-    }
+    function fillM(t) { const ta = document.getElementById('manualTA'); if (ta) { ta.value = t; ta.focus(); } }
+    function doManual() { const ta = document.getElementById('manualTA'); if (processManual(ta.value)) closeModal(); }
+    function closeModal() { const m = document.getElementById('modalOverlay'); if (m) m.remove(); }
 
     /* ================================================================
        RIWAYAT
     ================================================================ */
-    function updateHistoryBadge() {
-        const badge = document.getElementById('historyBadge');
-        const count = scanHistory.length;
-        if (count > 0) {
-            badge.style.display = 'flex';
-            badge.textContent = count > 99 ? '99+' : count;
-        } else {
-            badge.style.display = 'none';
-        }
-    }
-
+    function updateBadge() { const b = document.getElementById('historyBadge'), c = scanHistory.length; if (c > 0) { b.style.display = 'flex'; b.textContent = c > 99 ? '99+' : c; } else b.style.display = 'none'; }
     function renderHistory() {
-        const list = document.getElementById('historyList');
-        const query = (document.getElementById('historySearchInput')?.value || '').toLowerCase();
-        let filtered = scanHistory;
-        if (query) {
-            filtered = scanHistory.filter(h =>
-                h.raw.toLowerCase().includes(query) ||
-                h.contentLabel.toLowerCase().includes(query) ||
-                h.contentType.toLowerCase().includes(query)
-            );
-        }
-
-        if (filtered.length === 0) {
-            list.innerHTML = `<div class="empty-state">
-                <i class="fas fa-clock-rotate-left"></i>
-                <h3>${query ? 'Tidak Ditemukan' : 'Belum Ada Riwayat'}</h3>
-                <p>${query ? 'Coba kata kunci lain' : 'Hasil scan akan muncul di sini'}</p>
-            </div>`;
-            return;
-        }
-
-        list.innerHTML = filtered.map(h => {
-            const iconClass = getHistoryIconClass(h.contentType);
-            const icon = getHistoryIcon(h.contentType);
-            const time = formatTime(h.time);
-            const shortRaw = h.raw.length > 60 ? h.raw.substring(0, 60) + '...' : h.raw;
-            return `<div class="history-item" onclick="viewHistoryItem(${h.id})">
-                <div class="history-icon ${iconClass}"><i class="fas ${icon}"></i></div>
-                <div class="history-info">
-                    <div class="history-code">${escHtml(shortRaw)}</div>
-                    <div class="history-meta">${escHtml(h.contentLabel)} &bull; ${time}</div>
-                </div>
-                <button class="history-delete-btn" onclick="event.stopPropagation();deleteHistoryItem(${h.id})" aria-label="Hapus"><i class="fas fa-trash-can"></i></button>
-                <i class="fas fa-chevron-right history-arrow"></i>
-            </div>`;
+        const list = document.getElementById('historyList'), q = (document.getElementById('historySearchInput')?.value || '').toLowerCase();
+        let f = scanHistory;
+        if (q) f = scanHistory.filter(h => h.raw.toLowerCase().includes(q) || h.cl.toLowerCase().includes(q) || h.ct.toLowerCase().includes(q));
+        if (!f.length) { list.innerHTML = `<div class="empty-state"><i class="fas fa-clock-rotate-left"></i><h3>${q ? 'Tidak Ditemukan' : 'Belum Ada Riwayat'}</h3><p>${q ? 'Coba kata kunci lain' : 'Hasil scan akan muncul di sini'}</p></div>`; return; }
+        const icMap = { member: 'found', url: 'url', text: 'text', data: 'data', phone: 'phone', email: 'email', wifi: 'found', vcard: 'vcard' };
+        const iiMap = { member: 'fa-id-card', url: 'fa-link', text: 'fa-align-left', data: 'fa-table-list', phone: 'fa-phone', email: 'fa-envelope', wifi: 'fa-wifi', vcard: 'fa-address-card' };
+        list.innerHTML = f.map(h => {
+            const sr = h.raw.length > 60 ? h.raw.substring(0, 60) + '...' : h.raw;
+            return `<div class="history-item" onclick="viewHist(${h.id})"><div class="history-icon ${icMap[h.ct] || 'text'}"><i class="fas ${iiMap[h.ct] || 'fa-qrcode'}"></i></div><div class="history-info"><div class="history-code">${esc(sr)}</div><div class="history-meta">${esc(h.cl)} &bull; ${fmtTime(h.time)}</div></div><button class="history-delete-btn" onclick="event.stopPropagation();delHist(${h.id})"><i class="fas fa-trash-can"></i></button><i class="fas fa-chevron-right history-arrow"></i></div>`;
         }).join('');
     }
-
-    function getHistoryIconClass(type) {
-        const map = { member: 'found', url: 'url', text: 'text', data: 'data', phone: 'phone', email: 'email', wifi: 'found', vcard: 'vcard' };
-        return map[type] || 'text';
-    }
-
-    function getHistoryIcon(type) {
-        const map = { member: 'fa-id-card', url: 'fa-link', text: 'fa-align-left', data: 'fa-table-list', phone: 'fa-phone', email: 'fa-envelope', wifi: 'fa-wifi', vcard: 'fa-address-card' };
-        return map[type] || 'fa-qrcode';
-    }
-
-    function formatTime(iso) {
-        try {
-            const d = new Date(iso);
-            const now = new Date();
-            const diff = now - d;
-            if (diff < 60000) return 'Baru saja';
-            if (diff < 3600000) return Math.floor(diff / 60000) + ' menit lalu';
-            if (diff < 86400000) return Math.floor(diff / 3600000) + ' jam lalu';
-            return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-        } catch (e) { return ''; }
-    }
-
-    function viewHistoryItem(id) {
-        const item = scanHistory.find(h => h.id === id);
-        if (!item) return;
-        const contentType = detectContentType(item.raw);
-        currentResultData = { raw: item.raw, contentType, format: item.format };
-        renderResult(item.raw, contentType, item.format);
-        navigateTo('result');
-    }
-
-    function deleteHistoryItem(id) {
-        scanHistory = scanHistory.filter(h => h.id !== id);
-        localStorage.setItem('bgt_scan_history', JSON.stringify(scanHistory));
-        updateHistoryBadge();
-        renderHistory();
-        showToast('Item dihapus', 'info');
-    }
-
+    function fmtTime(iso) { try { const d = new Date(iso), df = Date.now() - d; if (df < 60000) return 'Baru saja'; if (df < 3600000) return Math.floor(df / 60000) + ' menit lalu'; if (df < 86400000) return Math.floor(df / 3600000) + ' jam lalu'; return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
+    function viewHist(id) { const h = scanHistory.find(x => x.id === id); if (!h) return; const ct = detectType(h.raw); renderResultPage(h.raw, ct, h.fmt); navigateTo('result'); }
+    function delHist(id) { scanHistory = scanHistory.filter(h => h.id !== id); localStorage.setItem('bgt_scan_history', JSON.stringify(scanHistory)); updateBadge(); renderHistory(); showToast('Item dihapus', 'info'); }
     function confirmClearHistory() {
-        if (scanHistory.length === 0) {
-            showToast('Riwayat sudah kosong', 'info');
-            return;
-        }
-        // Konfirmasi via modal sederhana
-        const overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
-        overlay.id = 'modalOverlay';
-        overlay.innerHTML = `<div class="modal-sheet" style="text-align:center;padding:36px 24px;">
-            <div class="modal-handle"></div>
-            <i class="fas fa-triangle-exclamation" style="font-size:48px;color:var(--danger);margin-bottom:16px;"></i>
-            <div class="modal-title" style="text-align:center;">Hapus Semua Riwayat?</div>
-            <div class="modal-subtitle" style="text-align:center;margin-bottom:24px;">${scanHistory.length} item akan dihapus secara permanen.</div>
-            <button class="modal-submit" style="background:linear-gradient(135deg,var(--danger),#CC0033);" onclick="doClearHistory()"><i class="fas fa-trash-can"></i> Ya, Hapus Semua</button>
-            <button class="result-action-btn btn-secondary" style="margin-top:10px;width:100%;" onclick="closeModal()"><i class="fas fa-xmark"></i> Batal</button>
-        </div>`;
-        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-        document.body.appendChild(overlay);
+        if (!scanHistory.length) { showToast('Riwayat sudah kosong', 'info'); return; }
+        const o = document.createElement('div'); o.className = 'modal-overlay'; o.id = 'modalOverlay';
+        o.innerHTML = `<div class="modal-sheet" style="text-align:center;padding:36px 24px;"><div class="modal-handle"></div><i class="fas fa-triangle-exclamation" style="font-size:48px;color:var(--danger);margin-bottom:16px;"></i><div class="modal-title" style="text-align:center;">Hapus Semua Riwayat?</div><div class="modal-subtitle" style="text-align:center;margin-bottom:24px;">${scanHistory.length} item akan dihapus permanen.</div><button class="modal-submit" style="background:linear-gradient(135deg,var(--danger),#CC0033);" onclick="doClear()"><i class="fas fa-trash-can"></i> Ya, Hapus Semua</button><button class="result-action-btn btn-secondary" style="margin-top:10px;width:100%;" onclick="closeModal()"><i class="fas fa-xmark"></i> Batal</button></div>`;
+        o.addEventListener('click', e => { if (e.target === o) closeModal(); }); document.body.appendChild(o);
     }
-
-    function doClearHistory() {
-        scanHistory = [];
-        localStorage.setItem('bgt_scan_history', '[]');
-        updateHistoryBadge();
-        renderHistory();
-        closeModal();
-        showToast('Riwayat dihapus', 'success');
-    }
+    function doClear() { scanHistory = []; localStorage.setItem('bgt_scan_history', '[]'); updateBadge(); renderHistory(); closeModal(); showToast('Riwayat dihapus', 'success'); }
 
     /* ================================================================
        UTILITAS
     ================================================================ */
-    function showEl(id) { const el = document.getElementById(id); if (el) el.style.display = ''; }
-    function hideEl(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
-
-    function showToast(msg, type) {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = 'toast toast-' + (type || 'info');
-        toast.textContent = msg;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-
-    function showSuccessFlash() {
-        const flash = document.createElement('div');
-        flash.className = 'success-flash';
-        document.body.appendChild(flash);
-        setTimeout(() => flash.remove(), 600);
-    }
-
-    function playBeep() {
-        try {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
-            osc.frequency.setValueAtTime(1600, audioCtx.currentTime + 0.08);
-            osc.frequency.setValueAtTime(1200, audioCtx.currentTime + 0.16);
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-            osc.start(audioCtx.currentTime);
-            osc.stop(audioCtx.currentTime + 0.3);
-        } catch (e) {}
-    }
-
-    async function copyText(text) {
-        try {
-            await navigator.clipboard.writeText(text);
-        } catch (e) {
-            // Fallback
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.cssText = 'position:fixed;left:-9999px;';
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            ta.remove();
-        }
-    }
-
-    function shareText(text) {
-        if (navigator.share) {
-            navigator.share({ text: text }).catch(() => {});
-        } else {
-            copyText(text);
-            showToast('Teks disalin (share tidak didukung)', 'info');
-        }
-    }
-
-    // Handle klik pada tombol aksi yang pakai data attribute (fallback)
-    document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.result-action-btn');
-        if (!btn) return;
-    });
+    function showEl(id) { const e = document.getElementById(id); if (e) e.style.display = ''; }
+    function hideEl(id) { const e = document.getElementById(id); if (e) e.style.display = 'none'; }
+    function showToast(m, t) { const c = document.getElementById('toastContainer'), el = document.createElement('div'); el.className = 'toast toast-' + (t || 'info'); el.textContent = m; c.appendChild(el); setTimeout(() => el.remove(), 3000); }
+    function showFlash() { const f = document.createElement('div'); f.className = 'success-flash'; document.body.appendChild(f); setTimeout(() => f.remove(), 600); }
+    function playBeep() { try { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination); o.type = 'sine'; o.frequency.setValueAtTime(1200, audioCtx.currentTime); o.frequency.setValueAtTime(1600, audioCtx.currentTime + .08); o.frequency.setValueAtTime(1200, audioCtx.currentTime + .16); g.gain.setValueAtTime(.15, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + .3); o.start(audioCtx.currentTime); o.stop(audioCtx.currentTime + .3); } catch (e) { } }
+    async function doCopy(t) { try { await navigator.clipboard.writeText(t); } catch (e) { const ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;left:-9999px;'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); } showToast('Disalin ke clipboard', 'success'); }
+    function doShare(t) { if (navigator.share) { navigator.share({ text: t }).catch(() => { }); } else { doCopy(t); showToast('Teks disalin (share tidak didukung)', 'info'); } }
     </script>
 </body>
 </html>
